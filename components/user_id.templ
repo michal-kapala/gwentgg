@@ -1,0 +1,30 @@
+package components
+
+css code() {
+  background-color: #f6f7f8;
+  border: .1rem solid #0000001a;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+css font() {
+  font-family: monospace;
+}
+
+templ UserIdMissing() {
+	<div class={font()}>
+		<h1>User ID missing</h1>
+		<ol>
+			<li>
+				<p>Go to <code class={code()}>%LOCALAPPDATA%\Programs\CD Projekt Red\REDlauncher\config\launcher.ini</code>.</p>
+			</li>
+      <li>
+				<p>Copy your GOG user ID from <code class={code()}>lastKnownUserId</code> property.</p>
+			</li>
+			<li>
+				<p>Paste it as <code class={code()}>user_id</code> in <code class={code()}>config.json</code>.</p>
+			</li>
+		</ol>
+		<p></p>
+	</div>
+}
