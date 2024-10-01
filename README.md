@@ -24,3 +24,11 @@ This app interacts directly with Gwent's APIs using your GOG account.
 Any abuse can be traced back and eventually result in a ban and/or other punishment, for which the authors take no responsibility. Use with common sense.
 
 Gwent.gg is a fan initiative and as such is not maintained or supported by CD Projekt RED.
+
+## Tech
+Built with:
+  - [Fiber](https://gofiber.io/)
+  - [GORM](https://gorm.io/index.html)
+  - [Resty](https://github.com/go-resty/resty)
+  - [SQLite](https://www.sqlite.org/)
+  - [templ](https://templ.guide/)

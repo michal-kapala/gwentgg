@@ -5,6 +5,7 @@ import (
 
 	"gwentgg/components"
 	"gwentgg/config"
+	"gwentgg/db"
 	"gwentgg/handlers"
 
 	"github.com/gofiber/fiber/v3"
@@ -15,6 +16,18 @@ func main() {
 	cfg, err := config.Load("config.json")
 	if err != nil {
 		fmt.Println("Failed to load configuration:", err)
+		return
+	}
+
+	database, err := db.Init("gwent.db")
+	if database == nil {
+		fmt.Println(err)
+		return
+	}
+
+	err = db.AutoMigrate(database)
+	if err != nil {
+		fmt.Println("DB migration failed:", err)
 		return
 	}
 
