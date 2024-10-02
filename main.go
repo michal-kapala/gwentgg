@@ -37,6 +37,7 @@ func main() {
 	app.Get("/", handlers.IndexHandler)
 	app.Get("/login", handlers.LoginHandler)
 	app.Post("/login", handlers.LoginSubmitHandler)
+	app.Get("/player/:user", handlers.PlayerHandler)
 	log.Fatal(app.Listen(":3000"))
 }
 

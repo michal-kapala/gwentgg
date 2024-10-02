@@ -78,6 +78,9 @@ func LoginSubmitHandler(c fiber.Ctx) error {
 		Name:  "access_token",
 		Value: token,
 	})
-	return c.Status(fiber.StatusOK).SendString("Authentication successful.")
-	//return c.Redirect().Route(fmt.Sprintf("/%s", userId))
+	c.Cookie(&fiber.Cookie{
+		Name:  "token_expired",
+		Value: "false",
+	})
+	return c.Redirect().To(fmt.Sprintf("/player/%s", userId))
 }
