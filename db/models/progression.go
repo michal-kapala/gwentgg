@@ -1,7 +1,7 @@
 package db
 
 import (
-	"gwentgg/services"
+	"gwentgg/enums"
 
 	"gorm.io/gorm"
 )
@@ -9,7 +9,7 @@ import (
 type FactionProgression struct {
 	gorm.Model
 	UserID                           string
-	Faction                          services.Faction
+	Faction                          enums.Faction
 	IsUsedForScoreCalculation        bool
 	UnlockedScore                    int
 	RealScore                        int

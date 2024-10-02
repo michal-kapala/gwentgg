@@ -8,18 +8,18 @@ import (
 )
 
 type Config struct {
-	DataVersion				string	`json:"_data_version"`
-	DataVersionToken	string	`json:"_data_version_token"`
-	Version						string	`json:"_version"`
-	BuildRegion				string	`json:"build_region"`
-	CurrentSeasonId		string	`json:"current_season_id"`
-	UserId						string	`json:"user_id"`
+	DataVersion      string `json:"_data_version"`
+	DataVersionToken string `json:"_data_version_token"`
+	Version          string `json:"_version"`
+	BuildRegion      string `json:"build_region"`
+	CurrentSeasonId  string `json:"current_season_id"`
+	UserId           string `json:"user_id"`
 }
 
 func Load(filePath string) (*Config, error) {
 	file, err := os.Open(filePath)
 	if err != nil {
-			return nil, err
+		return nil, err
 	}
 	defer file.Close()
 
@@ -27,7 +27,7 @@ func Load(filePath string) (*Config, error) {
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&config)
 	if err != nil {
-			return nil, err
+		return nil, err
 	}
 
 	return &config, nil

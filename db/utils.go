@@ -3,6 +3,7 @@ package db
 import (
 	"gwentgg/db/models"
 
+	"github.com/gofiber/fiber/v3"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -22,4 +23,15 @@ func AutoMigrate(database *gorm.DB) error {
 		&db.FactionProgression{},
 	)
 	return err
+}
+
+func Add(dbCtx *gorm.DB) fiber.Handler {
+	return func(c fiber.Ctx) error {
+		c.Locals("db", dbCtx)
+		return c.Next()
+	}
+}
+
+func Get(c fiber.Ctx) *gorm.DB {
+	return c.Locals("db").(*gorm.DB)
 }

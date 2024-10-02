@@ -15,7 +15,7 @@ type User struct {
 	Score               int
 	Position            uint
 	ContinentalPosition uint
-	RankId              uint
+	RankID              uint
 	Leaderboard         string
 	DateScoreUpdated    time.Time
 	DateLevelUpdated    time.Time
