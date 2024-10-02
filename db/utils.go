@@ -35,3 +35,8 @@ func Add(dbCtx *gorm.DB) fiber.Handler {
 func Get(c fiber.Ctx) *gorm.DB {
 	return c.Locals("db").(*gorm.DB)
 }
+
+func ResetPlayerStats(dbCtx *gorm.DB, userID string) {
+	dbCtx.Where(&db.FactionGameStats{UserID: userID}).Unscoped().Delete(&db.FactionGameStats{})
+	dbCtx.Where(&db.FactionProgression{UserID: userID}).Unscoped().Delete(&db.FactionProgression{})
+}

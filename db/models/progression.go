@@ -8,6 +8,7 @@ import (
 
 type FactionProgression struct {
 	gorm.Model
+	ID                               int `gorm:"primaryKey"`
 	UserID                           string
 	Faction                          enums.Faction
 	IsUsedForScoreCalculation        bool

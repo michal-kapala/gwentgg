@@ -8,6 +8,7 @@ import (
 
 type FactionGameStats struct {
 	gorm.Model
+	ID          int `gorm:"primaryKey"`
 	UserID      string
 	Faction     enums.Faction
 	WinsCount   uint

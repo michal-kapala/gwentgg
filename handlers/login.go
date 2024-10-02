@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/go-resty/resty/v2"
 	"github.com/gofiber/fiber/v3"
 	"gwentgg/components"
@@ -22,10 +24,16 @@ func LoginSubmitHandler(c fiber.Ctx) error {
 	userId := c.FormValue("user_id")
 	token := c.FormValue("access_token")
 	cfg := config.Get(c)
+	database := db.Get(c)
+	db.ResetPlayerStats(database, userId)
+
+	if !strings.HasPrefix(token, "Bearer ") {
+		token = fmt.Sprintf("Bearer %s", token)
+	}
 
 	client := resty.New()
 	headers := map[string]string{
-		"Authorization":      fmt.Sprintf("Bearer %s", token),
+		"Authorization":      token,
 		"Accept":             "*/*",
 		"Accept-Encoding":    "gzip,deflate",
 		"User-Agent":         "UnityPlayer/2021.3.15f1 (UnityWebRequest/1.0, libcurl/7.84.0-DEV)",
@@ -64,7 +72,6 @@ func LoginSubmitHandler(c fiber.Ctx) error {
 		fmt.Println(err)
 		return c.Status(fiber.StatusInternalServerError).SendString("Failed to save user data.")
 	}
-	database := db.Get(c)
 	database.Save(&model)
 
 	c.Cookie(&fiber.Cookie{

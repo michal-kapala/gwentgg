@@ -34,6 +34,7 @@ func main() {
 	app := fiber.New()
 	app.Use(config.Add(cfg))
 	app.Use(db.Add(database))
+	app.Get("/", handlers.IndexHandler)
 	app.Get("/login", handlers.LoginHandler)
 	app.Post("/login", handlers.LoginSubmitHandler)
 	log.Fatal(app.Listen(":3000"))
