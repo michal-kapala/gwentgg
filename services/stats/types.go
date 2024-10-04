@@ -1,8 +1,9 @@
-package services
+package stats
 
 import (
 	"gwentgg/db/models"
 	"gwentgg/enums"
+	"gwentgg/services"
 )
 
 type RankedStats struct {
@@ -39,8 +40,8 @@ type FactionGameStats struct {
 	FactionStats FactionStats `json:"faction_games_stats"`
 }
 
-func (stats FactionGameStats) ToModel(userID string) (db.FactionGameStats, error) {
-	model := db.FactionGameStats{
+func (stats FactionGameStats) ToModel(userID string) (models.FactionGameStats, error) {
+	model := models.FactionGameStats{
 		UserID:      userID,
 		Faction:     enums.Faction(stats.Faction),
 		WinsCount:   uint(stats.FactionStats.WinsCount),
@@ -63,8 +64,8 @@ type FactionProgression struct {
 	FactionProgDetails FactionProgDetails `json:"faction_progression"`
 }
 
-func (prog FactionProgression) ToModel(userID string) (db.FactionProgression, error) {
-	model := db.FactionProgression{
+func (prog FactionProgression) ToModel(userID string) (models.FactionProgression, error) {
+	model := models.FactionProgression{
 		UserID:                           userID,
 		Faction:                          enums.Faction(prog.Faction),
 		IsUsedForScoreCalculation:        prog.FactionProgDetails.IsUsedForScoreCalculation,
@@ -107,32 +108,32 @@ type Vanity struct {
 	ItemDefinitionID string `json:"item_definition_id"`
 }
 
-func (stats RankedStats) ToModel() (db.User, error) {
-	var progressions []db.FactionProgression
+func (stats RankedStats) ToModel() (models.User, error) {
+	var progressions []models.FactionProgression
 	for _, prog := range stats.FactionProgressions {
 		model, _ := prog.ToModel(stats.ID)
 		progressions = append(progressions, model)
 	}
 
-	var factionStats []db.FactionGameStats
+	var factionStats []models.FactionGameStats
 	for _, fgs := range stats.FactionGamesStats {
 		model, _ := fgs.ToModel(stats.ID)
 		factionStats = append(factionStats, model)
 	}
 
-	created, err := ParseDate(stats.DateCreated)
+	created, err := services.ParseDate(stats.DateCreated)
 	if err != nil {
-		return db.User{}, err
+		return models.User{}, err
 	}
 
-	scoreUpdated, err := ParseDate(stats.DateScoreUpdated)
+	scoreUpdated, err := services.ParseDate(stats.DateScoreUpdated)
 	if err != nil {
-		return db.User{}, err
+		return models.User{}, err
 	}
 
-	levelUpdated, err := ParseDate(stats.DateLevelUpdated)
+	levelUpdated, err := services.ParseDate(stats.DateLevelUpdated)
 	if err != nil {
-		return db.User{}, err
+		return models.User{}, err
 	}
 
 	var avatarID, borderID, titleID string
@@ -147,7 +148,7 @@ func (stats RankedStats) ToModel() (db.User, error) {
 		}
 	}
 
-	user := db.User{
+	user := models.User{
 		ID:                  stats.ID,
 		Username:            stats.Username,
 		Platform:            stats.Platform,

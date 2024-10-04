@@ -18,9 +18,9 @@ func Init(filename string) (*gorm.DB, error) {
 
 func AutoMigrate(database *gorm.DB) error {
 	err := database.AutoMigrate(
-		&db.User{},
-		&db.FactionGameStats{},
-		&db.FactionProgression{},
+		&models.User{},
+		&models.FactionGameStats{},
+		&models.FactionProgression{},
 	)
 	return err
 }
@@ -37,6 +37,6 @@ func Get(c fiber.Ctx) *gorm.DB {
 }
 
 func ResetPlayerStats(dbCtx *gorm.DB, userID string) {
-	dbCtx.Where(&db.FactionGameStats{UserID: userID}).Unscoped().Delete(&db.FactionGameStats{})
-	dbCtx.Where(&db.FactionProgression{UserID: userID}).Unscoped().Delete(&db.FactionProgression{})
+	dbCtx.Where(&models.FactionGameStats{UserID: userID}).Unscoped().Delete(&models.FactionGameStats{})
+	dbCtx.Where(&models.FactionProgression{UserID: userID}).Unscoped().Delete(&models.FactionProgression{})
 }
