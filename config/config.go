@@ -12,7 +12,6 @@ type Config struct {
 	DataVersionToken string `json:"_data_version_token"`
 	Version          string `json:"_version"`
 	BuildRegion      string `json:"build_region"`
-	CurrentSeasonId  string `json:"current_season_id"`
 	UserId           string `json:"user_id"`
 }
 

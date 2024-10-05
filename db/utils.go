@@ -21,6 +21,7 @@ func AutoMigrate(database *gorm.DB) error {
 		&models.User{},
 		&models.FactionGameStats{},
 		&models.FactionProgression{},
+		&models.Season{},
 	)
 	return err
 }

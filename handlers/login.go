@@ -3,12 +3,16 @@ package handlers
 import (
 	"fmt"
 	"strings"
+	"time"
 
-	"github.com/gofiber/fiber/v3"
 	"gwentgg/components"
 	"gwentgg/config"
 	"gwentgg/db"
+	"gwentgg/db/models"
+	"gwentgg/services/seasons"
 	"gwentgg/services/stats"
+
+	"github.com/gofiber/fiber/v3"
 )
 
 func LoginHandler(c fiber.Ctx) error {
@@ -30,8 +34,32 @@ func LoginSubmitHandler(c fiber.Ctx) error {
 		token = fmt.Sprintf("Bearer %s", token)
 	}
 
-	seasonId := cfg.CurrentSeasonId
-	resp, err := stats.Get(cfg, userId, token, seasonId)
+	var season models.Season
+	database.Where("? BETWEEN date_starts AND date_ends", time.Now()).First(&season)
+	if season.ID == "" {
+		page := 1
+		resp, err := seasons.Get(cfg, userId, token, page)
+		if err != nil {
+			fmt.Printf("%s", err)
+			return c.Status(fiber.StatusInternalServerError).SendString("Ranked seasons request error, see server log for details.")
+		}
+		seasonList := resp.Result().(*seasons.SeasonList)
+		seasonModels, err := seasons.ToModels(seasonList.Items)
+		if err != nil {
+			fmt.Println(err)
+			return c.Status(fiber.StatusInternalServerError).SendString("Season data transformation error, see server log for details.")
+		}
+		database.Create(&seasonModels)
+
+		database.Where("? BETWEEN date_starts AND date_ends", time.Now()).First(&season)
+		if season.ID == "" {
+			msg := "No current season found."
+			fmt.Printf("%s\n", msg)
+			return c.Status(fiber.StatusInternalServerError).SendString(msg)
+		}
+	}
+	fmt.Printf("Current season: %s\n", season.Name)
+	resp, err := stats.Get(cfg, userId, token, season.ID)
 
 	if err != nil {
 		fmt.Printf("%s", err)
@@ -43,12 +71,12 @@ func LoginSubmitHandler(c fiber.Ctx) error {
 	}
 
 	rankedStats := resp.Result().(*stats.RankedStats)
-	model, err := rankedStats.ToModel()
+	statsModel, err := rankedStats.ToModel()
 	if err != nil {
 		fmt.Println(err)
 		return c.Status(fiber.StatusInternalServerError).SendString("Failed to save user data.")
 	}
-	database.Save(&model)
+	database.Save(&statsModel)
 
 	c.Cookie(&fiber.Cookie{
 		Name:  "access_token",
