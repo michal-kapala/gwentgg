@@ -10,6 +10,7 @@ import (
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/log"
+	"github.com/gofiber/fiber/v3/middleware/favicon"
 )
 
 func main() {
@@ -34,6 +35,10 @@ func main() {
 	app := fiber.New()
 	app.Use(config.Add(cfg))
 	app.Use(db.Add(database))
+	app.Use(favicon.New(favicon.Config{
+		File: "./assets/favicon.png",
+		URL:  "/favicon.png",
+	}))
 	app.Get("/", handlers.IndexHandler)
 	app.Get("/login", handlers.LoginHandler)
 	app.Post("/login", handlers.LoginSubmitHandler)

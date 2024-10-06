@@ -12,19 +12,27 @@ css font() {
 }
 
 templ UserIdMissing() {
-	<div class={font()}>
-		<h1>User ID missing</h1>
-		<ol>
-			<li>
-				<p>Go to <code class={code()}>%LOCALAPPDATA%\Programs\CD Projekt Red\REDlauncher\config\launcher.ini</code>.</p>
-			</li>
-      <li>
-				<p>Copy your GOG user ID from <code class={code()}>lastKnownUserId</code> property.</p>
-			</li>
-			<li>
-				<p>Paste it as <code class={code()}>user_id</code> in <code class={code()}>config.json</code>.</p>
-			</li>
-		</ol>
-		<p></p>
-	</div>
+	<html>
+		<head>
+			<title>404 | Gwent.gg</title>
+			<link rel="icon" type="image/x-icon" href="/favicon.png">
+		</head>
+		<body>
+			<div class={font()}>
+				<h1>User ID missing</h1>
+				<ol>
+					<li>
+						<p>Go to <code class={code()}>%LOCALAPPDATA%\Programs\CD Projekt Red\REDlauncher\config\launcher.ini</code>.</p>
+					</li>
+					<li>
+						<p>Copy your GOG user ID from <code class={code()}>lastKnownUserId</code> property.</p>
+					</li>
+					<li>
+						<p>Paste it as <code class={code()}>user_id</code> in <code class={code()}>config.json</code>.</p>
+					</li>
+				</ol>
+				<p></p>
+			</div>
+		</body>
+	</html>
 }

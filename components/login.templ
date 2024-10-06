@@ -36,15 +36,23 @@ css button() {
 }
 
 templ LoginForm(userId string) {
-	<form class={loginForm(), font()} action="/login" method="POST">
-		<div class={inputGroup()}>
-			<label for="user_id" class={label()}>User ID</label>
-			<input type="input" id="user_id" name="user_id" class={input()} value={userId} readonly></input>
-		</div>
-		<div class={inputGroup()}>
-			<label for="access_token" class={label()}>Access token</label>
-			<input type="input" id="access_token" name="access_token" class={input()}></input>
-		</div>
-		<input type="submit" class={button()} value="Log in">
-	</form>
+	<html>
+		<head>
+			<title>404 | Gwent.gg</title>
+			<link rel="icon" type="image/x-icon" href="/favicon.png">
+		</head>
+		<body>
+			<form class={loginForm(), font()} action="/login" method="POST">
+				<div class={inputGroup()}>
+					<label for="user_id" class={label()}>User ID</label>
+					<input type="input" id="user_id" name="user_id" class={input()} value={userId} readonly></input>
+				</div>
+				<div class={inputGroup()}>
+					<label for="access_token" class={label()}>Access token</label>
+					<input type="input" id="access_token" name="access_token" class={input()}></input>
+				</div>
+				<input type="submit" class={button()} value="Log in">
+			</form>
+		</body>
+	</html>
 }

@@ -2,6 +2,14 @@ package components
 
 import "gwentgg/db/models"
 
-templ PlayerProfile(user *db.User) {
-	<h1 class={font()}>{ user.Username }'s profile</h1>
+templ PlayerProfile(user *models.User) {
+	<html>
+		<head>
+			<title>{ user.Username } | Gwent.gg</title>
+			<link rel="icon" type="image/x-icon" href="/favicon.png">
+		</head>
+		<body>
+			<h1 class={font()}>{ user.Username }'s profile</h1>
+		</body>
+	</html>
 }
