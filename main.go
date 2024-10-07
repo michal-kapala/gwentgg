@@ -11,6 +11,7 @@ import (
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/log"
 	"github.com/gofiber/fiber/v3/middleware/favicon"
+	"github.com/gofiber/fiber/v3/middleware/static"
 )
 
 func main() {
@@ -37,12 +38,13 @@ func main() {
 	app.Use(db.Add(database))
 	app.Use(favicon.New(favicon.Config{
 		File: "./assets/favicon.png",
-		URL:  "/favicon.png",
+		URL:  "/assets/favicon.png",
 	}))
 	app.Get("/", handlers.IndexHandler)
 	app.Get("/login", handlers.LoginHandler)
 	app.Post("/login", handlers.LoginSubmitHandler)
 	app.Get("/player/:user", handlers.PlayerHandler)
+	app.Get("/assets/*", static.New("./assets"))
 	log.Fatal(app.Listen(":3000"))
 }
 

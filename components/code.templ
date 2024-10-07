@@ -1,0 +1,14 @@
+package components
+
+css code() {
+  background-color: #333;
+  border: .1rem solid #0000001a;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+templ TextWithCode(prefix string, codeText string, suffix string) {
+  <p>
+    {prefix}<code class={code()}>{codeText}</code>{suffix}
+  </p>
+}

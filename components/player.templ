@@ -6,10 +6,20 @@ templ PlayerProfile(user *models.User) {
 	<html>
 		<head>
 			<title>{ user.Username } | Gwent.gg</title>
-			<link rel="icon" type="image/x-icon" href="/favicon.png">
+			<link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+			<style>
+				@font-face {
+					font-family: 'GWENT';
+					src: url('/assets/hinted-GWENT-ExtraBold.ttf');
+        }
+				@font-face {
+					font-family: 'HalisGR-Regular';
+					src: url('/assets/hinted-HalisGR-Regular.ttf');
+        }
+			</style>
 		</head>
-		<body>
-			<h1 class={font()}>{ user.Username }'s profile</h1>
+		<body class={body()}>
+			<h1 class={fontGwent()}>{ user.Username }'s profile</h1>
 		</body>
 	</html>
 }

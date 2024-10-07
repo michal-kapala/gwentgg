@@ -4,10 +4,20 @@ templ NotFound() {
 	<html>
 		<head>
 			<title>404 | Gwent.gg</title>
-			<link rel="icon" type="image/x-icon" href="/favicon.png">
+			<link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+			<style>
+				@font-face {
+					font-family: 'GWENT';
+					src: url('/assets/hinted-GWENT-ExtraBold.ttf');
+        }
+				@font-face {
+					font-family: 'HalisGR-Regular';
+					src: url('/assets/hinted-HalisGR-Regular.ttf');
+        }
+			</style>
 		</head>
-		<body>
-			<h1 class={font()}>404 - Page not found</h1>
+		<body class={body()}>
+			<h1 class={fontGwent()}>404 - Page not found</h1>
 		</body>
 	</html>
 }
