@@ -62,7 +62,7 @@ func LoginSubmitHandler(c fiber.Ctx) error {
 	resp, err := stats.Get(cfg, userId, token, season.ID)
 
 	if err != nil {
-		fmt.Printf("%s", err)
+		fmt.Println(err)
 		return c.Status(fiber.StatusInternalServerError).SendString("Ranked stats request error, see server log for details.")
 	}
 

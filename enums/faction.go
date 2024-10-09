@@ -9,4 +9,5 @@ const (
 	Scoiatael        Faction = "Scoiatael"
 	Skellige         Faction = "Skellige"
 	Syndicate        Faction = "Syndicate"
+	Neutral          Faction = "Neutral"
 )

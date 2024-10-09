@@ -18,3 +18,9 @@ type LocalizationInfo struct {
 	Source string `json:"source"`
 	Value  string `json:"value"`
 }
+
+type ImageAsset struct {
+	ID string `json:"id"`
+	Type string `json:"type"`
+	Source *string `json:"source"`
+}
