@@ -46,6 +46,27 @@ func loginForm() templ.CSSClass {
 	}
 }
 
+func link() templ.CSSClass {
+	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
+	templ_7745c5c3_CSSBuilder.WriteString(`color:#26eb9f;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`opacity:0.8;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`link`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func linkContent() templ.CSSClass {
+	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
+	templ_7745c5c3_CSSBuilder.WriteString(`opacity:0.8;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`linkContent`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
 func LoginForm(userId string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
@@ -250,7 +271,7 @@ func LoginForm(userId string) templ.Component {
 		var templ_7745c5c3_Var18 string
 		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(userId)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/login.templ`, Line: 46, Col: 83}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/login.templ`, Line: 55, Col: 83}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 		if templ_7745c5c3_Err != nil {
@@ -344,7 +365,51 @@ func LoginForm(userId string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" value=\"Log in\"></form><p>These credentials give access to your GOG account. <b>Never share your tokens.</b></p><p>Your token expires in 1h. After that you will need to re-login with a fresh one.</p><a href=\"https://gist.github.com/michal-kapala/e7ef52c9b50a5861bf93e3851537816b\" target=\"_blank\" rel=\"noopener noreferrer\"><p>How do I get my token?</p></a></div></body><script>\r\n\t\t\t// button hovers\r\n\t\t\tfunction handleMouseOver(event) {\r\n\t\t\t\tif (event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') {\r\n\t\t\t\t\tevent.target.style.opacity = \"1\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tfunction handleMouseOut(event) {\r\n\t\t\t\tif (event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') {\r\n\t\t\t\t\tevent.target.style.opacity = \"0.8\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst submitButtons = document.querySelectorAll('input[type=\"submit\"]');\r\n\t\t\t\tsubmitButtons.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t});\r\n\t\t\t});\r\n\t\t</script></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" value=\"Log in\"></form><p>These credentials give access to your GOG account. <b>Never share your tokens.</b></p><p>Your token expires in 1h. After that you will need to re-login with a fresh one.</p>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var27 = []any{link()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var27...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"https://gist.github.com/michal-kapala/e7ef52c9b50a5861bf93e3851537816b\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var28 string
+		templ_7745c5c3_Var28, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var27).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/login.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var28))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var29 = []any{linkContent()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var29...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var30 string
+		templ_7745c5c3_Var30, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var29).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/login.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var30))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">How do I get my token?</p></a></div></body><script>\r\n\t\t\t// button hovers\r\n\t\t\tfunction handleMouseOver(event) {\r\n\t\t\t\tif (\r\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\r\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\r\n\t\t\t\t) {\r\n\t\t\t\t\tevent.target.style.opacity = \"1\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tfunction handleMouseOut(event) {\r\n\t\t\t\tif (\r\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\r\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\r\n\t\t\t\t) {\r\n\t\t\t\t\tevent.target.style.opacity = \"0.8\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst submitButtons = document.querySelectorAll('input[type=\"submit\"]');\r\n\t\t\t\tsubmitButtons.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t});\r\n\t\t\t});\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst links = document.querySelectorAll('a');\r\n\t\t\t\tlinks.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t\ttargetElement.children.forEach(function(child) {\r\n\t\t\t\t\t\tchild.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\t\tchild.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t\t})\r\n\t\t\t\t});\r\n\t\t\t});\r\n\t\t</script></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

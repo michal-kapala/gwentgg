@@ -20,6 +20,15 @@ css loginForm() {
 	margin: 20px 0px;
 }
 
+css link() {
+	color: #26eb9f;
+	opacity: 0.8;
+}
+
+css linkContent() {
+	opacity: 0.8;
+}
+
 templ LoginForm(userId string) {
 	<html>
 		<head>
@@ -53,19 +62,27 @@ templ LoginForm(userId string) {
 				</form>
 				<p>These credentials give access to your GOG account. <b>Never share your tokens.</b></p>
 				<p>Your token expires in 1h. After that you will need to re-login with a fresh one.</p>
-				<a href="https://gist.github.com/michal-kapala/e7ef52c9b50a5861bf93e3851537816b" target="_blank" rel="noopener noreferrer"><p>How do I get my token?</p></a>
+				<a href="https://gist.github.com/michal-kapala/e7ef52c9b50a5861bf93e3851537816b" target="_blank" rel="noopener noreferrer" class={link()}>
+					<p class={linkContent()}>How do I get my token?</p>
+				</a>
 			</div>
 		</body>
 		<script>
 			// button hovers
 			function handleMouseOver(event) {
-				if (event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') {
+				if (
+					(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||
+					event.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'
+				) {
 					event.target.style.opacity = "1";
 				}
 			}
 
 			function handleMouseOut(event) {
-				if (event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') {
+				if (
+					(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||
+					event.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'
+				) {
 					event.target.style.opacity = "0.8";
 				}
 			}
@@ -75,6 +92,18 @@ templ LoginForm(userId string) {
 				submitButtons.forEach(function(targetElement) {
 					targetElement.addEventListener('mouseover', handleMouseOver);
 					targetElement.addEventListener('mouseout', handleMouseOut);
+				});
+			});
+
+			document.addEventListener("DOMContentLoaded", function() {
+				const links = document.querySelectorAll('a');
+				links.forEach(function(targetElement) {
+					targetElement.addEventListener('mouseover', handleMouseOver);
+					targetElement.addEventListener('mouseout', handleMouseOut);
+					targetElement.children.forEach(function(child) {
+						child.addEventListener('mouseover', handleMouseOver);
+						child.addEventListener('mouseout', handleMouseOut);
+					})
 				});
 			});
 		</script>
