@@ -26,4 +26,5 @@ go.work.sum
 
 # User data
 *.db
+*.db-journal
 config.json
