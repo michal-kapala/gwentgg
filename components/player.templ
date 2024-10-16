@@ -1,8 +1,11 @@
 package components
 
-import "gwentgg/db/models"
+import (
+	"fmt"
+	"gwentgg/db/models"
+)
 
-templ PlayerProfile(user *models.User) {
+templ PlayerProfile(user *models.User, games []models.Game) {
 	<html>
 		<head>
 			<title>{ user.Username } | Gwent.gg</title>
@@ -20,6 +23,7 @@ templ PlayerProfile(user *models.User) {
 		</head>
 		<body class={body()}>
 			<h1 class={fontGwent()}>{ user.Username }'s profile</h1>
+			<h1 class={fontGwent()}>Nb of games: { fmt.Sprintf("%d", len(games)) }</h1>
 		</body>
 	</html>
 }

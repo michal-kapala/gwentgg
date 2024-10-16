@@ -23,6 +23,10 @@ func AutoMigrate(database *gorm.DB) error {
 		&models.FactionProgression{},
 		&models.Season{},
 		&models.CardDefinition{},
+		&models.Game{},
+		&models.GamePlayer{},
+		&models.CardAction{},
+		&models.Deck{},
 	)
 	return err
 }

@@ -43,3 +43,22 @@ const (
 	Epic      CardRarity = "Epic"
 	Legendary CardRarity = "Legendary"
 )
+
+type CardAction string
+
+const (
+	ArmorAdded CardAction = "ArmorAdded"
+	Boost      CardAction = "Boost"
+	Damage     CardAction = "Damage"
+	Kill       CardAction = "Kill"
+	Order      CardAction = "Order"
+	Spawn      CardAction = "Spawn"
+)
+
+type CardActionSource string
+
+const (
+	Card       CardActionSource = "Card"
+	CardStatus CardActionSource = "CardStatus"
+	Location   CardActionSource = "Location"
+)
