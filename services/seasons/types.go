@@ -3,6 +3,7 @@ package seasons
 import (
 	"gwentgg/db/models"
 	"gwentgg/services"
+	"gwentgg/utils"
 )
 
 type SeasonList struct {
@@ -30,17 +31,17 @@ type RankedSeason struct {
 }
 
 func (season *RankedSeason) ToModel() (models.Season, error) {
-	starts, err := services.ParseDate(season.DateStarts)
+	starts, err := utils.ParseDate(season.DateStarts)
 	if err != nil {
 		return models.Season{}, err
 	}
 
-	ends, err := services.ParseDate(season.DateEnds)
+	ends, err := utils.ParseDate(season.DateEnds)
 	if err != nil {
 		return models.Season{}, err
 	}
 
-	created, err := services.ParseDate(season.DateCreated)
+	created, err := utils.ParseDate(season.DateCreated)
 	if err != nil {
 		return models.Season{}, err
 	}

@@ -46,3 +46,9 @@ func ResetPlayerStats(dbCtx *gorm.DB, userID string) {
 	dbCtx.Where(&models.FactionGameStats{UserID: userID}).Unscoped().Delete(&models.FactionGameStats{})
 	dbCtx.Where(&models.FactionProgression{UserID: userID}).Unscoped().Delete(&models.FactionProgression{})
 }
+
+func GetSeasonName(dbCtx *gorm.DB, seasonID string) string {
+	var season models.Season
+	dbCtx.Where(&models.Season{ID: seasonID}).First(&season)
+	return season.Name
+}

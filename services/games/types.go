@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"gwentgg/db/models"
 	"gwentgg/enums"
-	"gwentgg/services"
+	"gwentgg/utils"
 )
 
 type GameList struct {
@@ -29,12 +29,12 @@ type Game struct {
 }
 
 func (game Game) ToModel() (models.Game, error) {
-	started, err := services.ParseDate(game.DateStarted)
+	started, err := utils.ParseDate(game.DateStarted)
 	if err != nil {
 		return models.Game{}, err
 	}
 
-	finished, err := services.ParseDate(game.DateFinished)
+	finished, err := utils.ParseDate(game.DateFinished)
 	if err != nil {
 		return models.Game{}, err
 	}

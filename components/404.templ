@@ -1,5 +1,9 @@
 package components
 
+import (
+	"gwentgg/components/fonts"
+)
+
 templ NotFound() {
 	<html>
 		<head>
@@ -17,7 +21,7 @@ templ NotFound() {
 			</style>
 		</head>
 		<body class={body()}>
-			<h1 class={fontGwent()}>404 - Page not found</h1>
+			<h1 class={fonts.FontGwent()}>404 - Page not found</h1>
 		</body>
 	</html>
 }

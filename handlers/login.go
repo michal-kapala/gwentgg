@@ -59,6 +59,10 @@ func LoginSubmitHandler(c fiber.Ctx) error {
 		}
 	}
 	fmt.Printf("Current season: %s\n", season.Name)
+	c.Cookie(&fiber.Cookie{
+		Name:  "current_season",
+		Value: season.ID,
+	})
 	resp, err := stats.Get(cfg, userId, token, season.ID)
 
 	if err != nil {

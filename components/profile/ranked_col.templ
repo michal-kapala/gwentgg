@@ -1,0 +1,19 @@
+package profile
+
+import (
+	"gwentgg/db/models"
+)
+
+css columnWrapper() {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+templ RankedColumn(user *models.User, season string) {
+  <div class={ columnWrapper() }>
+    @Season(user, season)
+    @Season(user, season)
+  </div>
+}
+

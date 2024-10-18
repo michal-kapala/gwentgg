@@ -1,5 +1,9 @@
 package components
 
+import (
+	"gwentgg/components/fonts"
+)
+
 css container() {
 	display: flex;
 	flex-direction: column;
@@ -46,9 +50,9 @@ templ LoginForm(userId string) {
 			</style>
 		</head>
 		<body class={body()}>
-			<div class={container(), fontRegular()}>
+			<div class={container(), fonts.FontRegular()}>
 				<img src="/assets/gg.png" alt="GG" class={logo()}>
-				<h1 class={fontGwent()}>Enter your Gwent API token.</h1>
+				<h1 class={fonts.FontGwent()}>Enter your Gwent API token.</h1>
 				<form class={loginForm()} action="/login" method="POST">
 					<div class={inputGroup()}>
 						<label for="user_id" class={label()}>User ID</label>

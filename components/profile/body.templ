@@ -1,0 +1,31 @@
+package profile
+
+import (
+  "gwentgg/db/models"
+)
+
+css bodyWrapper() {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 8px 0px;
+}
+
+css bodyCenter() {
+  display: flex;
+  flex-direction: row;
+  width: 1080px;
+  margin: 0px auto;
+}
+
+templ Body(user *models.User, season string) {
+  <div class={ bodyWrapper() }>
+    <div class={ bodyCenter() }>
+      @RankedColumn(user, season)
+      <ul>
+        <li>game stub 1</li>
+        <li>game stub 2</li>
+      </ul>
+    </div>
+  </div>
+}

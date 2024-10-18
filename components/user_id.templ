@@ -1,5 +1,9 @@
 package components
 
+import (
+	"gwentgg/components/fonts"
+)
+
 templ UserIdMissing() {
 	<html>
 		<head>
@@ -17,8 +21,8 @@ templ UserIdMissing() {
 			</style>
 		</head>
 		<body class={body()}>
-			<div class={fontRegular()}>
-				<h1 class={fontGwent()}>User ID missing</h1>
+			<div class={fonts.FontRegular()}>
+				<h1 class={fonts.FontGwent()}>User ID missing</h1>
 				<ol>
 					<li>
 						@TextWithCode("Go to ", "%LOCALAPPDATA%\\Programs\\CD Projekt Red\\REDlauncher\\config\\launcher.ini", ".")

@@ -1,6 +1,7 @@
 package models
 
 import (
+	"math"
 	"time"
 
 	"gorm.io/gorm"
@@ -36,4 +37,12 @@ type User struct {
 	TitleID             string
 	Progressions        []FactionProgression
 	FactionStats        []FactionGameStats
+}
+
+func (user User) Winrate(precision uint) float64 {
+	factor := math.Pow(10.0, float64(precision))
+	wr := factor * 100 * float64(user.WinsCount) / float64(user.GamesCount)
+	wr = math.Round(wr)
+	wr /= factor
+	return wr
 }

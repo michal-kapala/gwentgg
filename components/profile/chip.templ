@@ -1,0 +1,28 @@
+package profile
+
+import (
+  "gwentgg/utils"
+  "gwentgg/components/colors"
+  "gwentgg/components/fonts"
+)
+
+css chipContainer() {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+  color: #aaa;
+  margin-right: 6px;
+}
+
+css chipContent() {
+  font-size: 14px;
+  padding: 5px 10px;
+  margin: 0px 0px;
+}
+
+templ Chip(stat string, value uint) {
+  <div class={ chipContainer(), fonts.FontBold() }>
+    <p class={ chipContent() }>{ stat } <span class={ colors.HighlightGreen() }>{ utils.ToString(value) }</span></p>
+  </div>
+}

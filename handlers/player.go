@@ -74,8 +74,10 @@ func PlayerHandler(c fiber.Ctx) error {
 
 	var user models.User
 	database.First(&user, "id = ?", userID)
+	seasonID := c.Cookies("current_season", "")
+	season := db.GetSeasonName(database, seasonID)
 	if user.ID == "" {
 		return Render(c, components.NotFound())
 	}
-	return Render(c, components.PlayerProfile(&user, games))
+	return Render(c, components.PlayerProfile(&user, games, season))
 }

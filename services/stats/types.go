@@ -3,7 +3,7 @@ package stats
 import (
 	"gwentgg/db/models"
 	"gwentgg/enums"
-	"gwentgg/services"
+	"gwentgg/utils"
 )
 
 type RankedStats struct {
@@ -121,17 +121,17 @@ func (stats RankedStats) ToModel() (models.User, error) {
 		factionStats = append(factionStats, model)
 	}
 
-	created, err := services.ParseDate(stats.DateCreated)
+	created, err := utils.ParseDate(stats.DateCreated)
 	if err != nil {
 		return models.User{}, err
 	}
 
-	scoreUpdated, err := services.ParseDate(stats.DateScoreUpdated)
+	scoreUpdated, err := utils.ParseDate(stats.DateScoreUpdated)
 	if err != nil {
 		return models.User{}, err
 	}
 
-	levelUpdated, err := services.ParseDate(stats.DateLevelUpdated)
+	levelUpdated, err := utils.ParseDate(stats.DateLevelUpdated)
 	if err != nil {
 		return models.User{}, err
 	}

@@ -5,6 +5,7 @@ import (
 	"gwentgg/db/models"
 	"gwentgg/enums"
 	"gwentgg/services"
+	"gwentgg/utils"
 )
 
 type CardDefList struct {
@@ -34,7 +35,7 @@ type CardDefinition struct {
 }
 
 func (def CardDefinition) ToModel() (models.CardDefinition, error) {
-	created, err := services.ParseDate(def.DateCreated)
+	created, err := utils.ParseDate(def.DateCreated)
 	if err != nil {
 		return models.CardDefinition{}, err
 	}

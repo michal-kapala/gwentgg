@@ -1,6 +1,7 @@
-package services
+package utils
 
 import (
+	"fmt"
 	"time"
 )
 
@@ -11,4 +12,8 @@ func ParseDate(date string) (time.Time, error) {
 		return time.Time{}, err
 	}
 	return parsedTime, nil
+}
+
+func ToString(number uint) string {
+	return fmt.Sprintf("%d", number)
 }
