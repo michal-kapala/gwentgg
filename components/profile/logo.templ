@@ -1,0 +1,19 @@
+package profile
+
+css logoWrapper() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+}
+
+css image() {
+  height: 80px;
+  min-width: 80px;
+}
+
+templ Logo() {
+  <div class={ logoWrapper() }>
+    <img src="/assets/gg.png" class={ image() } alt="Gwent.gg logo">
+  </div>
+}
