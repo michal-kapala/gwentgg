@@ -1,0 +1,89 @@
+package profile
+
+import (
+  "gwentgg/components/colors"
+  "gwentgg/components/fonts"
+  "gwentgg/db/models"
+  "gwentgg/enums"
+  "gwentgg/utils"
+)
+
+css factionWrapper() {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  color: #aaa;
+}
+
+css iconWrapper() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 105px;
+}
+
+css gamesWrapper() {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+css gamesCount() {
+  width: 100%;
+  text-align: center;
+}
+
+css factionWinrateWrapper() {
+  flex-direction: column;
+  width: 100%;
+}
+
+css factionWinrate() {
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+  padding: 6px 0px;
+  width: 100%;
+}
+
+templ Faction(stats *models.FactionGameStats) {
+  <div class={ factionWrapper() }>
+    <div class={ iconWrapper() }>
+    switch stats.Faction {
+      case enums.Monsters:
+        <img src="/assets/factions/monsters.png" alt={ string(stats.Faction) }>
+      case enums.Nilfgaard:
+        <img src="/assets/factions/nilfgaard.png" alt={ string(stats.Faction) }>
+      case enums.NorthernKingdoms:
+        <img src="/assets/factions/northernrealms.png" alt={ string(stats.Faction) }>
+      case enums.Scoiatael:
+        <img src="/assets/factions/scoiatael.png" alt={ string(stats.Faction) }>
+      case enums.Skellige:
+        <img src="/assets/factions/skellige.png" alt={ string(stats.Faction) }>
+      case enums.Syndicate:
+        <img src="/assets/factions/syndicate.png" alt={ string(stats.Faction) }>
+    }
+    </div>
+    <div class={ factionWinrateWrapper() }>
+      <div>
+        if stats.Winrate(2) >= 0.0 {
+          if stats.Winrate(2) >= 50.0 {
+            <span class={ factionWinrate(), fonts.FontRegular(), colors.HighlightGreen() }>{ stats.WinrateStr(1) }%</span>
+          } else {
+            <span class={ factionWinrate(), fonts.FontRegular(), colors.HighlightRed() }>{ stats.WinrateStr(1) }%</span>
+          }
+        } else {
+          <span class={ factionWinrate(), fonts.FontRegular(), colors.HighlightGray() }>{ stats.WinrateStr(1) }</span>
+        }
+      </div>
+      <div class={ gamesWrapper() }>
+        <span class={ gamesCount() }>{ utils.ToString(stats.WinsCount) } W</span>
+        <span class={ gamesCount() }>{ utils.ToString(stats.LossesCount) } L</span>
+        <span class={ gamesCount() }>{ utils.ToString(stats.DrawsCount) } D</span>
+      </div>
+    </div>
+  </div>
+}

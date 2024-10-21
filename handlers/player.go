@@ -73,7 +73,7 @@ func PlayerHandler(c fiber.Ctx) error {
 		Save(&games)
 
 	var user models.User
-	database.First(&user, "id = ?", userID)
+	database.Preload("FactionStats").Preload("Progressions").First(&user, "id = ?", userID)
 	seasonID := c.Cookies("current_season", "")
 	season := db.GetSeasonName(database, seasonID)
 	if user.ID == "" {

@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"math"
 	"time"
 
@@ -40,9 +41,20 @@ type User struct {
 }
 
 func (user User) Winrate(precision uint) float64 {
+	if user.GamesCount == 0 {
+		return -1.0
+	}
 	factor := math.Pow(10.0, float64(precision))
 	wr := factor * 100 * float64(user.WinsCount) / float64(user.GamesCount)
 	wr = math.Round(wr)
 	wr /= factor
 	return wr
+}
+
+func (user User) WinrateStr(precision uint) string {
+	wr := user.Winrate(precision)
+	if wr == -1.0 {
+		return "N/A"
+	}
+	return fmt.Sprintf("%.2f", wr)
 }

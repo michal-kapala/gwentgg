@@ -58,4 +58,14 @@ func SecondaryBg() templ.CSSClass {
 	}
 }
 
+func HighlightGray() templ.CSSClass {
+	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
+	templ_7745c5c3_CSSBuilder.WriteString(`color:#aaa;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`HighlightGray`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
 var _ = templruntime.GeneratedTemplate

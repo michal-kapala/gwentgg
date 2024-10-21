@@ -1,0 +1,34 @@
+package profile
+
+import (
+  "gwentgg/components/colors"
+  "gwentgg/components/fonts"
+  "gwentgg/db/models"
+)
+
+css factionsWrapper() {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  border-radius: 0px 0px 4px 4px;
+  border-top: 1px solid #131315;
+  padding: 10px 10px;
+  margin: 0px 0px 8px;
+}
+
+css factionList() {
+  width: 100%;
+  margin: 0px 0px;
+  padding: 0px 0px;
+}
+
+templ Factions(user *models.User) {
+  <div class={ factionsWrapper(), colors.SecondaryBg() }>
+    <ul class={ factionList(), fonts.FontRegular() }>
+      for _, stats := range user.FactionStats {
+        @Faction(&stats)
+      }
+    </ul>
+  </div>
+}
