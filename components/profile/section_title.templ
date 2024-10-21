@@ -1,0 +1,22 @@
+package profile
+
+import (
+  "gwentgg/components/colors"
+  "gwentgg/components/fonts"
+)
+
+css sectionTitle() {
+  border-radius: 4px 4px 0px 0px;
+  padding: 10px 16px;
+}
+
+css titleText() {
+  font-size: 20px;
+  margin: 0px 0px;
+}
+
+templ SectionTitle(title string) {
+  <div class={ sectionTitle(), fonts.FontGwent(), colors.SecondaryBg() }>
+    <h1 class={ titleText() }>{ title }</h1>
+  </div>
+}

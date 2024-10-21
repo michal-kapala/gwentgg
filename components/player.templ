@@ -1,6 +1,7 @@
 package components
 
 import (
+	"gwentgg/components/colors"
 	"gwentgg/components/profile"
 	"gwentgg/db/models"
 )
@@ -29,7 +30,7 @@ templ PlayerProfile(user *models.User, games []models.Game, season string) {
         }
 			</style>
 		</head>
-		<body class={body()}>
+		<body class={ body(), colors.PrimaryBg() }>
 			@Wrapper() {
 				@profile.Header(user)
 				@profile.Body(user, season)

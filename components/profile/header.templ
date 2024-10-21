@@ -69,12 +69,10 @@ css chipBar() {
 }
 
 templ Header(user *models.User) {
-  <div class={ colors.SecondaryBg(), row() }>
+  <header class={ colors.SecondaryBg(), row() }>
     <div class={ marginWrap() }>
       <div class={ headerWrap() }>
-        <span class={ rank() }>
-          <strong class={ fonts.FontGwent() }>{ utils.ToString(user.Rank) }</strong>
-        </span>
+        @Rank(user.Rank)
         <div class={ aligned() }>
           <h1 class={ fonts.FontGwent(), name() }>{ user.Username }</h1>
           <div class={ row(), fonts.FontBold() }>
@@ -89,5 +87,5 @@ templ Header(user *models.User) {
         @Chip("MMR", uint(user.Score))
       </div>
     </div>
-  </div>
+  </header>
 }

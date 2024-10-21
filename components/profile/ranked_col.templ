@@ -12,8 +12,8 @@ css columnWrapper() {
 
 templ RankedColumn(user *models.User, season string) {
   <div class={ columnWrapper() }>
+    @SectionTitle("Ranked")
     @Season(user, season)
     @Season(user, season)
   </div>
 }
-

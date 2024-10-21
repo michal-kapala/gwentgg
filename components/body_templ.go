@@ -10,7 +10,6 @@ import templruntime "github.com/a-h/templ/runtime"
 
 func body() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
-	templ_7745c5c3_CSSBuilder.WriteString(`background-color:#131315;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`color:#ddd;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`margin:0px 0px;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`body`, templ_7745c5c3_CSSBuilder.String())
