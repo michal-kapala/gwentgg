@@ -1,6 +1,6 @@
-package components
+package common
 
-css code() {
+css Code() {
   background-color: #333;
   border: .1rem solid #0000001a;
   border-radius: 4px;
@@ -9,6 +9,6 @@ css code() {
 
 templ TextWithCode(prefix string, codeText string, suffix string) {
   <p>
-    {prefix}<code class={code()}>{codeText}</code>{suffix}
+    { prefix }<code class={ Code() }>{ codeText }</code>{ suffix }
   </p>
 }

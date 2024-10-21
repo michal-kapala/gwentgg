@@ -1,0 +1,108 @@
+package pages
+
+import (
+	"gwentgg/components/common"
+	"gwentgg/components/colors"
+	"gwentgg/components/fonts"
+)
+
+css container() {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+css logo() {
+	margin: 20px 0px;
+}
+
+css loginForm() {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin: 20px 0px;
+}
+
+templ LoginForm(userId string) {
+	<html>
+		<head>
+			<title>Log in | Gwent.gg</title>
+			<link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+			<style>
+				@font-face {
+					font-family: 'GWENT';
+					src: url('/assets/hinted-GWENT-ExtraBold.ttf');
+        }
+				@font-face {
+					font-family: 'HalisGR-Regular';
+					src: url('/assets/hinted-HalisGR-Regular.ttf');
+        }
+			</style>
+		</head>
+		<body class={ common.Body(), colors.PrimaryBg() }>
+			<div class={ container(), fonts.FontRegular() }>
+				<img src="/assets/gg.png" alt="GG" class={ logo() }>
+				<h1 class={ fonts.FontGwent() }>Enter your Gwent API token.</h1>
+				<form class={ loginForm() } action="/login" method="POST">
+					<div class={ common.InputGroup() }>
+						<label for="user_id" class={ common.Label() }>User ID</label>
+						<input type="input" id="user_id" name="user_id" class={ common.Input() } value={ userId } readonly></input>
+					</div>
+					<div class={ common.InputGroup() }>
+						<label for="access_token" class={ common.Label() }>API token</label>
+						<input type="password" id="access_token" name="access_token" class={ common.Input() }></input>
+					</div>
+					<input type="submit" class={ common.Button() } value="Log in">
+				</form>
+				<p>These credentials give access to your GOG account. <b>Never share your tokens.</b></p>
+				<p>Your token expires in 1h. After that you will need to re-login with a fresh one.</p>
+				<a href="https://gist.github.com/michal-kapala/e7ef52c9b50a5861bf93e3851537816b" target="_blank" rel="noopener noreferrer" class={ common.Link() }>
+					<p class={ common.LinkContent() }>How do I get my token?</p>
+				</a>
+			</div>
+		</body>
+		<script>
+			// button hovers
+			function handleMouseOver(event) {
+				if (
+					(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||
+					event.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'
+				) {
+					event.target.style.opacity = "1";
+				}
+			}
+
+			function handleMouseOut(event) {
+				if (
+					(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||
+					event.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'
+				) {
+					event.target.style.opacity = "0.8";
+				}
+			}
+
+			document.addEventListener("DOMContentLoaded", function() {
+				const submitButtons = document.querySelectorAll('input[type="submit"]');
+				submitButtons.forEach(function(targetElement) {
+					targetElement.addEventListener('mouseover', handleMouseOver);
+					targetElement.addEventListener('mouseout', handleMouseOut);
+				});
+			});
+
+			document.addEventListener("DOMContentLoaded", function() {
+				const links = document.querySelectorAll('a');
+				links.forEach(function(targetElement) {
+					targetElement.addEventListener('mouseover', handleMouseOver);
+					targetElement.addEventListener('mouseout', handleMouseOut);
+					targetElement.children.forEach(function(child) {
+						child.addEventListener('mouseover', handleMouseOver);
+						child.addEventListener('mouseout', handleMouseOut);
+					})
+				});
+			});
+		</script>
+	</html>
+}

@@ -1,4 +1,4 @@
-package components
+package common
 
 css wrapperStyle() {
   display: flex;
@@ -6,7 +6,7 @@ css wrapperStyle() {
 }
 
 templ Wrapper() {
-  <div class={wrapperStyle()}>
+  <div class={ wrapperStyle() }>
     { children... }
   </div>
 }

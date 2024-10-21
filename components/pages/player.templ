@@ -1,43 +1,16 @@
-package components
+package pages
 
 import (
 	"gwentgg/components/colors"
-	"gwentgg/components/fonts"
+	"gwentgg/components/common"
+	"gwentgg/components/profile"
+	"gwentgg/db/models"
 )
 
-css container() {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-css logo() {
-	margin: 20px 0px;
-}
-
-css loginForm() {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	margin: 20px 0px;
-}
-
-css link() {
-	color: #26eb9f;
-	opacity: 0.8;
-}
-
-css linkContent() {
-	opacity: 0.8;
-}
-
-templ LoginForm(userId string) {
+templ PlayerProfile(user *models.User, games []models.Game, season string) {
 	<html>
 		<head>
-			<title>Log in | Gwent.gg</title>
+			<title>{ user.Username } | Gwent.gg</title>
 			<link rel="icon" type="image/x-icon" href="/assets/favicon.png">
 			<style>
 				@font-face {
@@ -48,29 +21,21 @@ templ LoginForm(userId string) {
 					font-family: 'HalisGR-Regular';
 					src: url('/assets/hinted-HalisGR-Regular.ttf');
         }
+				@font-face {
+					font-family: 'HalisGR-Medium';
+					src: url('/assets/hinted-HalisGR-Medium.ttf');
+        }
+				@font-face {
+					font-family: 'HalisGR-Bold';
+					src: url('/assets/hinted-HalisGR-Bold.ttf');
+        }
 			</style>
 		</head>
-		<body class={ body(), colors.PrimaryBg() }>
-			<div class={ container(), fonts.FontRegular() }>
-				<img src="/assets/gg.png" alt="GG" class={ logo() }>
-				<h1 class={ fonts.FontGwent() }>Enter your Gwent API token.</h1>
-				<form class={ loginForm() } action="/login" method="POST">
-					<div class={ inputGroup() }>
-						<label for="user_id" class={ label() }>User ID</label>
-						<input type="input" id="user_id" name="user_id" class={ input() } value={ userId } readonly></input>
-					</div>
-					<div class={ inputGroup() }>
-						<label for="access_token" class={ label() }>API token</label>
-						<input type="password" id="access_token" name="access_token" class={ input() }></input>
-					</div>
-					<input type="submit" class={ button() } value="Log in">
-				</form>
-				<p>These credentials give access to your GOG account. <b>Never share your tokens.</b></p>
-				<p>Your token expires in 1h. After that you will need to re-login with a fresh one.</p>
-				<a href="https://gist.github.com/michal-kapala/e7ef52c9b50a5861bf93e3851537816b" target="_blank" rel="noopener noreferrer" class={link()}>
-					<p class={ linkContent() }>How do I get my token?</p>
-				</a>
-			</div>
+		<body class={ common.Body(), colors.PrimaryBg() }>
+			@common.Wrapper() {
+				@profile.Header(user)
+				@profile.Body(user, season)
+			}
 		</body>
 		<script>
 			// button hovers

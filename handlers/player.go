@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"fmt"
-	"gwentgg/components"
+	"gwentgg/components/pages"
 	"gwentgg/config"
 	"gwentgg/db"
 	"gwentgg/db/models"
@@ -77,7 +77,7 @@ func PlayerHandler(c fiber.Ctx) error {
 	seasonID := c.Cookies("current_season", "")
 	season := db.GetSeasonName(database, seasonID)
 	if user.ID == "" {
-		return Render(c, components.NotFound())
+		return Render(c, pages.NotFound())
 	}
-	return Render(c, components.PlayerProfile(&user, games, season))
+	return Render(c, pages.PlayerProfile(&user, games, season))
 }

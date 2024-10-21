@@ -23,7 +23,7 @@ func seasonWrapper() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`align-items:center;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`border-radius:0px 0px 4px 4px;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`border-top:1px solid #131315;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`padding:10px 10px;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`padding:20px 10px;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`margin:0px 0px 8px;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`seasonWrapper`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{

@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"gwentgg/components"
+	"gwentgg/components/pages"
 	"gwentgg/config"
 	"gwentgg/db"
 	"gwentgg/db/models"
@@ -18,9 +18,9 @@ import (
 func LoginHandler(c fiber.Ctx) error {
 	userId := config.Get(c).UserId
 	if userId == "" {
-		return Render(c, components.UserIdMissing())
+		return Render(c, pages.UserIdMissing())
 	}
-	return Render(c, components.LoginForm(userId))
+	return Render(c, pages.LoginForm(userId))
 }
 
 func LoginSubmitHandler(c fiber.Ctx) error {

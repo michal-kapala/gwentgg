@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"gwentgg/components"
+	"gwentgg/components/pages"
 	"gwentgg/config"
 	"gwentgg/db"
 	"gwentgg/handlers"
@@ -50,5 +50,5 @@ func main() {
 
 func NotFoundMiddleware(c fiber.Ctx) error {
 	c.Status(fiber.StatusNotFound)
-	return handlers.Render(c, components.NotFound())
+	return handlers.Render(c, pages.NotFound())
 }
