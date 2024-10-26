@@ -95,7 +95,7 @@ func PlayerProfile(user *models.User, games []models.Game, season string) templ.
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = profile.Body(user, season).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = profile.Body(user, games, season).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

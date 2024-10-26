@@ -1,0 +1,62 @@
+package profile
+
+import (
+  "gwentgg/enums"
+)
+
+css factionIcon() {
+  max-width: 105px;
+  max-height: 105px;
+}
+
+css factionIconSmall() {
+  max-width: 50px;
+  max-height: 50px;
+}
+
+templ FactionIcon(faction enums.Faction, small bool) {
+  switch faction {
+    case enums.Monsters:
+      if small {
+        <img src="/assets/factions/monsters.png" alt="Monsters" class={ factionIconSmall() }>
+      } else {
+        <img src="/assets/factions/monsters.png" alt="Monsters" class={ factionIcon() }>
+      }
+    case enums.Nilfgaard:
+      if small {
+        <img src="/assets/factions/nilfgaard.png" alt="Nilfgaard" class={ factionIconSmall() }>
+      } else {
+        <img src="/assets/factions/nilfgaard.png" alt="Nilfgaard" class={ factionIcon() }>
+      }
+    case enums.NorthernKingdoms:
+      if small {
+        <img src="/assets/factions/northernrealms.png" alt="Northern Realms" class={ factionIconSmall() }>
+      } else {
+        <img src="/assets/factions/northernrealms.png" alt="Northern Realms" class={ factionIcon() }>
+      }
+    case enums.Scoiatael:
+      if small {
+        <img src="/assets/factions/scoiatael.png" alt="Scoiatael" class={ factionIconSmall() }>
+      } else {
+        <img src="/assets/factions/scoiatael.png" alt="Scoiatael" class={ factionIcon() }>
+      }
+    case enums.Skellige:
+      if small {
+        <img src="/assets/factions/skellige.png" alt="Skellige" class={ factionIconSmall() }>
+      } else {
+        <img src="/assets/factions/skellige.png" alt="Skellige" class={ factionIcon() }>
+      }
+    case enums.Syndicate:
+      if small {
+        <img src="/assets/factions/syndicate.png" alt="Syndicate" class={ factionIconSmall() }>
+      } else {
+        <img src="/assets/factions/syndicate.png" alt="Syndicate" class={ factionIcon() }>
+      }
+    case enums.Neutral:
+      if small {
+        <img src="/assets/factions/neutral.png" alt="Neutral" class={ factionIconSmall() }>
+      } else {
+        <img src="/assets/factions/neutral.png" alt="Neutral" class={ factionIcon() }>
+      }
+  }
+}

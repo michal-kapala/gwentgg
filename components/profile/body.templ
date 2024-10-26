@@ -18,14 +18,11 @@ css bodyCenter() {
   margin: 0px auto;
 }
 
-templ Body(user *models.User, season string) {
+templ Body(user *models.User, games []models.Game, season string) {
   <div class={ bodyWrapper() }>
     <div class={ bodyCenter() }>
       @RankedColumn(user, season)
-      <ul>
-        <li>game stub 1</li>
-        <li>game stub 2</li>
-      </ul>
+      @GamesColumn(user, games)
     </div>
   </div>
 }

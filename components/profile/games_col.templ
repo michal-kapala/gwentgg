@@ -1,0 +1,23 @@
+package profile
+
+import (
+  "gwentgg/db/models"
+)
+
+css gamesColWrapper() {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 8px;
+  width: 70%;
+}
+
+templ GamesColumn(user *models.User, games []models.Game) {
+  <div class={ gamesColWrapper() }>
+    @SectionTitle("Latest games")
+    @LatestStats(games, models.GetAllFactionStats(user.ID, games))
+    <ul>
+      <li>game stub 1</li>
+      <li>game stub 2</li>
+    </ul>
+  </div>
+}

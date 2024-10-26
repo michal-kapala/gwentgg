@@ -1,0 +1,54 @@
+package profile
+
+import (
+  "gwentgg/components/colors"
+  "gwentgg/components/fonts"
+  "gwentgg/db/models"
+  "gwentgg/utils"
+)
+
+css factionColumnWrapper() {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+css factionRowWrapper() {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+css factionIconWrapper() {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+css factionRowText() {
+  text-align: center;
+  width: 100%;
+}
+
+templ LatestFactionRow(faction models.FactionGameStats) {
+  <div class={ factionRowWrapper(), colors.HighlightGray(), fonts.FontRegular() }>
+    <div class={ factionIconWrapper() }>
+      @FactionIcon(faction.Faction, true)
+    </div>
+    <span class={ factionRowText() }>{ utils.ToString(faction.WinsCount) } W</span>
+    <span class={ factionRowText() }>{ utils.ToString(faction.GamesCount) } G</span>
+  </div>
+}
+
+templ LatestFactionColumn(factionStats []models.FactionGameStats) {
+  <div class={ factionColumnWrapper() }>
+    for _, faction := range factionStats {
+      @LatestFactionRow(faction)
+    }
+  </div>
+}

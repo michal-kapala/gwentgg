@@ -34,7 +34,7 @@ templ PlayerProfile(user *models.User, games []models.Game, season string) {
 		<body class={ common.Body(), colors.PrimaryBg() }>
 			@common.Wrapper() {
 				@profile.Header(user)
-				@profile.Body(user, season)
+				@profile.Body(user, games, season)
 			}
 		</body>
 		<script>

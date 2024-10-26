@@ -1,0 +1,29 @@
+package profile
+
+import (
+  "gwentgg/components/fonts"
+  "gwentgg/db/models"
+  "gwentgg/utils"
+)
+
+css gamesWrapper() {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 3px 0px;
+}
+
+css gamesCount() {
+  width: 100%;
+  text-align: center;
+}
+
+templ GameResults(stats *models.FactionGameStats) {
+  <div class={ gamesWrapper(), fonts.FontRegular() }>
+    <span class={ gamesCount() }>{ utils.ToString(stats.WinsCount) } W</span>
+    <span class={ gamesCount() }>{ utils.ToString(stats.LossesCount) } L</span>
+    <span class={ gamesCount() }>{ utils.ToString(stats.DrawsCount) } D</span>
+  </div>
+}

@@ -1,0 +1,61 @@
+package profile
+
+import (
+  "gwentgg/components/colors"
+  "gwentgg/components/fonts"
+  "gwentgg/db/models"
+	"gwentgg/enums"
+)
+
+css latestStatsWrapper() {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  border-radius: 0px 0px 4px 4px;
+  border-top: 1px solid #131315;
+  padding: 20px 10px;
+  margin: 0px 0px 8px;
+}
+
+css mostPlayedWrapper() {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px 10px;
+  min-width: 20%;
+}
+
+css mostPlayedTitle() {
+  padding: 12px 0px;
+}
+
+css summaryWrapper() {
+  display: flex;
+  flex-direction: column;
+  min-width: 30%;
+  justify-content: start;
+  text-align: center;
+}
+
+css summaryTitle() {
+  padding-top: 12px;
+  padding-bottom: 20px;
+}
+
+templ LatestStats(games []models.Game, factionStats []models.FactionGameStats) {
+  <div class={ latestStatsWrapper(), colors.SecondaryBg(), fonts.FontBold() }>
+    <div class={ mostPlayedWrapper() }>
+      <span class={ mostPlayedTitle(), colors.HighlightGray() }>Most played</span>
+      if models.GetMostPlayedFaction(factionStats) == enums.Neutral {
+        <span>N/A</span>
+      } else {
+        @FactionIcon(models.GetMostPlayedFaction(factionStats), false)
+      }
+    </div>
+    <div class={ summaryWrapper() }>
+      <span class={ summaryTitle(), colors.HighlightGray() }>Summary</span>
+      @FactionStats(models.AggregateStats(factionStats))
+    </div>
+    @LatestFactions(factionStats)
+  </div>
+}
