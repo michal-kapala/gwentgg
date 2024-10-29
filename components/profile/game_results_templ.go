@@ -14,7 +14,7 @@ import (
 	"gwentgg/utils"
 )
 
-func gamesWrapper() templ.CSSClass {
+func gamesResultsWrapper() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
 	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`flex-direction:row;`)
@@ -22,7 +22,7 @@ func gamesWrapper() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`align-items:center;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`width:100%;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`padding:3px 0px;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`gamesWrapper`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSID := templ.CSSID(`gamesResultsWrapper`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
@@ -61,7 +61,7 @@ func GameResults(stats *models.FactionGameStats) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var2 = []any{gamesWrapper(), fonts.FontRegular()}
+		var templ_7745c5c3_Var2 = []any{gamesResultsWrapper(), fonts.FontRegular()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

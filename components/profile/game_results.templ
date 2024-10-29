@@ -6,7 +6,7 @@ import (
   "gwentgg/utils"
 )
 
-css gamesWrapper() {
+css gamesResultsWrapper() {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -21,7 +21,7 @@ css gamesCount() {
 }
 
 templ GameResults(stats *models.FactionGameStats) {
-  <div class={ gamesWrapper(), fonts.FontRegular() }>
+  <div class={ gamesResultsWrapper(), fonts.FontRegular() }>
     <span class={ gamesCount() }>{ utils.ToString(stats.WinsCount) } W</span>
     <span class={ gamesCount() }>{ utils.ToString(stats.LossesCount) } L</span>
     <span class={ gamesCount() }>{ utils.ToString(stats.DrawsCount) } D</span>

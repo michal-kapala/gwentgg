@@ -58,3 +58,12 @@ func (user User) WinrateStr(precision uint) string {
 	}
 	return fmt.Sprintf("%.2f", wr)
 }
+
+func (user User) PlayerFromGame(game Game) *GamePlayer {
+	player := game.Players[0]
+	if player.PlayerID == user.ID {
+		return &player
+	}
+	player = game.Players[1]
+	return &player
+}

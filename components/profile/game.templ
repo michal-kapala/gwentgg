@@ -1,0 +1,106 @@
+package profile
+
+import (
+  "gwentgg/components/colors"
+  "gwentgg/components/fonts"
+  "gwentgg/db/models"
+	"gwentgg/enums"
+	"gwentgg/utils"
+)
+
+css resultAccentWrapper() {
+  border-radius: 4px 0px 0px 4px;
+  width: 6px;
+}
+
+templ ResultAccent(game *models.Game, player *models.GamePlayer) {
+  switch game.Finished {
+    case enums.Draw:
+      <div class={ resultAccentWrapper(), colors.BackgroundBrown() }></div>
+    case enums.NotStarted:
+      <div class={ resultAccentWrapper(), colors.BackgroundGray() }></div>
+    case enums.Win:
+      if *game.Winner == player.PlayerID {
+        <div class={ resultAccentWrapper(), colors.BackgroundGreen() }></div>
+      } else {
+        <div class={ resultAccentWrapper(), colors.BackgroundRed() }></div>
+      }
+  }
+}
+
+templ GameType(game *models.Game) {
+  <span>{ game.Type.GameMode() }</span>
+}
+
+css relativeGameDateWrapper() {
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+templ RelativeGameDate(game *models.Game) {
+  <span class={ relativeGameDateWrapper() }>{ utils.RelativeTime(game.DateFinished) }</span>
+}
+
+css generalGameInfoWrapper() {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 8px;
+}
+
+templ GeneralGameInfo(game *models.Game, player *models.GamePlayer) {
+  switch game.Finished {
+    case enums.Draw:
+      <div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightBrown(), colors.BackgroundDarkBrown() }>
+        @GameType(game)
+        @RelativeGameDate(game)
+      </div>
+    case enums.NotStarted:
+      <div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightGray(), colors.BackgroundDarkGray() }>
+        @GameType(game)
+        @RelativeGameDate(game)
+      </div>
+    case enums.Win:
+      if *game.Winner == player.PlayerID {
+        <div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightGreen(), colors.BackgroundDarkGreen() }>
+          @GameType(game)
+          @RelativeGameDate(game)
+        </div>
+      } else {
+        <div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightRed(), colors.BackgroundDarkRed() }>
+          @GameType(game)
+          @RelativeGameDate(game)
+        </div>
+      }
+  }
+}
+
+css gameInfoWrapper() {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border-radius: 0px 4px 4px 0px;
+}
+
+templ GameInfo(game *models.Game, player *models.GamePlayer) {
+  <div class={ gameInfoWrapper() }>
+    @GeneralGameInfo(game, player)
+  </div>
+}
+
+css gameWrapper() {
+  display: flex;
+  flex-direction: row;
+  border-radius: 4px;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 8px;
+}
+
+templ Game(game *models.Game, player *models.GamePlayer) {
+  <div class={ gameWrapper() }>
+    @ResultAccent(game, player)
+    @GameInfo(game, player)
+  </div>
+}
