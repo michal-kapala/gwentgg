@@ -52,7 +52,8 @@ func PlayerHandler(c fiber.Ctx) error {
 	}
 
 	if resp.Status() != "200 OK" {
-		return c.Status(fiber.StatusBadRequest).SendString("Latest games request failed, check your credentials.")
+		// usually happens on token expiration
+		return c.Redirect().To("/login")
 	}
 
 	latestGames := resp.Result().(*games.GameList)
