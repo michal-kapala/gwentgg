@@ -28,8 +28,19 @@ templ ResultAccent(game *models.Game, player *models.GamePlayer) {
   }
 }
 
-templ GameType(game *models.Game) {
-  <span>{ game.Type.GameMode() }</span>
+templ GameType(game *models.Game, player *models.GamePlayer) {
+  switch game.Finished {
+    case enums.Draw:
+      <span class={ colors.HighlightBrown() }>{ game.Type.GameMode() }</span>
+    case enums.NotStarted:
+      <span class={ colors.HighlightGray() }>{ game.Type.GameMode() }</span>
+    case enums.Win:
+      if *game.Winner == player.PlayerID {
+        <span class={ colors.HighlightGreen() }>{ game.Type.GameMode() }</span>
+      } else {
+        <span class={ colors.HighlightRed() }>{ game.Type.GameMode() }</span>
+      }
+  }
 }
 
 css relativeGameDateWrapper() {
@@ -47,32 +58,20 @@ css generalGameInfoWrapper() {
   justify-content: center;
   align-items: center;
   padding: 0px 8px;
+  min-width: 80px;
 }
 
 templ GeneralGameInfo(game *models.Game, player *models.GamePlayer) {
-  switch game.Finished {
-    case enums.Draw:
-      <div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightBrown(), colors.BackgroundDarkBrown() }>
-        @GameType(game)
-        @RelativeGameDate(game)
-      </div>
-    case enums.NotStarted:
-      <div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightGray(), colors.BackgroundDarkGray() }>
-        @GameType(game)
-        @RelativeGameDate(game)
-      </div>
-    case enums.Win:
-      if *game.Winner == player.PlayerID {
-        <div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightGreen(), colors.BackgroundDarkGreen() }>
-          @GameType(game)
-          @RelativeGameDate(game)
-        </div>
-      } else {
-        <div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightRed(), colors.BackgroundDarkRed() }>
-          @GameType(game)
-          @RelativeGameDate(game)
-        </div>
-      }
+  if game.Finished == enums.Win && *game.Winner == player.PlayerID {
+    <div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightGrayVeryLight() }>
+      @GameType(game, player)
+      @RelativeGameDate(game)
+    </div>
+  } else {
+    <div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightGrayLight() }>
+      @GameType(game, player)
+      @RelativeGameDate(game)
+    </div>
   }
 }
 
@@ -84,9 +83,26 @@ css gameInfoWrapper() {
 }
 
 templ GameInfo(game *models.Game, player *models.GamePlayer) {
-  <div class={ gameInfoWrapper() }>
-    @GeneralGameInfo(game, player)
-  </div>
+  switch game.Finished {
+    case enums.Draw:
+      <div class={ gameInfoWrapper(), colors.BackgroundDarkBrown() }>
+        @GeneralGameInfo(game, player)
+      </div>
+    case enums.NotStarted:
+      <div class={ gameInfoWrapper(), colors.BackgroundDarkGray() }>
+        @GeneralGameInfo(game, player)
+      </div>
+    case enums.Win:
+      if *game.Winner == player.PlayerID {
+        <div class={ gameInfoWrapper(), colors.BackgroundDarkGreen() }>
+          @GeneralGameInfo(game, player)
+        </div>
+      } else {
+        <div class={ gameInfoWrapper(), colors.BackgroundDarkRed() }>
+          @GeneralGameInfo(game, player)
+        </div>
+      }
+  }
 }
 
 css gameWrapper() {
