@@ -44,6 +44,7 @@ func main() {
 	app.Get("/login", handlers.LoginHandler)
 	app.Post("/login", handlers.LoginSubmitHandler)
 	app.Get("/player/:user", handlers.PlayerHandler)
+	app.Get("/player/:user/games/:game", handlers.GameHandler)
 	app.Get("/assets/*", static.New("./assets"))
 	log.Fatal(app.Listen(":3000"))
 }

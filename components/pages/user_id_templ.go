@@ -34,7 +34,7 @@ func UserIdMissing() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html><head><title>User ID | Gwent.gg</title><link rel=\"icon\" type=\"image/x-icon\" href=\"/assets/favicon.png\"><style>\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'GWENT';\r\n\t\t\t\t\tsrc: url('/assets/hinted-GWENT-ExtraBold.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Regular';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Regular.ttf');\r\n        }\r\n\t\t\t</style></head>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html><head><title>User ID | Gwent.gg</title><link rel=\"icon\" type=\"image/x-icon\" href=\"/assets/favicon.png\"><style>\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'GWENT';\r\n\t\t\t\t\tsrc: url('/assets/hinted-GWENT-ExtraBold.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Regular';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Regular.ttf');\r\n        }\r\n\t\t\t</style></head>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

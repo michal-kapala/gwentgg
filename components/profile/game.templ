@@ -6,6 +6,9 @@ import (
   "gwentgg/db/models"
 	"gwentgg/enums"
 	"gwentgg/utils"
+
+  tmpl "github.com/a-h/templ"
+	"fmt"
 )
 
 css resultAccentWrapper() {
@@ -305,11 +308,12 @@ css gameWrapper() {
   width: 100%;
   height: 100px;
   margin-bottom: 8px;
+  text-decoration: none;
 }
 
 templ Game(game *models.Game, player *models.GamePlayer) {
-  <div class={ gameWrapper() }>
+  <a class={ gameWrapper() } href={ tmpl.SafeURL(fmt.Sprintf("/player/%s/games/%s", player.PlayerID, game.ID)) } target="_blank" rel="noopener noreferrer">
     @ResultAccent(game, player)
     @GameInfo(game, player)
-  </div>
+  </a>
 }

@@ -36,14 +36,14 @@ func PlayerProfile(user *models.User, games []models.Game, season string) templ.
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html><head><title>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html><head><title>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(user.Username)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/player.templ`, Line: 13, Col: 25}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/player.templ`, Line: 14, Col: 25}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -105,7 +105,7 @@ func PlayerProfile(user *models.User, games []models.Game, season string) templ.
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</body><script>\r\n\t\t\t// button hovers\r\n\t\t\tfunction handleMouseOver(event) {\r\n\t\t\t\tif (\r\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\r\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\r\n\t\t\t\t) {\r\n\t\t\t\t\tevent.target.style.opacity = \"1\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tfunction handleMouseOut(event) {\r\n\t\t\t\tif (\r\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\r\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\r\n\t\t\t\t) {\r\n\t\t\t\t\tevent.target.style.opacity = \"0.8\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst submitButtons = document.querySelectorAll('input[type=\"submit\"]');\r\n\t\t\t\tsubmitButtons.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t});\r\n\t\t\t});\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst links = document.querySelectorAll('a');\r\n\t\t\t\tlinks.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t\ttargetElement.children.forEach(function(child) {\r\n\t\t\t\t\t\tchild.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\t\tchild.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t\t})\r\n\t\t\t\t});\r\n\t\t\t});\r\n\t\t</script></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</body><script>\r\n\t\t\t// button hovers\r\n\t\t\tfunction handleMouseOver(event) {\r\n\t\t\t\tif (\r\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\r\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\r\n\t\t\t\t) {\r\n\t\t\t\t\tevent.target.style.opacity = \"1\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tfunction handleMouseOut(event) {\r\n\t\t\t\tif (\r\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\r\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\r\n\t\t\t\t) {\r\n\t\t\t\t\tevent.target.style.opacity = \"0.8\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst submitButtons = document.querySelectorAll('input[type=\"submit\"]');\r\n\t\t\t\tsubmitButtons.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t});\r\n\t\t\t});\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst links = document.querySelectorAll('a');\r\n\t\t\t\tlinks.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t\tArray.from(targetElement.children).forEach(function(child) {\r\n\t\t\t\t\t\tchild.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\t\tchild.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t\t})\r\n\t\t\t\t});\r\n\t\t\t});\r\n\t\t</script></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
