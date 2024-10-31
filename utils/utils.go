@@ -2,7 +2,10 @@ package utils
 
 import (
 	"fmt"
+	"gwentgg/db/models"
 	"math"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -54,4 +57,26 @@ func RelativeTime(date time.Time) string {
 		fmtStr = "%d years ago"
 	}
 	return fmt.Sprintf(fmtStr, years)
+}
+
+func MakeLeaderAssetPath(player *models.GamePlayer) string {
+	return fmt.Sprintf("/assets/leaders/%d.png", player.Deck.Leader)
+}
+
+func SplitCsv(csv string) []string { 
+	return strings.Split(csv, ",")
+}
+
+func CsvToBools(csv string) []bool {
+	result := []bool{}
+	values := strings.Split(csv, ",")
+	for _, value := range values {
+		b, err := strconv.ParseBool(value)
+		if err != nil {
+			fmt.Printf("parsing error: cannot parse '%s' as boolean", value)
+			return result
+		}
+		result = append(result, b)
+	}
+	return result
 }

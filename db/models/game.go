@@ -1,8 +1,9 @@
 package models
 
 import (
-	"gwentgg/enums"
+	"fmt"
 	"time"
+	"gwentgg/enums"
 
 	"gorm.io/gorm"
 )
@@ -38,6 +39,21 @@ func (game Game) GetPlayerFaction(playerID string) enums.Faction {
 		return enums.Neutral
 	}
 	return enums.Faction(*player.DeckFaction)
+}
+
+func (game Game) GetOpponent(playerID string) *GamePlayer {
+	player := game.Players[0]
+	if player.PlayerID == playerID {
+		player = game.Players[1]
+	}
+	return &player
+}
+
+func (game Game) DidOpen(playerID string) bool {
+	if game.StartingPlayer == nil {
+		return false
+	}
+	return fmt.Sprintf("%d", *game.StartingPlayer) == playerID
 }
 
 func GetFactionStats(playerID string, faction enums.Faction, games []Game) FactionGameStats {
