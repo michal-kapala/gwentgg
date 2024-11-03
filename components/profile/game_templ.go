@@ -9,13 +9,13 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
+	"fmt"
 	"gwentgg/components/colors"
 	"gwentgg/components/fonts"
 	"gwentgg/db/models"
 	"gwentgg/enums"
 	"gwentgg/utils"
 
-	"fmt"
 	tmpl "github.com/a-h/templ"
 )
 
