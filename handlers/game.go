@@ -23,6 +23,6 @@ func GameHandler(c fiber.Ctx) error {
 	}
 	if player.PlayerID != playerID || game.ID != gameID {
 		return c.SendStatus(404)
-	}	
+	}
 	return Render(c, pages.Game(&game, &player))
 }

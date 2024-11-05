@@ -8,6 +8,8 @@ import (
 	"gwentgg/db/models"
 	"gwentgg/services/cards"
 	"gwentgg/services/games"
+	"math"
+	"time"
 
 	"github.com/gofiber/fiber/v3"
 	"gorm.io/gorm"
@@ -26,7 +28,9 @@ func PlayerHandler(c fiber.Ctx) error {
 
 	var card models.CardDefinition
 	database.First(&card)
-	if card.ID == "" {
+	// new season - BC patch available
+	stale := time.Now().Month() != card.UpdatedAt.Month()
+	if card.ID == "" || stale {
 		fmt.Println("Fetching card definitions...")
 		resp, err := cards.Get(cfg, token)
 		if err != nil {
@@ -42,7 +46,21 @@ func PlayerHandler(c fiber.Ctx) error {
 			fmt.Println(err)
 			return c.Status(fiber.StatusInternalServerError).SendString("Card data transformation error, see server log for details.")
 		}
-		database.CreateInBatches(&cardDefs, 250)
+		chunkSize := 250
+		chunks := int(math.Ceil(float64(len(cardDefs)) / float64(chunkSize)))
+		if stale {
+			var chunk []models.CardDefinition
+			for idx := 0; idx < chunks; idx++ {
+				if idx == chunks-1 {
+					chunk = cardDefs[idx*chunkSize:]
+				} else {
+					chunk = cardDefs[idx*chunkSize : (idx+1)*chunkSize]
+				}
+				database.Omit("name").Save(&chunk)
+			}
+		} else {
+			database.CreateInBatches(&cardDefs, chunkSize)
+		}
 	}
 
 	resp, err := games.GetPage(cfg, token, 1)
