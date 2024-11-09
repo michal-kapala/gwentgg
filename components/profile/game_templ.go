@@ -549,9 +549,9 @@ func LeaderIcon(player *models.GamePlayer) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var34 string
-		templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(utils.MakeLeaderAssetPath(player))
+		templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(player.MakeLeaderAssetPath())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/profile/game.templ`, Line: 88, Col: 46}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/profile/game.templ`, Line: 88, Col: 41}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var34))
 		if templ_7745c5c3_Err != nil {
@@ -1401,7 +1401,7 @@ func playerInfoWrapper() templ.CSSClass {
 	}
 }
 
-func PlayerInfo(game *models.Game, player *models.GamePlayer) templ.Component {
+func PlayerInfo(game *models.Game, player *models.GamePlayer, won bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -1448,11 +1448,11 @@ func PlayerInfo(game *models.Game, player *models.GamePlayer) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = PlayerDetails(game, player, *game.Winner == player.PlayerID).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = PlayerDetails(game, player, won).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = RoundScores(game, player, *game.Winner == player.PlayerID, utils.SplitCsv(player.RoundScores), utils.CsvToBools(player.RoundsWon), false).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = RoundScores(game, player, won, utils.SplitCsv(player.RoundScores), utils.CsvToBools(player.RoundsWon), false).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -1477,7 +1477,7 @@ func opponentInfoWrapper() templ.CSSClass {
 	}
 }
 
-func OpponentInfo(game *models.Game, opponent *models.GamePlayer) templ.Component {
+func OpponentInfo(game *models.Game, opponent *models.GamePlayer, won bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -1520,11 +1520,11 @@ func OpponentInfo(game *models.Game, opponent *models.GamePlayer) templ.Componen
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = RoundScores(game, opponent, *game.Winner == opponent.PlayerID, utils.SplitCsv(opponent.RoundScores), utils.CsvToBools(opponent.RoundsWon), true).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = RoundScores(game, opponent, won, utils.SplitCsv(opponent.RoundScores), utils.CsvToBools(opponent.RoundsWon), true).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = PlayerDetails(game, opponent, *game.Winner != opponent.PlayerID).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = PlayerDetails(game, opponent, won).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -1662,11 +1662,11 @@ func GameInfo(game *models.Game, player *models.GamePlayer) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = PlayerInfo(game, player).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = PlayerInfo(game, player, true).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = OpponentInfo(game, game.GetOpponent(player.PlayerID)).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = OpponentInfo(game, game.GetOpponent(player.PlayerID), true).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -1737,11 +1737,11 @@ func GameInfo(game *models.Game, player *models.GamePlayer) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = PlayerInfo(game, player).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = PlayerInfo(game, player, true).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = OpponentInfo(game, game.GetOpponent(player.PlayerID)).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = OpponentInfo(game, game.GetOpponent(player.PlayerID), true).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -1776,11 +1776,11 @@ func GameInfo(game *models.Game, player *models.GamePlayer) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = PlayerInfo(game, player).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = PlayerInfo(game, player, false).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = OpponentInfo(game, game.GetOpponent(player.PlayerID)).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = OpponentInfo(game, game.GetOpponent(player.PlayerID), false).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

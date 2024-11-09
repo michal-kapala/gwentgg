@@ -2,7 +2,6 @@ package utils
 
 import (
 	"fmt"
-	"gwentgg/db/models"
 	"math"
 	"strconv"
 	"strings"
@@ -59,11 +58,7 @@ func RelativeTime(date time.Time) string {
 	return fmt.Sprintf(fmtStr, years)
 }
 
-func MakeLeaderAssetPath(player *models.GamePlayer) string {
-	return fmt.Sprintf("/assets/leaders/%d.png", player.Deck.Leader)
-}
-
-func SplitCsv(csv string) []string { 
+func SplitCsv(csv string) []string {
 	return strings.Split(csv, ",")
 }
 

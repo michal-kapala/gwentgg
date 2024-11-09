@@ -1,0 +1,16 @@
+package deck
+
+import (
+  "gwentgg/db/models"
+)
+
+css deckWrapper() {
+  display: flex;
+  flex-direction: column;
+}
+
+templ Deck(player *models.GamePlayer, deck *models.DeckView) {
+  <div class={ deckWrapper() }>
+    @Leader(player, deck)
+  </div>
+}

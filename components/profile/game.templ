@@ -85,7 +85,7 @@ css leaderIconWrapper() {
 }
 
 templ LeaderIcon(player *models.GamePlayer) {
-  <img src={ utils.MakeLeaderAssetPath(player) } class={ leaderIconWrapper() }>
+  <img src={ player.MakeLeaderAssetPath() } class={ leaderIconWrapper() }>
 }
 
 css gg() {
@@ -230,11 +230,11 @@ css playerInfoWrapper() {
   width: 100%;
 }
 
-templ PlayerInfo(game *models.Game, player *models.GamePlayer) {
+templ PlayerInfo(game *models.Game, player *models.GamePlayer, won bool) {
   <div class={ playerInfoWrapper() }>
     @LeaderIcon(player)
-    @PlayerDetails(game, player, *game.Winner == player.PlayerID)
-    @RoundScores(game, player, *game.Winner == player.PlayerID, utils.SplitCsv(player.RoundScores), utils.CsvToBools(player.RoundsWon), false)
+    @PlayerDetails(game, player, won)
+    @RoundScores(game, player, won, utils.SplitCsv(player.RoundScores), utils.CsvToBools(player.RoundsWon), false)
   </div>
 }
 
@@ -245,10 +245,10 @@ css opponentInfoWrapper() {
   width: 100%;
 }
 
-templ OpponentInfo(game *models.Game, opponent *models.GamePlayer) {
+templ OpponentInfo(game *models.Game, opponent *models.GamePlayer, won bool) {
   <div class={ opponentInfoWrapper() }>
-    @RoundScores(game, opponent, *game.Winner == opponent.PlayerID, utils.SplitCsv(opponent.RoundScores), utils.CsvToBools(opponent.RoundsWon), true)
-    @PlayerDetails(game, opponent, *game.Winner != opponent.PlayerID)
+    @RoundScores(game, opponent, won, utils.SplitCsv(opponent.RoundScores), utils.CsvToBools(opponent.RoundsWon), true)
+    @PlayerDetails(game, opponent, won)
     @LeaderIcon(opponent)
   </div>
 }
@@ -276,8 +276,8 @@ templ GameInfo(game *models.Game, player *models.GamePlayer) {
     case enums.Draw:
       <div class={ gameInfoWrapper(), colors.BackgroundDarkBrown() }>
         @GeneralGameInfo(game, player)
-        @PlayerInfo(game, player)
-        @OpponentInfo(game, game.GetOpponent(player.PlayerID))
+        @PlayerInfo(game, player, true)
+        @OpponentInfo(game, game.GetOpponent(player.PlayerID), true)
       </div>
     case enums.NotStarted:
       <div class={ gameInfoWrapper(), colors.BackgroundDarkGray() }>
@@ -288,14 +288,14 @@ templ GameInfo(game *models.Game, player *models.GamePlayer) {
       if *game.Winner == player.PlayerID {
         <div class={ gameInfoWrapper(), colors.BackgroundDarkGreen() }>
           @GeneralGameInfo(game, player)
-          @PlayerInfo(game, player)
-          @OpponentInfo(game, game.GetOpponent(player.PlayerID))
+          @PlayerInfo(game, player, true)
+          @OpponentInfo(game, game.GetOpponent(player.PlayerID), true)
         </div>
       } else {
         <div class={ gameInfoWrapper(), colors.BackgroundDarkRed() }>
           @GeneralGameInfo(game, player)
-          @PlayerInfo(game, player)
-          @OpponentInfo(game, game.GetOpponent(player.PlayerID))
+          @PlayerInfo(game, player, false)
+          @OpponentInfo(game, game.GetOpponent(player.PlayerID), false)
         </div>
       }
   }

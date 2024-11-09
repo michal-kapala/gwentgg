@@ -12,10 +12,11 @@ import (
 	"gwentgg/components/colors"
 	"gwentgg/components/common"
 	"gwentgg/components/fonts"
+	"gwentgg/components/game/deck"
 	"gwentgg/db/models"
 )
 
-func Game(game *models.Game, player *models.GamePlayer) templ.Component {
+func Game(game *models.Game, player *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -43,7 +44,7 @@ func Game(game *models.Game, player *models.GamePlayer) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(game.ID)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/game.templ`, Line: 14, Col: 24}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/game.templ`, Line: 15, Col: 24}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -100,13 +101,21 @@ func Game(game *models.Game, player *models.GamePlayer) templ.Component {
 		var templ_7745c5c3_Var7 string
 		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(game.ID)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/game.templ`, Line: 36, Col: 47}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/game.templ`, Line: 37, Col: 47}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></body><script>\r\n\t\t\t// button hovers\r\n\t\t\tfunction handleMouseOver(event) {\r\n\t\t\t\tif (\r\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\r\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\r\n\t\t\t\t) {\r\n\t\t\t\t\tevent.target.style.opacity = \"1\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tfunction handleMouseOut(event) {\r\n\t\t\t\tif (\r\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\r\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\r\n\t\t\t\t) {\r\n\t\t\t\t\tevent.target.style.opacity = \"0.8\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst submitButtons = document.querySelectorAll('input[type=\"submit\"]');\r\n\t\t\t\tsubmitButtons.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t});\r\n\t\t\t});\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst links = document.querySelectorAll('a');\r\n\t\t\t\tlinks.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t\tArray.from(targetElement.children).forEach(function(child) {\r\n\t\t\t\t\t\tchild.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\t\tchild.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t\t})\r\n\t\t\t\t});\r\n\t\t\t});\r\n\t\t</script></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = deck.Deck(player, playerDeck).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</body><script>\r\n\t\t\t// button hovers\r\n\t\t\tfunction handleMouseOver(event) {\r\n\t\t\t\tif (\r\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\r\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\r\n\t\t\t\t) {\r\n\t\t\t\t\tevent.target.style.opacity = \"1\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tfunction handleMouseOut(event) {\r\n\t\t\t\tif (\r\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\r\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\r\n\t\t\t\t) {\r\n\t\t\t\t\tevent.target.style.opacity = \"0.8\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst submitButtons = document.querySelectorAll('input[type=\"submit\"]');\r\n\t\t\t\tsubmitButtons.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t});\r\n\t\t\t});\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst links = document.querySelectorAll('a');\r\n\t\t\t\tlinks.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t\tArray.from(targetElement.children).forEach(function(child) {\r\n\t\t\t\t\t\tchild.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\t\tchild.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t\t})\r\n\t\t\t\t});\r\n\t\t\t});\r\n\t\t</script></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

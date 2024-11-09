@@ -2,8 +2,8 @@ package models
 
 import (
 	"fmt"
-	"time"
 	"gwentgg/enums"
+	"time"
 
 	"gorm.io/gorm"
 )
@@ -42,11 +42,10 @@ func (game Game) GetPlayerFaction(playerID string) enums.Faction {
 }
 
 func (game Game) GetOpponent(playerID string) *GamePlayer {
-	player := game.Players[0]
-	if player.PlayerID == playerID {
-		player = game.Players[1]
+	if game.Players[0].PlayerID == playerID {
+		return &game.Players[1]
 	}
-	return &player
+	return &game.Players[0]
 }
 
 func (game Game) DidOpen(playerID string) bool {

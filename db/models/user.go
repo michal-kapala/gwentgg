@@ -60,10 +60,8 @@ func (user User) WinrateStr(precision uint) string {
 }
 
 func (user User) PlayerFromGame(game Game) *GamePlayer {
-	player := game.Players[0]
-	if player.PlayerID == user.ID {
-		return &player
+	if game.Players[0].PlayerID == user.ID {
+		return &game.Players[0]
 	}
-	player = game.Players[1]
-	return &player
+	return &game.Players[1]
 }

@@ -1,13 +1,14 @@
 package pages
 
 import (
-  "gwentgg/components/colors"
-  "gwentgg/components/common"
-  "gwentgg/components/fonts"
-  "gwentgg/db/models"
+	"gwentgg/components/colors"
+	"gwentgg/components/common"
+	"gwentgg/components/fonts"
+	"gwentgg/components/game/deck"
+	"gwentgg/db/models"
 )
 
-templ Game(game *models.Game, player *models.GamePlayer) {
+templ Game(game *models.Game, player *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView) {
   <!DOCTYPE html>
   <html>
 		<head>
@@ -34,6 +35,7 @@ templ Game(game *models.Game, player *models.GamePlayer) {
 		</head>
 		<body class={ common.Body(), colors.PrimaryBg() }>
 			<div class={ fonts.FontRegular() }>{ game.ID }</div>
+			@deck.Deck(player, playerDeck)
 		</body>
 		<script>
 			// button hovers
