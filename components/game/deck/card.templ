@@ -1,0 +1,66 @@
+package deck
+
+import (
+  "fmt"
+  "gwentgg/db/models"
+	"gwentgg/enums"
+  tmpl "github.com/a-h/templ"
+)
+
+css cardWrapper(bg string) {
+  display: flex;
+  flex-direction: row;
+  flex: 0 0 100%;
+  position: relative;
+  outline: none;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 400px;
+  min-height: 50px;
+  max-height: 50px;
+  background-image: { bg };
+  background-size: 100%, 100%;
+  background-position: left center, 100% center;
+  background-repeat: no-repeat, no-repeat;
+}
+
+css cardBorder(border string) {
+  display: flex;
+  flex-flow: wrap;
+  flex: 0 0 100%;
+  width: 100%;
+  min-height: 50px;
+  box-sizing: border-box;
+  border-width: 5px 8px;
+  border-style: solid;
+  border-image-slice: 5 8 fill;
+  border-image-outset: 0;
+  border-image-repeat: round;
+  border-image-source: { tmpl.SafeCSSProperty(border) };
+}
+
+css cardPower() {
+  width: 30px;
+  height: 30px;
+}
+
+templ Card(deckCard *models.DeckCard) {
+  <div class={ cardWrapper(fmt.Sprintf("url(/assets/thumbnails/bg/mask.png), url(/assets/thumbnails/cards/%s.jpg)", deckCard.Card.TemplateID)) }>
+    if deckCard.Card.CardGroup == enums.Gold {
+      <div class={ cardBorder("url(/assets/thumbnails/frames/golden-frame.png)") }>
+        @Power(&deckCard.Card)
+        @Provision(deckCard.Card.ProvisionCost)
+        @Name(deckCard.Card.Name)
+      </div>
+    } else {
+      <div class={ cardBorder("url(/assets/thumbnails/frames/bronze-frame.png)") }>
+        @Power(&deckCard.Card)
+        @Provision(deckCard.Card.ProvisionCost)
+        @Name(deckCard.Card.Name)
+      </div>
+    }
+    if deckCard.Copies > 1 {
+      @Copies(deckCard.Copies)
+    }
+  </div>
+}

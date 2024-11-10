@@ -8,23 +8,25 @@ package deck
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import (
-	"gwentgg/db/models"
-)
-
-func deckWrapper() templ.CSSClass {
+func nameWrapper() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
 	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`flex-direction:column;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`min-width:400px;`)
-	templ_7745c5c3_CSSID := templ.CSSID(`deckWrapper`, templ_7745c5c3_CSSBuilder.String())
+	templ_7745c5c3_CSSBuilder.WriteString(`-moz-box-align:center;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`align-items:center;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`font-size:16px;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`font-family:HalisGR-Regular, sans-serif;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`color:white;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:-2px 5px 0px 10px;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`text-shadow:rgba(0, 0, 0, 0.57) 0px 1px 3px;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`padding:0;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`nameWrapper`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
 		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
 	}
 }
 
-func Deck(player *models.GamePlayer, deck *models.DeckView) templ.Component {
+func Name(name string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -45,7 +47,7 @@ func Deck(player *models.GamePlayer, deck *models.DeckView) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var2 = []any{deckWrapper()}
+		var templ_7745c5c3_Var2 = []any{nameWrapper()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -57,7 +59,7 @@ func Deck(player *models.GamePlayer, deck *models.DeckView) templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var2).String())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/deck/deck.templ`, Line: 1, Col: 0}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/deck/name.templ`, Line: 1, Col: 0}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -67,19 +69,14 @@ func Deck(player *models.GamePlayer, deck *models.DeckView) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = Leader(player, deck).Render(ctx, templ_7745c5c3_Buffer)
+		var templ_7745c5c3_Var4 string
+		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(name)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/deck/name.templ`, Line: 17, Col: 10}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = Stratagem(&deck.Stratagem).Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		for _, card := range deck.Deck {
-			templ_7745c5c3_Err = Card(&card).Render(ctx, templ_7745c5c3_Buffer)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
 		if templ_7745c5c3_Err != nil {

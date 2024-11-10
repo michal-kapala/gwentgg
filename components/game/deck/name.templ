@@ -1,0 +1,19 @@
+package deck
+
+css nameWrapper() {
+  display: flex;
+  -moz-box-align: center;
+  align-items: center;
+  font-size: 16px;
+  font-family: HalisGR-Regular, sans-serif;
+  color: white;
+  margin: -2px 5px 0px 10px;
+  text-shadow: rgba(0, 0, 0, 0.57) 0px 1px 3px;
+  padding: 0;
+}
+
+templ Name(name string) {
+  <div class={ nameWrapper() }>
+    { name }
+  </div>
+}

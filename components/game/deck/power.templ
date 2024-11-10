@@ -1,0 +1,48 @@
+package deck
+
+import (
+  "gwentgg/components/fonts"
+  "gwentgg/db/models"
+	"gwentgg/enums"
+	"gwentgg/utils"
+)
+
+css powerWrapper() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  margin: 0px 6px;
+  color: white;
+}
+
+css starIcon() {
+  width: 30px;
+  height: 30px;
+}
+
+css powerText() {
+  display: flex;
+  color: rgb(204, 204, 204);
+  margin-bottom: 0px;
+  background-image: linear-gradient(rgb(225, 225, 225), rgb(204, 204, 204));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  font-size: 32px;
+  margin: 0px;
+}
+
+templ Power(card *models.CardDefinition) {
+  <div class={ powerWrapper() }>
+    if card.Type == enums.Special || card.Type == enums.Artifact {
+      if card.CardGroup == enums.Gold {
+        <img src="/assets/thumbnails/icons/golden-star.png" class={ starIcon() }>
+      } else {
+        <img src="/assets/thumbnails/icons/bronze-star.png" class={ starIcon() }>
+      }
+    } else {
+      <p class={ powerText(), fonts.FontGwent() }>{ utils.ToString(card.Power) }</p>
+    }
+  </div>
+}

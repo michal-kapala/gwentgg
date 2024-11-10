@@ -27,5 +27,10 @@ func (deck Deck) Parse() []string {
 type DeckView struct {
 	Leader    CardDefinition
 	Stratagem CardDefinition
-	Deck      []CardDefinition
+	Deck      []DeckCard
+}
+
+type DeckCard struct {
+	Card   CardDefinition
+	Copies uint
 }

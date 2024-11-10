@@ -1,0 +1,45 @@
+package game
+
+import (
+  "gwentgg/components/colors"
+  "gwentgg/components/fonts"
+  "gwentgg/components/game/deck"
+  "gwentgg/db/models"
+)
+
+css decksWrapper() {
+  display: flex;
+  flex-direction: column;
+}
+
+css sectionHeader() {
+  display: flex;
+  justify-content: center;
+  font-size: 40px;
+}
+
+css decksContainer() {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+css deckContainer() {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+templ Decks(player *models.GamePlayer, opponent *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView) {
+  <section class={ decksWrapper() }>
+    <h1 class={ sectionHeader(), fonts.FontGwent(), colors.HighlightGray() }>Decks</h1>
+    <div class={ decksContainer() }>
+      <div class={ deckContainer() }>
+        @deck.Deck(player, playerDeck)
+      </div>
+      <div class={ deckContainer() }>
+        @deck.Deck(opponent, opponentDeck)
+      </div>
+    </div>
+  </section>
+}

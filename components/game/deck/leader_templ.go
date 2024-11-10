@@ -23,6 +23,7 @@ func leaderWrapper(bg string) templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`flex:0 0 100%;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`max-width:392px;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`min-height:56px;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`max-height:56px;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`position:relative;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`background-size:auto 100%, auto 100%;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`background-repeat:no-repeat, no-repeat;`)
@@ -37,7 +38,6 @@ func leaderWrapper(bg string) templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`border-image-outset:0;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`border-image-repeat:round;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`border-image-source:url(/assets/thumbnails/frames/leader-frame.png);`)
-	templ_7745c5c3_CSSBuilder.WriteString(`margin-left:10px;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`leaderWrapper`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
@@ -62,6 +62,7 @@ func leaderName() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
 	templ_7745c5c3_CSSBuilder.WriteString(`color:white;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`font-size:20px;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`font-weight:400;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`margin-left:80px;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`leaderName`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
@@ -148,7 +149,7 @@ func Mulligan(provision uint) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", provision))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/deck/leader.templ`, Line: 69, Col: 34}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/deck/leader.templ`, Line: 70, Col: 34}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -217,7 +218,7 @@ func Leader(player *models.GamePlayer, deck *models.DeckView) templ.Component {
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(player.MakeLeaderAssetPath())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/deck/leader.templ`, Line: 75, Col: 43}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/deck/leader.templ`, Line: 76, Col: 43}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
@@ -265,7 +266,7 @@ func Leader(player *models.GamePlayer, deck *models.DeckView) templ.Component {
 		var templ_7745c5c3_Var13 string
 		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(deck.Leader.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/deck/leader.templ`, Line: 76, Col: 68}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/deck/leader.templ`, Line: 77, Col: 68}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 		if templ_7745c5c3_Err != nil {

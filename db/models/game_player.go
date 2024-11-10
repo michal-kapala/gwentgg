@@ -12,9 +12,9 @@ type GamePlayer struct {
 	Rank                 uint
 	MMR                  uint
 	PlayedCards          string
-	CardActions          []CardAction `gorm:"foreignKey:GameID,PlayerID"`
+	CardActions          []CardAction `gorm:"foreignKey:PlayerID,GameID"`
 	TrackedActionFilters string
-	Deck                 Deck `gorm:"foreignKey:GameID,PlayerID"`
+	Deck                 Deck `gorm:"foreignKey:PlayerID,GameID"`
 	CoinsBalance         uint
 	CoinsSpent           uint
 	Status               enums.PlayerStatus

@@ -1,0 +1,63 @@
+package deck
+
+import (
+  "fmt"
+  "gwentgg/db/models"
+)
+
+css stratagemWrapper(bg string) {
+  display: flex;
+  flex-flow: wrap;
+  flex: 0 0 100%;
+  position: relative;
+  outline: none;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 400px;
+  min-height: 50px;
+  max-height: 50px;
+  background-image: { bg };
+  background-size: 100%, 100%;
+  background-position: left center, 100% center;
+  background-repeat: no-repeat, no-repeat;
+  margin-bottom: 10px;
+}
+
+css stratagemIconWrapper() {
+  display: flex;
+  align-items: center;
+  margin-left: 2px;
+  margin-right: 5px;
+}
+
+css stratagemIcon() {
+  width: 30px;
+  height: 30px;
+}
+
+css stratagemBorder() {
+  display: flex;
+  flex-flow: wrap;
+  flex: 0 0 100%;
+  width: 100%;
+  min-height: 50px;
+  box-sizing: border-box;
+  border-width: 5px 14px;
+  border-style: solid;
+  border-image-slice: 5 14 fill;
+  border-image-outset: 0;
+  border-image-repeat: round;
+  border-image-source: url(/assets/thumbnails/frames/leader-frame.png);
+}
+
+templ Stratagem(stratagem *models.CardDefinition) {
+  <div class={ stratagemWrapper( fmt.Sprintf("url(/assets/thumbnails/bg/mask.png), url(/assets/thumbnails/cards/%s.jpg)", stratagem.TemplateID)) }>
+    <div class={ stratagemBorder() }>
+      <div class={ stratagemIconWrapper() }>
+        <img src="/assets/thumbnails/icons/stratagem-gold-icon.png" class={ stratagemIcon() }>
+      </div>
+      @Provision(stratagem.ProvisionCost)
+      @Name(stratagem.Name)
+    </div>
+  </div>
+}
