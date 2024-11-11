@@ -25,7 +25,7 @@ func RelativeTime(date time.Time) string {
 	now := time.Now()
 	diff := now.Sub(date)
 	minutes := uint(math.Round(diff.Minutes()))
-	fmtStr := "%dmin ago"
+	fmtStr := "%d min ago"
 	if minutes < 60 {
 		return fmt.Sprintf(fmtStr, minutes)
 	}

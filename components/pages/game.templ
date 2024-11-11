@@ -37,45 +37,5 @@ templ Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePl
 			<div class={ fonts.FontRegular() }>{ game.ID }</div>
 			@gameView.Decks(player, opponent, playerDeck, opponentDeck)
 		</body>
-		<script>
-			// button hovers
-			function handleMouseOver(event) {
-				if (
-					(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||
-					event.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'
-				) {
-					event.target.style.opacity = "1";
-				}
-			}
-
-			function handleMouseOut(event) {
-				if (
-					(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||
-					event.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'
-				) {
-					event.target.style.opacity = "0.8";
-				}
-			}
-
-			document.addEventListener("DOMContentLoaded", function() {
-				const submitButtons = document.querySelectorAll('input[type="submit"]');
-				submitButtons.forEach(function(targetElement) {
-					targetElement.addEventListener('mouseover', handleMouseOver);
-					targetElement.addEventListener('mouseout', handleMouseOut);
-				});
-			});
-
-			document.addEventListener("DOMContentLoaded", function() {
-				const links = document.querySelectorAll('a');
-				links.forEach(function(targetElement) {
-					targetElement.addEventListener('mouseover', handleMouseOver);
-					targetElement.addEventListener('mouseout', handleMouseOut);
-					Array.from(targetElement.children).forEach(function(child) {
-						child.addEventListener('mouseover', handleMouseOver);
-						child.addEventListener('mouseout', handleMouseOut);
-					})
-				});
-			});
-		</script>
 	</html>
 }

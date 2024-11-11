@@ -22,6 +22,7 @@ css cardWrapper(bg string) {
   background-size: 100%, 100%;
   background-position: left center, 100% center;
   background-repeat: no-repeat, no-repeat;
+  text-decoration: none;
 }
 
 css cardBorder(border string) {
@@ -45,7 +46,7 @@ css cardPower() {
 }
 
 templ Card(deckCard *models.DeckCard) {
-  <div class={ cardWrapper(fmt.Sprintf("url(/assets/thumbnails/bg/mask.png), url(/assets/thumbnails/cards/%s.jpg)", deckCard.Card.TemplateID)) }>
+  <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", deckCard.Card.TemplateID)) } class={ cardWrapper(fmt.Sprintf("url(/assets/thumbnails/bg/mask.png), url(/assets/thumbnails/cards/%s.jpg)", deckCard.Card.TemplateID)) }>
     if deckCard.Card.CardGroup == enums.Gold {
       <div class={ cardBorder("url(/assets/thumbnails/frames/golden-frame.png)") }>
         @Power(&deckCard.Card)
@@ -62,5 +63,5 @@ templ Card(deckCard *models.DeckCard) {
     if deckCard.Copies > 1 {
       @Copies(deckCard.Copies)
     }
-  </div>
+  </a>
 }

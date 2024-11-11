@@ -4,6 +4,7 @@ import (
   "fmt"
   "gwentgg/components/fonts"
   "gwentgg/db/models"
+  tmpl "github.com/a-h/templ"
 )
 
 css leaderWrapper(bg string) {
@@ -29,6 +30,7 @@ css leaderWrapper(bg string) {
   border-image-outset: 0;
   border-image-repeat: round;
   border-image-source: url(/assets/thumbnails/frames/leader-frame.png);
+  text-decoration: none;
 }
 
 css abilityWrapper() {
@@ -72,9 +74,9 @@ templ Mulligan(provision uint) {
 }
 
 templ Leader(player *models.GamePlayer, deck *models.DeckView) {
-  <div class={ leaderWrapper(fmt.Sprintf("url(/assets/thumbnails/bg/mask.png), url(/assets/thumbnails/bg/%s)", player.MakeLeaderBgAsset())) }>
+  <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", deck.Leader.TemplateID)) } class={ leaderWrapper(fmt.Sprintf("url(/assets/thumbnails/bg/mask.png), url(/assets/thumbnails/bg/%s)", player.MakeLeaderBgAsset())) }>
     <img src={ player.MakeLeaderAssetPath()} class={ abilityWrapper() }>
     <h1 class={ leaderName(), fonts.FontGwent() }>{ deck.Leader.Name }</h1>
     @Mulligan(deck.Leader.ProvisionCost)
-  </div>
+  </a>
 }
