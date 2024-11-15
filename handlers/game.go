@@ -1,9 +1,12 @@
 package handlers
 
 import (
+	"fmt"
 	"gwentgg/components/pages"
+	"gwentgg/config"
 	"gwentgg/db"
 	"gwentgg/db/models"
+	"gwentgg/services/stats"
 
 	"github.com/gofiber/fiber/v3"
 	"strings"
@@ -59,5 +62,30 @@ func GameHandler(c fiber.Ctx) error {
 	if player.PlayerID != playerID || game.ID != gameID {
 		return c.SendStatus(404)
 	}
-	return Render(c, pages.Game(&game, &player, &opponent, &playerDeck, &opponentDeck))
+
+	playerUser := models.User{}
+	database.First(&playerUser, "id = ?", playerID)
+	token := c.Cookies("access_token", "")
+	season := c.Cookies("current_season", "")
+	oppInfoResp, err := stats.Get(config.Get(c), opponent.PlayerID, token, season)
+
+	if err != nil {
+		fmt.Println(err)
+		return c.Status(fiber.StatusInternalServerError).SendString("Opponent info request error, see server log for details.")
+	}
+
+	if token == "" || oppInfoResp.Status() != "200 OK" {
+		return c.Redirect().To("/login")
+	}
+
+	opponentStats := oppInfoResp.Result().(*stats.RankedStats)
+	opponentUser, err := opponentStats.ToModel()
+	if err != nil {
+		fmt.Println(err)
+		return c.Status(fiber.StatusInternalServerError).SendString("Failed to save opponent data.")
+	}
+	db.ResetPlayerStats(database, opponent.PlayerID)
+	database.Save(&opponentUser)
+
+	return Render(c, pages.Game(&game, &player, &opponent, &playerDeck, &opponentDeck, &playerUser, &opponentUser))
 }

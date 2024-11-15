@@ -3,16 +3,16 @@ package pages
 import (
 	"gwentgg/components/colors"
 	"gwentgg/components/common"
-	"gwentgg/components/fonts"
 	gameView "gwentgg/components/game"
 	"gwentgg/db/models"
 )
 
-templ Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView) {
+templ Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView, playerUser *models.User, opponentUser *models.User) {
   <!DOCTYPE html>
   <html>
 		<head>
 			<title>Game { game.ID } | Gwent.gg</title>
+			<meta charset="UTF-8">
 			<link rel="icon" type="image/x-icon" href="/assets/favicon.png">
 			<style>
 				@font-face {
@@ -34,7 +34,7 @@ templ Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePl
 			</style>
 		</head>
 		<body class={ common.Body(), colors.PrimaryBg() }>
-			<div class={ fonts.FontRegular() }>{ game.ID }</div>
+			@gameView.Header(game, player, playerUser, opponentUser)
 			@gameView.Decks(player, opponent, playerDeck, opponentDeck)
 		</body>
 	</html>

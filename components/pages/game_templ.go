@@ -11,12 +11,11 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"gwentgg/components/colors"
 	"gwentgg/components/common"
-	"gwentgg/components/fonts"
 	gameView "gwentgg/components/game"
 	"gwentgg/db/models"
 )
 
-func Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView) templ.Component {
+func Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView, playerUser *models.User, opponentUser *models.User) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -44,13 +43,13 @@ func Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePla
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(game.ID)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/game.templ`, Line: 15, Col: 24}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/game.templ`, Line: 14, Col: 24}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" | Gwent.gg</title><link rel=\"icon\" type=\"image/x-icon\" href=\"/assets/favicon.png\"><style>\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'GWENT';\r\n\t\t\t\t\tsrc: url('/assets/hinted-GWENT-ExtraBold.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Regular';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Regular.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Medium';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Medium.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Bold';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Bold.ttf');\r\n        }\r\n\t\t\t</style></head>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" | Gwent.gg</title><meta charset=\"UTF-8\"><link rel=\"icon\" type=\"image/x-icon\" href=\"/assets/favicon.png\"><style>\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'GWENT';\r\n\t\t\t\t\tsrc: url('/assets/hinted-GWENT-ExtraBold.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Regular';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Regular.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Medium';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Medium.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Bold';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Bold.ttf');\r\n        }\r\n\t\t\t</style></head>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -76,38 +75,7 @@ func Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePla
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var5 = []any{fonts.FontRegular()}
-		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var5...)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var6 string
-		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var5).String())
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/game.templ`, Line: 1, Col: 0}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var7 string
-		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(game.ID)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/game.templ`, Line: 37, Col: 47}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
+		templ_7745c5c3_Err = gameView.Header(game, player, playerUser, opponentUser).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

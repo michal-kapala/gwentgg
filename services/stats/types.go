@@ -95,8 +95,8 @@ type Paragon struct {
 }
 
 type RankProgression struct {
-	MosaicPieceCount int `json:"mosaic_piece_count"`
-	Rank             int `json:"rank"`
+	MosaicPieceCount float64 `json:"mosaic_piece_count"`
+	Rank             int     `json:"rank"`
 }
 
 type Rating struct {

@@ -49,7 +49,7 @@ func PlayerProfile(user *models.User, games []models.Game, season string) templ.
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" | Gwent.gg</title><link rel=\"icon\" type=\"image/x-icon\" href=\"/assets/favicon.png\"><style>\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'GWENT';\r\n\t\t\t\t\tsrc: url('/assets/hinted-GWENT-ExtraBold.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Regular';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Regular.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Medium';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Medium.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Bold';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Bold.ttf');\r\n        }\r\n\t\t\t</style></head>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" | Gwent.gg</title><meta charset=\"UTF-8\"><link rel=\"icon\" type=\"image/x-icon\" href=\"/assets/favicon.png\"><style>\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'GWENT';\r\n\t\t\t\t\tsrc: url('/assets/hinted-GWENT-ExtraBold.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Regular';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Regular.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Medium';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Medium.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Bold';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Bold.ttf');\r\n        }\r\n\t\t\t</style></head>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

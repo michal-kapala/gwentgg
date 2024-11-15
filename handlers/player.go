@@ -56,7 +56,11 @@ func PlayerHandler(c fiber.Ctx) error {
 				} else {
 					chunk = cardDefs[idx*chunkSize : (idx+1)*chunkSize]
 				}
-				database.Omit("name").Save(&chunk)
+				if card.Name != "" && stale {
+					database.Omit("name").Save(&chunk)
+				} else {
+					database.Save(&chunk)
+				}
 			}
 		} else {
 			database.CreateInBatches(&cardDefs, chunkSize)
