@@ -8,6 +8,7 @@ import (
 	"gwentgg/db/models"
 	"gwentgg/services/cards"
 	"gwentgg/services/games"
+	"gwentgg/services/stats"
 	"math"
 	"time"
 
@@ -19,6 +20,7 @@ import (
 func PlayerHandler(c fiber.Ctx) error {
 	userID := c.Params("user")
 	token := c.Cookies("access_token")
+	seasonID := c.Cookies("current_season", "")
 	expired := c.Cookies("token_expired", "true")
 	if token == "" || expired == "true" {
 		return c.Redirect().To("/login")
@@ -67,40 +69,62 @@ func PlayerHandler(c fiber.Ctx) error {
 		}
 	}
 
-	resp, err := games.GetPage(cfg, token, 1)
-	if err != nil {
-		fmt.Println(err)
-		return c.Status(fiber.StatusInternalServerError).SendString("Latest games request error, see server log for details.")
-	}
-
-	if resp.Status() != "200 OK" {
-		// usually happens on token expiration
-		return c.Redirect().To("/login")
-	}
-
-	latestGames := resp.Result().(*games.GameList)
-	games := []models.Game{}
-
-	for _, game := range latestGames.Items {
-		model, err := game.ToModel()
+	playerGames := []models.Game{}
+	var user models.User
+	isCurrUser := cfg.IsUser(userID)
+	if userID == cfg.UserId {
+		resp, err := games.GetPage(cfg, token, 1)
 		if err != nil {
 			fmt.Println(err)
-			return c.Status(fiber.StatusInternalServerError).SendString("Card data transformation error, see server log for details.")
+			return c.Status(fiber.StatusInternalServerError).SendString("Latest games request error, see server log for details.")
 		}
-		games = append(games, model)
+
+		if resp.Status() != "200 OK" {
+			// usually happens on token expiration
+			return c.Redirect().To("/login")
+		}
+
+		latestGames := resp.Result().(*games.GameList)
+		for _, game := range latestGames.Items {
+			model, err := game.ToModel()
+			if err != nil {
+				fmt.Println(err)
+				return c.Status(fiber.StatusInternalServerError).SendString("Card data transformation error, see server log for details.")
+			}
+			playerGames = append(playerGames, model)
+		}
+
+		database.
+			Session(&gorm.Session{FullSaveAssociations: true}).
+			Clauses(clause.OnConflict{DoNothing: true}).
+			Save(&playerGames)
+
+		database.Preload("FactionStats").Preload("Progressions").First(&user, "id = ?", userID)
+	} else {
+		db.ResetPlayerStats(database, userID)
+		resp, err := stats.Get(cfg, userID, token, seasonID)
+		if err != nil {
+			fmt.Println(err)
+			return c.Status(fiber.StatusInternalServerError).SendString("Ranked stats request error, see server log for details.")
+		}
+	
+		if resp.Status() != "200 OK" {
+			// usually happens on token expiration
+			return c.Redirect().To("/login")
+		}
+
+		rankedStats := resp.Result().(*stats.RankedStats)
+		user, err = rankedStats.ToModel()
+		if err != nil {
+			fmt.Println(err)
+			return c.Status(fiber.StatusInternalServerError).SendString("Failed to save user data.")
+		}
+		database.Save(&user)
 	}
 
-	database.
-		Session(&gorm.Session{FullSaveAssociations: true}).
-		Clauses(clause.OnConflict{DoNothing: true}).
-		Save(&games)
-
-	var user models.User
-	database.Preload("FactionStats").Preload("Progressions").First(&user, "id = ?", userID)
-	seasonID := c.Cookies("current_season", "")
-	season := db.GetSeasonName(database, seasonID)
 	if user.ID == "" {
 		return Render(c, pages.NotFound())
 	}
-	return Render(c, pages.PlayerProfile(&user, games, season))
+	season := db.GetSeasonName(database, seasonID)
+	return Render(c, pages.PlayerProfile(&user, playerGames, season, isCurrUser))
 }

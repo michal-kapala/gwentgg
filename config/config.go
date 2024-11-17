@@ -15,6 +15,10 @@ type Config struct {
 	UserId           string `json:"user_id"`
 }
 
+func (cfg Config) IsUser(userID string) bool {
+	return userID == cfg.UserId
+}
+
 func Load(filePath string) (*Config, error) {
 	file, err := os.Open(filePath)
 	if err != nil {

@@ -18,11 +18,11 @@ css bodyCenter() {
   margin: 0px auto;
 }
 
-templ Body(user *models.User, games []models.Game, season string) {
+templ Body(user *models.User, games []models.Game, season string, currentUser bool) {
   <div class={ bodyWrapper() }>
     <div class={ bodyCenter() }>
       @RankedColumn(user, season)
-      @GamesColumn(user, games)
+      @GamesColumn(user, games, currentUser)
     </div>
   </div>
 }

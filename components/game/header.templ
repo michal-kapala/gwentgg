@@ -1,11 +1,13 @@
 package game
 
 import (
+  "fmt"
   "gwentgg/components/colors"
   "gwentgg/components/fonts"
 	"gwentgg/db/models"
   "gwentgg/enums"
 	"gwentgg/utils"
+  tmpl "github.com/a-h/templ"
 )
 
 css gameTypeWrapper() {
@@ -217,24 +219,23 @@ css playerNameText() {
   align-items: center;
   min-height: 40px;
   font-size: 30px;
+  color: #ddd;
+  text-decoration: none;
 }
 
 css platformText() {
   font-size: 18px;
 }
 
-templ UserInfo(name string, platform string, won bool) {
-  if won {
-    <div class={ userInfoWrapper() }>
-      <span class={ playerNameText(), fonts.FontGwent() }>{ name }</span>
+templ UserInfo(id string, name string, platform string, won bool) {
+  <div class={ userInfoWrapper() }>
+    <a href={ tmpl.SafeURL(fmt.Sprintf("/player/%s", id)) } class={ playerNameText(), fonts.FontGwent() }>{ name }</a>
+    if won {
       <span class={ platformText(), fonts.FontRegular(), colors.HighlightGrayVeryLight() }>{ platform }</span>
-    </div>
-  } else {
-    <div class={ userInfoWrapper() }>
-      <span class={ playerNameText(), fonts.FontGwent() }>{ name }</span>
+    } else {
       <span class={ platformText(), fonts.FontRegular(), colors.HighlightGrayLight() }>{ platform }</span>
-    </div>
-  }
+    }
+  </div>
 }
 
 css playerInfoWrapper() {
@@ -247,7 +248,7 @@ css playerInfoWrapper() {
 templ PlayerInfo(game *models.Game, player *models.GamePlayer, won bool, user *models.User) {
   <div class={ playerInfoWrapper() }>
     @LeaderIcon(player)
-    @UserInfo(user.Username, player.Platform, won)
+    @UserInfo(user.ID, user.Username, player.Platform, won)
     @PlayerDetails(game, player, won)
     @RoundScores(game, player, won, utils.SplitCsv(player.RoundScores), utils.CsvToBools(player.RoundsWon), false)
   </div>
@@ -265,7 +266,7 @@ templ OpponentInfo(game *models.Game, opponent *models.GamePlayer, won bool, use
   <div class={ opponentInfoWrapper() }>
     @RoundScores(game, opponent, won, utils.SplitCsv(opponent.RoundScores), utils.CsvToBools(opponent.RoundsWon), true)
     @PlayerDetails(game, opponent, won)
-    @UserInfo(user.Username, opponent.Platform, won)
+    @UserInfo(user.ID, user.Username, opponent.Platform, won)
     @LeaderIcon(opponent)
   </div>
 }
