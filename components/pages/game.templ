@@ -37,5 +37,27 @@ templ Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePl
 			@gameView.Header(game, player, playerUser, opponentUser)
 			@gameView.Decks(player, opponent, playerDeck, opponentDeck)
 		</body>
+		<script>
+			// name hovers
+			function handleMouseOver(event) {
+				if (event.target.tagName.toLowerCase() === 'a') {
+					event.target.style.color = "white";
+				}
+			}
+
+			function handleMouseOut(event) {
+				if (event.target.tagName.toLowerCase() === 'a') {
+					event.target.style.color = "#ddd";
+				}
+			}
+
+			document.addEventListener("DOMContentLoaded", function() {
+				const links = document.querySelectorAll('a');
+				links.forEach(function(targetElement) {
+					targetElement.addEventListener('mouseover', handleMouseOver);
+					targetElement.addEventListener('mouseout', handleMouseOut);
+				});
+			});
+		</script>
 	</html>
 }
