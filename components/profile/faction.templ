@@ -1,44 +1,44 @@
 package profile
 
 import (
-  "gwentgg/db/models"
-  "gwentgg/enums"
+	"gwentgg/db/models"
+	"gwentgg/enums"
 )
 
 css factionWrapper() {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  color: #aaa;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+	color: #aaa;
 }
 
 css iconWrapper() {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 105px;
-  min-height: 105px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 105px;
+	min-height: 105px;
 }
 
 templ Faction(stats *models.FactionGameStats) {
-  <div class={ factionWrapper() }>
-    <div class={ iconWrapper() }>
-    switch stats.Faction {
-      case enums.Monsters:
-        <img src="/assets/factions/monsters.png" alt={ string(stats.Faction) }>
-      case enums.Nilfgaard:
-        <img src="/assets/factions/nilfgaard.png" alt={ string(stats.Faction) }>
-      case enums.NorthernKingdoms:
-        <img src="/assets/factions/northernrealms.png" alt={ string(stats.Faction) }>
-      case enums.Scoiatael:
-        <img src="/assets/factions/scoiatael.png" alt={ string(stats.Faction) }>
-      case enums.Skellige:
-        <img src="/assets/factions/skellige.png" alt={ string(stats.Faction) }>
-      case enums.Syndicate:
-        <img src="/assets/factions/syndicate.png" alt={ string(stats.Faction) }>
-    }
-    </div>
-    @FactionStats(stats)
-  </div>
+	<div class={ factionWrapper() }>
+		<div class={ iconWrapper() }>
+			switch stats.Faction {
+				case enums.Monsters:
+					<img src="/assets/factions/monsters.png" alt={ string(stats.Faction) }/>
+				case enums.Nilfgaard:
+					<img src="/assets/factions/nilfgaard.png" alt={ string(stats.Faction) }/>
+				case enums.NorthernKingdoms:
+					<img src="/assets/factions/northernrealms.png" alt={ string(stats.Faction) }/>
+				case enums.Scoiatael:
+					<img src="/assets/factions/scoiatael.png" alt={ string(stats.Faction) }/>
+				case enums.Skellige:
+					<img src="/assets/factions/skellige.png" alt={ string(stats.Faction) }/>
+				case enums.Syndicate:
+					<img src="/assets/factions/syndicate.png" alt={ string(stats.Faction) }/>
+			}
+		</div>
+		@FactionStats(stats)
+	</div>
 }

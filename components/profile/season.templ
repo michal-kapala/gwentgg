@@ -1,98 +1,97 @@
 package profile
 
 import (
+	"gwentgg/components/colors"
+	"gwentgg/components/fonts"
 	"gwentgg/db/models"
-  "gwentgg/components/colors"
-  "gwentgg/components/fonts"
 	"gwentgg/utils"
 )
 
 css seasonWrapper() {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0px 0px 4px 4px;
-  border-top: 1px solid #131315;
-  padding: 20px 10px;
-  margin: 0px 0px 8px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	border-radius: 0px 0px 4px 4px;
+	border-top: 1px solid #131315;
+	padding: 20px 10px;
+	margin: 0px 0px 8px;
 }
 
 css seasonName() {
-  font-size: 16px;
-  width: auto;
-  text-align: left;
-  color: #aaa;
+	font-size: 16px;
+	width: auto;
+	text-align: left;
+	color: #aaa;
 }
 
 css seasonWinrate() {
-  display: flex;
-  justify-content: right;
-  font-size: 16px;
-  padding: 6px 0px;
-  width: 100%;
-  margin-right: 6px;
+	display: flex;
+	justify-content: right;
+	font-size: 16px;
+	padding: 6px 0px;
+	width: 100%;
+	margin-right: 6px;
 }
 
 css rankedWinrateWrapper() {
-  display: flex;
-  flex-direction: row;
-  padding: 0px 0px;
+	display: flex;
+	flex-direction: row;
+	padding: 0px 0px;
 }
 
 css rankedWinrateTitle() {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #aaa;
-  font-size: 14px;
-  width: 100%;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	color: #aaa;
+	font-size: 14px;
+	width: 100%;
 }
 
 css rankedMatchResults() {
-  display: flex;
-  flex-direction: row;
-  margin: 0px 0px;
-  color: #aaa;
+	display: flex;
+	flex-direction: row;
+	margin: 0px 0px;
+	color: #aaa;
 }
 
 css rankedMatchResult() {
-  width: 100%;
-  justify-content: center;
-  font-size: 14px;
+	width: 100%;
+	justify-content: center;
+	font-size: 14px;
 }
 
 css rankedStats() {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  text-align: center;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	text-align: center;
 }
 
 templ Season(user *models.User, season string) {
-  <div class={ seasonWrapper(), colors.SecondaryBg() }>
-    @Rank(user.Rank)
-    <div class={ rankedStats() }>
-      <span class={ seasonName(), fonts.FontBold() }>{ season }</span>
-      <div class={ rankedWinrateWrapper() }>
-        <span class={ rankedWinrateTitle(), fonts.FontRegular() }>Winrate</span>
-        if user.Winrate(2) >= 0.0 {
-          if user.Winrate(2) >= 50.0 {
-            <span class={ seasonWinrate(), fonts.FontRegular(), colors.HighlightGreen() }>{ user.WinrateStr(2) }%</span>
-          } else {
-            <span class={ seasonWinrate(), fonts.FontRegular(), colors.HighlightRed() }>{ user.WinrateStr(2) }%</span>
-          }
-        } else {
-          <span class={ seasonWinrate(), fonts.FontRegular(), colors.HighlightGray() }>{ user.WinrateStr(2) }</span>
-        }
-        
-      </div>
-      <div class={ rankedMatchResults(), fonts.FontRegular() }>
-        <span class={ rankedWinrateTitle(), fonts.FontRegular() }>Games</span>
-        <span class={ rankedMatchResult() }>{ utils.ToString(user.WinsCount) } <span class={ colors.HighlightGreen() }>W</span></span>
-        <span class={ rankedMatchResult() }>{ utils.ToString(user.LossesCount) } <span class={ colors.HighlightRed() }>L</span></span>
-        <span class={ rankedMatchResult() }>{ utils.ToString(user.DrawsCount) } <span class={ colors.HighlightBrown() }>D</span></span>
-      </div>
-    </div>
-  </div>
+	<div class={ seasonWrapper(), colors.SecondaryBg() }>
+		@Rank(user.Rank)
+		<div class={ rankedStats() }>
+			<span class={ seasonName(), fonts.FontBold() }>{ season }</span>
+			<div class={ rankedWinrateWrapper() }>
+				<span class={ rankedWinrateTitle(), fonts.FontRegular() }>Winrate</span>
+				if user.Winrate(2) >= 0.0 {
+					if user.Winrate(2) >= 50.0 {
+						<span class={ seasonWinrate(), fonts.FontRegular(), colors.HighlightGreen() }>{ user.WinrateStr(2) }%</span>
+					} else {
+						<span class={ seasonWinrate(), fonts.FontRegular(), colors.HighlightRed() }>{ user.WinrateStr(2) }%</span>
+					}
+				} else {
+					<span class={ seasonWinrate(), fonts.FontRegular(), colors.HighlightGray() }>{ user.WinrateStr(2) }</span>
+				}
+			</div>
+			<div class={ rankedMatchResults(), fonts.FontRegular() }>
+				<span class={ rankedWinrateTitle(), fonts.FontRegular() }>Games</span>
+				<span class={ rankedMatchResult() }>{ utils.ToString(user.WinsCount) } <span class={ colors.HighlightGreen() }>W</span></span>
+				<span class={ rankedMatchResult() }>{ utils.ToString(user.LossesCount) } <span class={ colors.HighlightRed() }>L</span></span>
+				<span class={ rankedMatchResult() }>{ utils.ToString(user.DrawsCount) } <span class={ colors.HighlightBrown() }>D</span></span>
+			</div>
+		</div>
+	</div>
 }

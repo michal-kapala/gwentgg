@@ -1,19 +1,17 @@
 package profile
 
-import (
-  "gwentgg/db/models"
-)
+import "gwentgg/db/models"
 
 css gamesWrapper() {
-  margin: 0px 0px;
-  padding: 0px 0px;
-  width: 100%;
+	margin: 0px 0px;
+	padding: 0px 0px;
+	width: 100%;
 }
 
 templ Games(user *models.User, games []models.Game) {
-  <ul class={ gamesWrapper() }>
-    for _, game := range games {
-      @Game(&game, user.PlayerFromGame(game))
-    }
-  </ul>
+	<ul class={ gamesWrapper() }>
+		for _, game := range games {
+			@Game(&game, user.PlayerFromGame(game))
+		}
+	</ul>
 }

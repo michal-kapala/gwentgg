@@ -1,14 +1,14 @@
 package common
 
 css Code() {
-  background-color: #333;
-  border: .1rem solid #0000001a;
-  border-radius: 4px;
-  padding: 2px 4px;
+	background-color: #333;
+	border: .1rem solid #0000001a;
+	border-radius: 4px;
+	padding: 2px 4px;
 }
 
 templ TextWithCode(prefix string, codeText string, suffix string) {
-  <p>
-    { prefix }<code class={ Code() }>{ codeText }</code>{ suffix }
-  </p>
+	<p>
+		{ prefix }<code class={ Code() }>{ codeText }</code>{ suffix }
+	</p>
 }

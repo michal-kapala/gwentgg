@@ -1,0 +1,51 @@
+package cards
+
+import (
+	"fmt"
+	"gwentgg/components/fonts"
+	"gwentgg/db/models"
+	"gwentgg/enums"
+	"gwentgg/utils"
+)
+
+css cardWrapper() {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100px;
+}
+
+css cardBg(bg string) {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100px;
+	height: 143px;
+	background-image: { bg };
+	background-repeat: no-repeat;
+	background-size: contain;
+	margin-bottom: 6px;
+}
+
+css borderImage(border string) {
+	width: 100px;
+	height: 143px;
+	background-image: { border };
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+templ Card(card *models.CardDefinition, idx uint) {
+	<div class={ cardWrapper() }>
+		<a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", card.TemplateID)) } class={ cardBg(fmt.Sprintf("url(https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg)", card.ArtID)) }>
+			if card.CardGroup == enums.Gold {
+				<div class={ borderImage("url(/assets/cards/border_gold.png)") }></div>
+			} else {
+				<div class={ borderImage("url(/assets/cards/border_bronze.png)") }></div>
+			}
+		</a>
+		<span class={ fonts.FontRegular() }>{ utils.ToString(idx) }</span>
+	</div>
+}

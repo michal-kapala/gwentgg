@@ -1,21 +1,19 @@
 package deck
 
-import (
-  "gwentgg/db/models"
-)
+import "gwentgg/db/models"
 
 css deckWrapper() {
-  display: flex;
-  flex-direction: column;
-  min-width: 400px;
+	display: flex;
+	flex-direction: column;
+	min-width: 400px;
 }
 
 templ Deck(player *models.GamePlayer, deck *models.DeckView) {
-  <div class={ deckWrapper() }>
-    @Leader(player, deck)
-    @Stratagem(&deck.Stratagem)
-    for _, card := range deck.Deck {
-      @Card(&card)
-    }
-  </div>
+	<div class={ deckWrapper() }>
+		@Leader(player, deck)
+		@Stratagem(&deck.Stratagem)
+		for _, card := range deck.Deck {
+			@Card(&card)
+		}
+	</div>
 }

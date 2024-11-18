@@ -1,43 +1,43 @@
 package profile
 
 import (
-  "gwentgg/components/common"
-  "gwentgg/db/models"
-  "fmt"
+	"fmt"
+	"gwentgg/components/common"
+	"gwentgg/components/fonts"
+	"gwentgg/db/models"
 
-  tmpl "github.com/a-h/templ"
-  "gwentgg/components/fonts"
+	tmpl "github.com/a-h/templ"
 )
 
 css columnWrapper() {
-  display: flex;
-  flex-direction: column;
-  width: 30%;
+	display: flex;
+	flex-direction: column;
+	width: 30%;
 }
 
 css linkWrapper() {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 0px 0px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	padding: 0px 0px;
 }
 
 css linkMargin() {
-  margin: 10px 0px;
+	margin: 10px 0px;
 }
 
 templ RankedColumn(user *models.User, season string) {
-  <div class={ columnWrapper() }>
-    @SectionTitle("Ranked")
-    @Season(user, season)
-    @SectionTitle("Factions")
-    @Factions(user)
-    <div class={ linkWrapper() }>
-      <a href={ tmpl.SafeURL(fmt.Sprintf("https://www.playgwent.com/en/profile/%s", user.Username)) } target="_blank" rel="noopener noreferrer" class={ common.Link(), fonts.FontBold() }>
-        <p class={ common.LinkContent(), linkMargin() }>See at playgwent.com</p>
-      </a>
-    </div>
-  </div>
+	<div class={ columnWrapper() }>
+		@SectionTitle("Ranked")
+		@Season(user, season)
+		@SectionTitle("Factions")
+		@Factions(user)
+		<div class={ linkWrapper() }>
+			<a href={ tmpl.SafeURL(fmt.Sprintf("https://www.playgwent.com/en/profile/%s", user.Username)) } target="_blank" rel="noopener noreferrer" class={ common.Link(), fonts.FontBold() }>
+				<p class={ common.LinkContent(), linkMargin() }>See at playgwent.com</p>
+			</a>
+		</div>
+	</div>
 }

@@ -5,15 +5,16 @@ import (
 	"gwentgg/components/common"
 	gameView "gwentgg/components/game"
 	"gwentgg/db/models"
+	"gwentgg/utils"
 )
 
-templ Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView, playerUser *models.User, opponentUser *models.User) {
-  <!DOCTYPE html>
-  <html>
+templ Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView, playerUser *models.User, opponentUser *models.User, playerCards []models.CardDefinition, opponentCards []models.CardDefinition) {
+	<!DOCTYPE html>
+	<html>
 		<head>
 			<title>Game { game.ID } | Gwent.gg</title>
-			<meta charset="UTF-8">
-			<link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+			<meta charset="UTF-8"/>
+			<link rel="icon" type="image/x-icon" href="/assets/favicon.png"/>
 			<style>
 				@font-face {
 					font-family: 'GWENT';
@@ -36,6 +37,7 @@ templ Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePl
 		<body class={ common.Body(), colors.PrimaryBg() }>
 			@gameView.Header(game, player, playerUser, opponentUser)
 			@gameView.Decks(player, opponent, playerDeck, opponentDeck)
+			@gameView.Cards(player, opponent, playerCards, opponentCards, playerUser.Username, opponentUser.Username, utils.ToString(*game.StartingPlayer))
 		</body>
 		<script>
 			// name hovers

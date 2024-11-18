@@ -1,32 +1,32 @@
 package profile
 
 import (
-  "gwentgg/components/colors"
-  "gwentgg/components/fonts"
-  "gwentgg/db/models"
+	"gwentgg/components/colors"
+	"gwentgg/components/fonts"
+	"gwentgg/db/models"
 )
 
 css gamesColWrapper() {
-  display: flex;
-  flex-direction: column;
-  margin: 0px 8px;
-  width: 70%;
+	display: flex;
+	flex-direction: column;
+	margin: 0px 8px;
+	width: 70%;
 }
 
 css gamesUnavailable() {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 templ GamesColumn(user *models.User, games []models.Game, currentUser bool) {
-  <div class={ gamesColWrapper() }>
-    if currentUser {
-      @SectionTitle("Latest games")
-      @LatestStats(games, models.GetAllFactionStats(user.ID, games))
-      @Games(user, games)
-    } else {
-      @SectionTitle("Latest games")
-      <p class={ gamesUnavailable(), fonts.FontRegular(), colors.HighlightGray() }>Other players' games are unavailable.</p>
-    }
-  </div>
+	<div class={ gamesColWrapper() }>
+		if currentUser {
+			@SectionTitle("Latest games")
+			@LatestStats(games, models.GetAllFactionStats(user.ID, games))
+			@Games(user, games)
+		} else {
+			@SectionTitle("Latest games")
+			<p class={ gamesUnavailable(), fonts.FontRegular(), colors.HighlightGray() }>Other players' games are unavailable.</p>
+		}
+	</div>
 }

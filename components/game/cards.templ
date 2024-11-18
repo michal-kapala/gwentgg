@@ -1,0 +1,20 @@
+package game
+
+import (
+	"gwentgg/components/common"
+	"gwentgg/components/game/cards"
+	"gwentgg/db/models"
+)
+
+css cardsWrapper() {
+	display: flex;
+	flex-direction: column;
+}
+
+templ Cards(player *models.GamePlayer, opponent *models.GamePlayer, playerCards []models.CardDefinition, opponentCards []models.CardDefinition, playerName string, opponentName string, first string) {
+	<div class={ cardsWrapper() }>
+		@common.SectionTitle("Cards played")
+		@cards.CardsPlayed(playerCards, playerName, player.PlayerID == first)
+		@cards.CardsPlayed(opponentCards, opponentName, opponent.PlayerID == first)
+	</div>
+}

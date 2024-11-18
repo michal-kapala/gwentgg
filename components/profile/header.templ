@@ -1,91 +1,91 @@
 package profile
 
 import (
-  "gwentgg/components/colors"
-  "gwentgg/components/fonts"
+	"gwentgg/components/colors"
+	"gwentgg/components/fonts"
 	"gwentgg/db/models"
-  "gwentgg/utils"
+	"gwentgg/utils"
 )
 
 css marginWrap() {
-  margin: 0px auto;
+	margin: 0px auto;
 }
 
 css headerWrap() {
-  display: flex;
-  flex-direction: row;
-  width: 1080px;
-  padding: 20px 0px 10px;
+	display: flex;
+	flex-direction: row;
+	width: 1080px;
+	padding: 20px 0px 10px;
 }
 
 css name() {
-  margin: 0px 0px;
-  padding: 0px 0px;
-  margin-bottom: 6px;
-  width: auto;
+	margin: 0px 0px;
+	padding: 0px 0px;
+	margin-bottom: 6px;
+	width: auto;
 }
 
 css general() {
-  margin: 0px 0px;
-  padding: 0px 0px;
-  color: #aaa;
-  font-size: 14px;
+	margin: 0px 0px;
+	padding: 0px 0px;
+	color: #aaa;
+	font-size: 14px;
 }
 
 css separator() {
-  margin: 0px 0px;
-  padding: 0px 10px;
-  color: #aaa;
-  font-size: 14px;
+	margin: 0px 0px;
+	padding: 0px 10px;
+	color: #aaa;
+	font-size: 14px;
 }
 
 css row() {
-  display: flex;
-  flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 
 css rank() {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 16px;
-  height: 72px;
-  width: 69px;
-  background-image: url(/assets/rank.png);
-  font-size: 28px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 16px;
+	height: 72px;
+	width: 69px;
+	background-image: url(/assets/rank.png);
+	font-size: 28px;
 }
 
 css aligned() {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 css chipBar() {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px 12px 20px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 0px 12px 20px;
 }
 
 templ Header(user *models.User) {
-  <header class={ colors.SecondaryBg(), row() }>
-    <div class={ marginWrap() }>
-      <div class={ headerWrap() }>
-        @Logo()
-        <div class={ aligned() }>
-          <h1 class={ fonts.FontGwent(), name() }>{ user.Username }</h1>
-          <div class={ row(), fonts.FontBold() }>
-            <p class={ general() }>{ user.Continent }</p>
-            <p class={ separator() }>|</p>
-            <p class={ general() }>Ladder Rank <span class={ colors.HighlightGreen() }>{ utils.ToString(user.Position) }</span></p>
-          </div>
-        </div>
-      </div>
-      <div class={ chipBar() }>
-        @Chip("Region Rank", user.ContinentalPosition)
-        @Chip("MMR", uint(user.Score))
-      </div>
-    </div>
-  </header>
+	<header class={ colors.SecondaryBg(), row() }>
+		<div class={ marginWrap() }>
+			<div class={ headerWrap() }>
+				@Logo()
+				<div class={ aligned() }>
+					<h1 class={ fonts.FontGwent(), name() }>{ user.Username }</h1>
+					<div class={ row(), fonts.FontBold() }>
+						<p class={ general() }>{ user.Continent }</p>
+						<p class={ separator() }>|</p>
+						<p class={ general() }>Ladder Rank <span class={ colors.HighlightGreen() }>{ utils.ToString(user.Position) }</span></p>
+					</div>
+				</div>
+			</div>
+			<div class={ chipBar() }>
+				@Chip("Region Rank", user.ContinentalPosition)
+				@Chip("MMR", uint(user.Score))
+			</div>
+		</div>
+	</header>
 }

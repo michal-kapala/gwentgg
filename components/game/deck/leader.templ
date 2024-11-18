@@ -1,82 +1,81 @@
 package deck
 
 import (
-  "fmt"
-  "gwentgg/components/fonts"
-  "gwentgg/db/models"
-  tmpl "github.com/a-h/templ"
+	"fmt"
+	"gwentgg/components/fonts"
+	"gwentgg/db/models"
 )
 
 css leaderWrapper(bg string) {
-  display: flex;
-  flex-flow: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  flex: 0 0 100%;
-  max-width: 392px;
-  min-height: 56px;
-  max-height: 56px;
-  position: relative;
-  background-size: auto 100%, auto 100%;
-  background-repeat: no-repeat, no-repeat;
-  margin-top: 0px;
-  margin-bottom: 10px;
-  outline: none;
-  background-image: { bg };
-  background-position: 100% center, 96% center;
-  border-width: 8px 4px;
-  border-style: solid;
-  border-image-slice: 8 4 fill;
-  border-image-outset: 0;
-  border-image-repeat: round;
-  border-image-source: url(/assets/thumbnails/frames/leader-frame.png);
-  text-decoration: none;
+	display: flex;
+	flex-flow: wrap;
+	align-items: center;
+	justify-content: flex-start;
+	flex: 0 0 100%;
+	max-width: 392px;
+	min-height: 56px;
+	max-height: 56px;
+	position: relative;
+	background-size: auto 100%, auto 100%;
+	background-repeat: no-repeat, no-repeat;
+	margin-top: 0px;
+	margin-bottom: 10px;
+	outline: none;
+	background-image: { bg };
+	background-position: 100% center, 96% center;
+	border-width: 8px 4px;
+	border-style: solid;
+	border-image-slice: 8 4 fill;
+	border-image-outset: 0;
+	border-image-repeat: round;
+	border-image-source: url(/assets/thumbnails/frames/leader-frame.png);
+	text-decoration: none;
 }
 
 css abilityWrapper() {
-  position: absolute;
-  top: -15px;
-  left: -15px;
-  max-width: 86px;
+	position: absolute;
+	top: -15px;
+	left: -15px;
+	max-width: 86px;
 }
 
 css leaderName() {
-  color: white;
-  font-size: 20px;
-  font-weight: 400;
-  margin-left: 80px;
+	color: white;
+	font-size: 20px;
+	font-weight: 400;
+	margin-left: 80px;
 }
 
 css mulliganWrapper() {
-  position: absolute;
-  top: -18px;
-  left: 310px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url(/assets/thumbnails/icons/mulligan.png);
-  background-position: center 2px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 86px;
-  height: 86px;
+	position: absolute;
+	top: -18px;
+	left: 310px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-image: url(/assets/thumbnails/icons/mulligan.png);
+	background-position: center 2px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 86px;
+	height: 86px;
 }
 
 css mulliganText() {
-  color: black;
-  font-size: 40px;
+	color: black;
+	font-size: 40px;
 }
 
 templ Mulligan(provision uint) {
-  <div class={ mulliganWrapper(), mulliganText(), fonts.FontGwent() }>
-    { fmt.Sprintf("%d", provision) }
-  </div>
+	<div class={ mulliganWrapper(), mulliganText(), fonts.FontGwent() }>
+		{ fmt.Sprintf("%d", provision) }
+	</div>
 }
 
 templ Leader(player *models.GamePlayer, deck *models.DeckView) {
-  <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", deck.Leader.TemplateID)) } class={ leaderWrapper(fmt.Sprintf("url(/assets/thumbnails/bg/mask.png), url(/assets/thumbnails/bg/%s)", player.MakeLeaderBgAsset())) }>
-    <img src={ player.MakeLeaderAssetPath()} class={ abilityWrapper() }>
-    <h1 class={ leaderName(), fonts.FontGwent() }>{ deck.Leader.Name }</h1>
-    @Mulligan(deck.Leader.ProvisionCost)
-  </a>
+	<a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", deck.Leader.TemplateID)) } class={ leaderWrapper(fmt.Sprintf("url(/assets/thumbnails/bg/mask.png), url(/assets/thumbnails/bg/%s)", player.MakeLeaderBgAsset())) }>
+		<img src={ player.MakeLeaderAssetPath() } class={ abilityWrapper() }/>
+		<h1 class={ leaderName(), fonts.FontGwent() }>{ deck.Leader.Name }</h1>
+		@Mulligan(deck.Leader.ProvisionCost)
+	</a>
 }

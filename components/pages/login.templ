@@ -1,8 +1,8 @@
 package pages
 
 import (
-	"gwentgg/components/common"
 	"gwentgg/components/colors"
+	"gwentgg/components/common"
 	"gwentgg/components/fonts"
 )
 
@@ -31,7 +31,7 @@ templ LoginForm(userId string) {
 	<html>
 		<head>
 			<title>Log in | Gwent.gg</title>
-			<link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+			<link rel="icon" type="image/x-icon" href="/assets/favicon.png"/>
 			<style>
 				@font-face {
 					font-family: 'GWENT';
@@ -45,18 +45,18 @@ templ LoginForm(userId string) {
 		</head>
 		<body class={ common.Body(), colors.PrimaryBg() }>
 			<div class={ container(), fonts.FontRegular() }>
-				<img src="/assets/gg.png" alt="GG" class={ logo() }>
+				<img src="/assets/gg.png" alt="GG" class={ logo() }/>
 				<h1 class={ fonts.FontGwent() }>Enter your Gwent API token.</h1>
 				<form class={ loginForm() } action="/login" method="POST">
 					<div class={ common.InputGroup() }>
 						<label for="user_id" class={ common.Label() }>User ID</label>
-						<input type="input" id="user_id" name="user_id" class={ common.Input() } value={ userId } readonly></input>
+						<input type="input" id="user_id" name="user_id" class={ common.Input() } value={ userId } readonly/>
 					</div>
 					<div class={ common.InputGroup() }>
 						<label for="access_token" class={ common.Label() }>API token</label>
-						<input type="password" id="access_token" name="access_token" class={ common.Input() }></input>
+						<input type="password" id="access_token" name="access_token" class={ common.Input() }/>
 					</div>
-					<input type="submit" class={ common.Button() } value="Log in">
+					<input type="submit" class={ common.Button() } value="Log in"/>
 				</form>
 				<p>These credentials give access to your GOG account. <b>Never share your tokens.</b></p>
 				<p>Your token expires in 1h. After that you will need to re-login with a fresh one.</p>

@@ -13,9 +13,10 @@ import (
 	"gwentgg/components/common"
 	gameView "gwentgg/components/game"
 	"gwentgg/db/models"
+	"gwentgg/utils"
 )
 
-func Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView, playerUser *models.User, opponentUser *models.User) templ.Component {
+func Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView, playerUser *models.User, opponentUser *models.User, playerCards []models.CardDefinition, opponentCards []models.CardDefinition) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -43,7 +44,7 @@ func Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePla
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(game.ID)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/game.templ`, Line: 14, Col: 24}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/game.templ`, Line: 15, Col: 24}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -80,6 +81,10 @@ func Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePla
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = gameView.Decks(player, opponent, playerDeck, opponentDeck).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = gameView.Cards(player, opponent, playerCards, opponentCards, playerUser.Username, opponentUser.Username, utils.ToString(*game.StartingPlayer)).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

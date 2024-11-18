@@ -1,19 +1,17 @@
 package profile
 
-import (
-  "gwentgg/db/models"
-)
+import "gwentgg/db/models"
 
 css latestFactionsWrapper() {
-  display: flex;
-  flex-direction: row;
-  margin-left: 1%;
-  width: 100%;
+	display: flex;
+	flex-direction: row;
+	margin-left: 1%;
+	width: 100%;
 }
 
 templ LatestFactions(factionStats []models.FactionGameStats) {
-  <div class={ latestFactionsWrapper() }>
-    @LatestFactionColumn(factionStats[:3])
-    @LatestFactionColumn(factionStats[3:])
-  </div>
+	<div class={ latestFactionsWrapper() }>
+		@LatestFactionColumn(factionStats[:3])
+		@LatestFactionColumn(factionStats[3:])
+	</div>
 }

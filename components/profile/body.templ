@@ -1,28 +1,26 @@
 package profile
 
-import (
-  "gwentgg/db/models"
-)
+import "gwentgg/db/models"
 
 css bodyWrapper() {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 8px 0px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	padding: 8px 0px;
 }
 
 css bodyCenter() {
-  display: flex;
-  flex-direction: row;
-  width: 1080px;
-  margin: 0px auto;
+	display: flex;
+	flex-direction: row;
+	width: 1080px;
+	margin: 0px auto;
 }
 
 templ Body(user *models.User, games []models.Game, season string, currentUser bool) {
-  <div class={ bodyWrapper() }>
-    <div class={ bodyCenter() }>
-      @RankedColumn(user, season)
-      @GamesColumn(user, games, currentUser)
-    </div>
-  </div>
+	<div class={ bodyWrapper() }>
+		<div class={ bodyCenter() }>
+			@RankedColumn(user, season)
+			@GamesColumn(user, games, currentUser)
+		</div>
+	</div>
 }

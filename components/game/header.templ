@@ -1,347 +1,346 @@
 package game
 
 import (
-  "fmt"
-  "gwentgg/components/colors"
-  "gwentgg/components/fonts"
+	"fmt"
+	"gwentgg/components/colors"
+	"gwentgg/components/fonts"
 	"gwentgg/db/models"
-  "gwentgg/enums"
+	"gwentgg/enums"
 	"gwentgg/utils"
-  tmpl "github.com/a-h/templ"
 )
 
 css gameTypeWrapper() {
-  padding-right: 10px;
+	padding-right: 10px;
 }
 
 templ GameType(game *models.Game, player *models.GamePlayer) {
-  switch game.Finished {
-    case enums.Draw:
-      <span class={ gameTypeWrapper(), colors.HighlightBrown() }>{ game.Type.GameMode() }</span>
-    case enums.NotStarted:
-      <span class={ gameTypeWrapper(), colors.HighlightGray() }>{ game.Type.GameMode() }</span>
-    case enums.Win:
-      if *game.Winner == player.PlayerID {
-        <span class={ gameTypeWrapper(), colors.HighlightGreen() }>{ game.Type.GameMode() }</span>
-      } else {
-        <span class={ gameTypeWrapper(), colors.HighlightRed() }>{ game.Type.GameMode() }</span>
-      }
-  }
+	switch game.Finished {
+		case enums.Draw:
+			<span class={ gameTypeWrapper(), colors.HighlightBrown() }>{ game.Type.GameMode() }</span>
+		case enums.NotStarted:
+			<span class={ gameTypeWrapper(), colors.HighlightGray() }>{ game.Type.GameMode() }</span>
+		case enums.Win:
+			if *game.Winner == player.PlayerID {
+				<span class={ gameTypeWrapper(), colors.HighlightGreen() }>{ game.Type.GameMode() }</span>
+			} else {
+				<span class={ gameTypeWrapper(), colors.HighlightRed() }>{ game.Type.GameMode() }</span>
+			}
+	}
 }
 
 css relativeGameDateWrapper() {
-  padding-left: 10px;
+	padding-left: 10px;
 }
 
 templ RelativeGameDate(game *models.Game) {
-  <span class={ relativeGameDateWrapper(), colors.HighlightGray() }>{ utils.RelativeTime(game.DateFinished) }</span>
+	<span class={ relativeGameDateWrapper(), colors.HighlightGray() }>{ utils.RelativeTime(game.DateFinished) }</span>
 }
 
 css generalGameInfoWrapper() {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 4px 0px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 4px 0px;
 }
 
 templ GeneralGameInfo(game *models.Game, player *models.GamePlayer) {
-  if game.Finished == enums.Win && *game.Winner == player.PlayerID {
-    <div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightGrayVeryLight() }>
-      @GameType(game, player)
-      @RelativeGameDate(game)
-    </div>
-  } else {
-    <div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightGrayLight() }>
-      @GameType(game, player)
-      @RelativeGameDate(game)
-    </div>
-  }
+	if game.Finished == enums.Win && *game.Winner == player.PlayerID {
+		<div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightGrayVeryLight() }>
+			@GameType(game, player)
+			@RelativeGameDate(game)
+		</div>
+	} else {
+		<div class={ generalGameInfoWrapper(), fonts.FontRegular(), colors.HighlightGrayLight() }>
+			@GameType(game, player)
+			@RelativeGameDate(game)
+		</div>
+	}
 }
 
 css leaderIconWrapper() {
-  padding: 10px 10px;
-  max-width: 100px;
-  max-height: 100px;
+	padding: 10px 10px;
+	max-width: 100px;
+	max-height: 100px;
 }
 
 templ LeaderIcon(player *models.GamePlayer) {
-  <img src={ player.MakeLeaderAssetPath() } class={ leaderIconWrapper() }>
+	<img src={ player.MakeLeaderAssetPath() } class={ leaderIconWrapper() }/>
 }
 
 css gg() {
-  max-width: 30px;
-  padding: 0px 6px;
+	max-width: 30px;
+	padding: 0px 6px;
 }
 
 css noGg() {
-  max-width: 30px;
-  padding: 0px 6px;
-  opacity: 0.5;
+	max-width: 30px;
+	padding: 0px 6px;
+	opacity: 0.5;
 }
 
 templ GgIcon(gged bool) {
-  if gged {
-    <img src="/assets/gg.png" class={ gg() } alt="GG">
-  } else {
-    <img src="/assets/gg.png" class={ noGg() } alt="No GG">
-  }
+	if gged {
+		<img src="/assets/gg.png" class={ gg() } alt="GG"/>
+	} else {
+		<img src="/assets/gg.png" class={ noGg() } alt="No GG"/>
+	}
 }
 
 css coin() {
-  max-width: 30px;
-  padding: 0px 6px;
+	max-width: 30px;
+	padding: 0px 6px;
 }
 
 templ CoinIcon() {
-  <img src="/assets/coin.png" class={ coin() } alt="Coin"> 
+	<img src="/assets/coin.png" class={ coin() } alt="Coin"/>
 }
 
 css playerDetailsWrapper() {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
 }
 
 css playerDetailsMMR() {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 4px 0px;
-  font-size: 20px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	padding: 4px 0px;
+	font-size: 20px;
 }
 
 css playerDetailsRow() {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 4px 0px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	padding: 4px 0px;
 }
 
 css playerStatusText() {
-  display: flex;
-  align-items: center;
-  font-size: 20px;
-  padding: 0px 6px;
+	display: flex;
+	align-items: center;
+	font-size: 20px;
+	padding: 0px 6px;
 }
 
 templ PlayerStatus(content string, won bool) {
-  if won {
-    <span class={ playerStatusText(), fonts.FontBold(), colors.HighlightGrayVeryLight() }>{ content }</span>
-  } else {
-    <span class={ playerStatusText(), fonts.FontBold(), colors.HighlightGrayLight() }>{ content }</span>
-  }
+	if won {
+		<span class={ playerStatusText(), fonts.FontBold(), colors.HighlightGrayVeryLight() }>{ content }</span>
+	} else {
+		<span class={ playerStatusText(), fonts.FontBold(), colors.HighlightGrayLight() }>{ content }</span>
+	}
 }
 
 templ PlayerDetails(game *models.Game, player *models.GamePlayer, won bool) {
-  <div class={ playerDetailsWrapper() }>
-    if won {
-      <span class={ playerDetailsMMR(), fonts.FontBold(), colors.HighlightGrayVeryLight() }>{ utils.ToString(player.MMR) } MMR</span>
-    } else {
-      <span class={ playerDetailsMMR(), fonts.FontBold(), colors.HighlightGrayLight() }>{ utils.ToString(player.MMR) } MMR</span>
-    }
-    <div class={ playerDetailsRow() }>
-      @GgIcon(player.SentGoodGame)
-      if game.DidOpen(player.PlayerID) {
-        @CoinIcon()
-      }
-      if player.Status != enums.Ok {
-        switch player.Status {
-          case enums.NotResponding:
-            @PlayerStatus("AFK", won)
-          case enums.Disconnected:
-            @PlayerStatus("DC", won)
-          case enums.Forfeit:
-            @PlayerStatus("FF", won)
-        }
-      }
-    </div>
-  </div>
+	<div class={ playerDetailsWrapper() }>
+		if won {
+			<span class={ playerDetailsMMR(), fonts.FontBold(), colors.HighlightGrayVeryLight() }>{ utils.ToString(player.MMR) } MMR</span>
+		} else {
+			<span class={ playerDetailsMMR(), fonts.FontBold(), colors.HighlightGrayLight() }>{ utils.ToString(player.MMR) } MMR</span>
+		}
+		<div class={ playerDetailsRow() }>
+			@GgIcon(player.SentGoodGame)
+			if game.DidOpen(player.PlayerID) {
+				@CoinIcon()
+			}
+			if player.Status != enums.Ok {
+				switch player.Status {
+					case enums.NotResponding:
+						@PlayerStatus("AFK", won)
+					case enums.Disconnected:
+						@PlayerStatus("DC", won)
+					case enums.Forfeit:
+						@PlayerStatus("FF", won)
+				}
+			}
+		</div>
+	</div>
 }
 
 css roundScoresWrapper() {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0px 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0px 10px;
 }
 
 css roundScoreText() {
-  font-size: 30px;
-  text-align: center;
+	font-size: 30px;
+	text-align: center;
 }
 
 templ RoundScore(value string, wonGame bool, wonRound bool, isOpponent bool) {
-  if wonGame {
-    if wonRound {
-      if isOpponent {
-        <span class={ roundScoreText(), fonts.FontGwent(), colors.HighlightRed() }>{ value }</span>
-      } else {
-        <span class={ roundScoreText(), fonts.FontGwent(), colors.HighlightGreen() }>{ value }</span>
-      }
-    } else {
-      <span class={ roundScoreText(), fonts.FontGwent(), colors.HighlightGrayVeryLight() }>{ value }</span>
-    }
-  } else {
-    if wonRound {
-      if isOpponent {
-        <span class={ roundScoreText(), fonts.FontGwent(), colors.HighlightRed() }>{ value }</span>
-      } else {
-        <span class={ roundScoreText(), fonts.FontGwent(), colors.HighlightGreen() }>{ value }</span>
-      }
-    } else {
-      <span class={ roundScoreText(), fonts.FontGwent(), colors.HighlightGrayLight() }>{ value }</span>
-    }
-  }
+	if wonGame {
+		if wonRound {
+			if isOpponent {
+				<span class={ roundScoreText(), fonts.FontGwent(), colors.HighlightRed() }>{ value }</span>
+			} else {
+				<span class={ roundScoreText(), fonts.FontGwent(), colors.HighlightGreen() }>{ value }</span>
+			}
+		} else {
+			<span class={ roundScoreText(), fonts.FontGwent(), colors.HighlightGrayVeryLight() }>{ value }</span>
+		}
+	} else {
+		if wonRound {
+			if isOpponent {
+				<span class={ roundScoreText(), fonts.FontGwent(), colors.HighlightRed() }>{ value }</span>
+			} else {
+				<span class={ roundScoreText(), fonts.FontGwent(), colors.HighlightGreen() }>{ value }</span>
+			}
+		} else {
+			<span class={ roundScoreText(), fonts.FontGwent(), colors.HighlightGrayLight() }>{ value }</span>
+		}
+	}
 }
 
 templ RoundScores(game *models.Game, player *models.GamePlayer, won bool, scores []string, winFlags []bool, isOpponent bool) {
-  <div class={ roundScoresWrapper() }>
-    for idx, score := range scores {
-      if uint(idx) < game.FinishedRounds {
-        @RoundScore(score, won, winFlags[idx], isOpponent)
-      }
-    }
-  </div>
+	<div class={ roundScoresWrapper() }>
+		for idx, score := range scores {
+			if uint(idx) < game.FinishedRounds {
+				@RoundScore(score, won, winFlags[idx], isOpponent)
+			}
+		}
+	</div>
 }
 
 css userInfoWrapper() {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
 }
 
 css playerNameText() {
-  display: flex;
-  align-items: center;
-  min-height: 40px;
-  font-size: 30px;
-  color: #ddd;
-  text-decoration: none;
+	display: flex;
+	align-items: center;
+	min-height: 40px;
+	font-size: 30px;
+	color: #ddd;
+	text-decoration: none;
 }
 
 css platformText() {
-  font-size: 18px;
+	font-size: 18px;
 }
 
 templ UserInfo(id string, name string, platform string, won bool) {
-  <div class={ userInfoWrapper() }>
-    <a href={ tmpl.SafeURL(fmt.Sprintf("/player/%s", id)) } class={ playerNameText(), fonts.FontGwent() }>{ name }</a>
-    if won {
-      <span class={ platformText(), fonts.FontRegular(), colors.HighlightGrayVeryLight() }>{ platform }</span>
-    } else {
-      <span class={ platformText(), fonts.FontRegular(), colors.HighlightGrayLight() }>{ platform }</span>
-    }
-  </div>
+	<div class={ userInfoWrapper() }>
+		<a href={ tmpl.SafeURL(fmt.Sprintf("/player/%s", id)) } class={ playerNameText(), fonts.FontGwent() }>{ name }</a>
+		if won {
+			<span class={ platformText(), fonts.FontRegular(), colors.HighlightGrayVeryLight() }>{ platform }</span>
+		} else {
+			<span class={ platformText(), fonts.FontRegular(), colors.HighlightGrayLight() }>{ platform }</span>
+		}
+	</div>
 }
 
 css playerInfoWrapper() {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
 }
 
 templ PlayerInfo(game *models.Game, player *models.GamePlayer, won bool, user *models.User) {
-  <div class={ playerInfoWrapper() }>
-    @LeaderIcon(player)
-    @UserInfo(user.ID, user.Username, player.Platform, won)
-    @PlayerDetails(game, player, won)
-    @RoundScores(game, player, won, utils.SplitCsv(player.RoundScores), utils.CsvToBools(player.RoundsWon), false)
-  </div>
+	<div class={ playerInfoWrapper() }>
+		@LeaderIcon(player)
+		@UserInfo(user.ID, user.Username, player.Platform, won)
+		@PlayerDetails(game, player, won)
+		@RoundScores(game, player, won, utils.SplitCsv(player.RoundScores), utils.CsvToBools(player.RoundsWon), false)
+	</div>
 }
 
 css opponentInfoWrapper() {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	width: 100%;
 }
 
 templ OpponentInfo(game *models.Game, opponent *models.GamePlayer, won bool, user *models.User) {
-  <div class={ opponentInfoWrapper() }>
-    @RoundScores(game, opponent, won, utils.SplitCsv(opponent.RoundScores), utils.CsvToBools(opponent.RoundsWon), true)
-    @PlayerDetails(game, opponent, won)
-    @UserInfo(user.ID, user.Username, opponent.Platform, won)
-    @LeaderIcon(opponent)
-  </div>
+	<div class={ opponentInfoWrapper() }>
+		@RoundScores(game, opponent, won, utils.SplitCsv(opponent.RoundScores), utils.CsvToBools(opponent.RoundsWon), true)
+		@PlayerDetails(game, opponent, won)
+		@UserInfo(user.ID, user.Username, opponent.Platform, won)
+		@LeaderIcon(opponent)
+	</div>
 }
 
 css notStartedWrapper() {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding-left: 10px;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding-left: 10px;
 }
 
 templ NotStarted() {
-  <span class={ notStartedWrapper(), fonts.FontRegular(), colors.HighlightGrayLight() }>The game did not start.</span>
+	<span class={ notStartedWrapper(), fonts.FontRegular(), colors.HighlightGrayLight() }>The game did not start.</span>
 }
 
 css gameInfoWrapper() {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 1400px;
-  border-radius: 0px 4px 4px 0px;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	max-width: 1400px;
+	border-radius: 0px 4px 4px 0px;
 }
 
 templ GameInfo(game *models.Game, player *models.GamePlayer, won bool, playerUser *models.User, opponentUser *models.User) {
-  if game.Finished == enums.NotStarted {
-    <div class={ gameInfoWrapper() }>
-      @NotStarted()
-    </div>
-  } else {
-    <div class={ gameInfoWrapper() }>
-      @PlayerInfo(game, player, won, playerUser)
-      @OpponentInfo(game, game.GetOpponent(player.PlayerID), won, opponentUser)
-    </div>
-  }
+	if game.Finished == enums.NotStarted {
+		<div class={ gameInfoWrapper() }>
+			@NotStarted()
+		</div>
+	} else {
+		<div class={ gameInfoWrapper() }>
+			@PlayerInfo(game, player, won, playerUser)
+			@OpponentInfo(game, game.GetOpponent(player.PlayerID), won, opponentUser)
+		</div>
+	}
 }
 
 css gameWrapper() {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  width: 100%;
-  height: 160px;
-  margin-bottom: 8px;
-  text-decoration: none;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	border-radius: 4px;
+	width: 100%;
+	height: 160px;
+	margin-bottom: 8px;
+	text-decoration: none;
 }
 
 templ Game(game *models.Game, player *models.GamePlayer, playerUser *models.User, opponentUser *models.User) {
-  switch game.Finished {
-    case enums.Draw:
-      <div class={ gameWrapper(), colors.BackgroundDarkBrown() }>
-        @GameInfo(game, player, true, playerUser, opponentUser)
-      </div>
-    case enums.Win:
-      if *game.Winner == player.PlayerID {
-        <div class={ gameWrapper(), colors.BackgroundDarkGreen() }>
-          @GameInfo(game, player, true, playerUser, opponentUser)
-        </div>
-      } else {
-        <div class={ gameWrapper(), colors.BackgroundDarkRed() }>
-          @GameInfo(game, player, false, playerUser, opponentUser)
-        </div>
-      }
-  }
+	switch game.Finished {
+		case enums.Draw:
+			<div class={ gameWrapper(), colors.BackgroundDarkBrown() }>
+				@GameInfo(game, player, true, playerUser, opponentUser)
+			</div>
+		case enums.Win:
+			if *game.Winner == player.PlayerID {
+				<div class={ gameWrapper(), colors.BackgroundDarkGreen() }>
+					@GameInfo(game, player, true, playerUser, opponentUser)
+				</div>
+			} else {
+				<div class={ gameWrapper(), colors.BackgroundDarkRed() }>
+					@GameInfo(game, player, false, playerUser, opponentUser)
+				</div>
+			}
+	}
 }
 
 css headerWrapper() {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 templ Header(game *models.Game, player *models.GamePlayer, playerUser *models.User, opponentUser *models.User) {
-  <header class={ headerWrapper() }>
-    @Game(game, player, playerUser, opponentUser)
-    @GeneralGameInfo(game, player)
-  </header>
+	<header class={ headerWrapper() }>
+		@Game(game, player, playerUser, opponentUser)
+		@GeneralGameInfo(game, player)
+	</header>
 }

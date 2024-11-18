@@ -1,18 +1,18 @@
 package profile
 
 import (
-  "gwentgg/components/colors"
-  "gwentgg/db/models"
+	"gwentgg/components/colors"
+	"gwentgg/db/models"
 )
 
 css factionStatsWrapper() {
-  flex-direction: column;
-  width: 100%;
+	flex-direction: column;
+	width: 100%;
 }
 
 templ FactionStats(stats *models.FactionGameStats) {
-  <div class={ factionStatsWrapper(), colors.HighlightGray() }>
-    @Winrate(stats)
-    @GameResults(stats)
-  </div>
+	<div class={ factionStatsWrapper(), colors.HighlightGray() }>
+		@Winrate(stats)
+		@GameResults(stats)
+	</div>
 }

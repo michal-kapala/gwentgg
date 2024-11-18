@@ -1,23 +1,23 @@
 package profile
 
 import (
-  "gwentgg/components/fonts"
-  "gwentgg/utils"
+	"gwentgg/components/fonts"
+	"gwentgg/utils"
 )
 
 css rankStyle() {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 16px;
-  height: 72px;
-  min-width: 69px;
-  background-image: url(/assets/rank.png);
-  font-size: 28px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 16px;
+	height: 72px;
+	min-width: 69px;
+	background-image: url(/assets/rank.png);
+	font-size: 28px;
 }
 
 templ Rank(value uint) {
-  <span class={ rankStyle() }>
-    <strong class={ fonts.FontGwent() }>{ utils.ToString(value) }</strong>
-  </span>
+	<span class={ rankStyle() }>
+		<strong class={ fonts.FontGwent() }>{ utils.ToString(value) }</strong>
+	</span>
 }

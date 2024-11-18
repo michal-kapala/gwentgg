@@ -30,6 +30,7 @@ func GameHandler(c fiber.Ctx) error {
 		player = game.Players[1]
 		opponent = game.Players[0]
 	}
+	// decks
 	ids := player.Deck.Parse()
 	playerDeck := models.DeckView{
 		Deck: []models.DeckCard{},
@@ -67,8 +68,8 @@ func GameHandler(c fiber.Ctx) error {
 	database.First(&playerUser, "id = ?", playerID)
 	token := c.Cookies("access_token", "")
 	season := c.Cookies("current_season", "")
+	// opponent stats
 	oppInfoResp, err := stats.Get(config.Get(c), opponent.PlayerID, token, season)
-
 	if err != nil {
 		fmt.Println(err)
 		return c.Status(fiber.StatusInternalServerError).SendString("Opponent info request error, see server log for details.")
@@ -86,6 +87,21 @@ func GameHandler(c fiber.Ctx) error {
 	}
 	db.ResetPlayerStats(database, opponent.PlayerID)
 	database.Save(&opponentUser)
+	// cards played
+	playerCardIDs := strings.Split(player.PlayedCards, ",")
+	playerCards := []models.CardDefinition{}
+	for _, id := range playerCardIDs {
+		var card models.CardDefinition
+		database.First(&card, id)
+		playerCards = append(playerCards, card)
+	}
+	opponentCardIDs := strings.Split(opponent.PlayedCards, ",")
+	opponentCards := []models.CardDefinition{}
+	for _, id := range opponentCardIDs {
+		var card models.CardDefinition
+		database.First(&card, id)
+		opponentCards = append(opponentCards, card)
+	}
 
-	return Render(c, pages.Game(&game, &player, &opponent, &playerDeck, &opponentDeck, &playerUser, &opponentUser))
+	return Render(c, pages.Game(&game, &player, &opponent, &playerDeck, &opponentDeck, &playerUser, &opponentUser, playerCards, opponentCards))
 }

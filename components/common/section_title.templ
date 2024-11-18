@@ -1,0 +1,16 @@
+package common
+
+import (
+	"gwentgg/components/colors"
+	"gwentgg/components/fonts"
+)
+
+css sectionHeader() {
+	display: flex;
+	justify-content: center;
+	font-size: 40px;
+}
+
+templ SectionTitle(title string) {
+	<h1 class={ sectionHeader(), fonts.FontGwent(), colors.HighlightGray() }>{ title }</h1>
+}

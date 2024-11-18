@@ -1,0 +1,60 @@
+package cards
+
+import (
+	"gwentgg/components/colors"
+	"gwentgg/components/fonts"
+	"gwentgg/db/models"
+)
+
+css playerCardsWrapper() {
+	display: flex;
+	flex-direction: column;
+}
+
+css playerNameWrapper() {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-left: 5%;
+}
+
+css playerName() {
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	font-size: 30px;
+	margin: 0px;
+	padding-top: 4px;
+}
+
+css coinWrapper() {
+	width: 30px;
+	height: 30px;
+	margin-left: 16px;
+}
+
+css cardsPlayedWrapper() {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+	gap: 20px 6px;
+	margin: 40px auto;
+	width: 90%;
+	justify-content: center;
+	align-items: center;
+}
+
+templ CardsPlayed(cardsPlayed []models.CardDefinition, player string, first bool) {
+	<div class={ playerCardsWrapper() }>
+		<div class={ playerNameWrapper() }>
+			<h2 class={ playerName(), fonts.FontGwent(), colors.HighlightGray() }>{ player }</h2>
+			if first {
+				<img src="/assets/coin.png" class={ coinWrapper() }/>
+			}
+		</div>
+		<div class={ cardsPlayedWrapper() }>
+			for idx, card := range cardsPlayed {
+				@Card(&card, uint(idx+1))
+			}
+		</div>
+	</div>
+}

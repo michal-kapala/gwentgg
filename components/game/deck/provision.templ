@@ -1,31 +1,31 @@
 package deck
 
 import (
-  "gwentgg/components/fonts"
-  "gwentgg/utils"
+	"gwentgg/components/fonts"
+	"gwentgg/utils"
 )
 
 css provisionWrapper() {
-  display: flex;
-  flex: 0 0 35px;
-  align-items: center;
-  justify-content: center;
-  margin: 0px 5px 0px 2px;
+	display: flex;
+	flex: 0 0 35px;
+	align-items: center;
+	justify-content: center;
+	margin: 0px 5px 0px 2px;
 }
 
 css provisionText() {
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  margin: 0px;
-  background: linear-gradient(to right, rgb(250, 223, 122), rgb(226, 167, 62));
-  background-clip: text;
-  -webkit-background-clip: text;
-  text-shadow: none;
-  font-size: 32px;
+	color: transparent;
+	-webkit-text-fill-color: transparent;
+	margin: 0px;
+	background: linear-gradient(to right, rgb(250, 223, 122), rgb(226, 167, 62));
+	background-clip: text;
+	-webkit-background-clip: text;
+	text-shadow: none;
+	font-size: 32px;
 }
 
 templ Provision(provision uint) {
-  <div class={ provisionWrapper() }>
-    <p class={ provisionText(), fonts.FontGwent() }>{ utils.ToString(provision) }</p>
-  </div>
+	<div class={ provisionWrapper() }>
+		<p class={ provisionText(), fonts.FontGwent() }>{ utils.ToString(provision) }</p>
+	</div>
 }

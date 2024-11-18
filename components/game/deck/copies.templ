@@ -1,28 +1,28 @@
 package deck
 
 import (
-  "fmt"
-  "gwentgg/components/fonts"
+	"fmt"
+	"gwentgg/components/fonts"
 )
 
 css copiesWrapper() {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: url(/assets/thumbnails/bg/cards-copy-bg.png);
-  background-repeat: no-repeat;
-  background-position: center center;
-  min-width: 50px;
-  min-height: 42px;
-  font-size: 18px;
-  color: black;
-  position: relative;
-  top: 0%;
-  left: -14%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-image: url(/assets/thumbnails/bg/cards-copy-bg.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	min-width: 50px;
+	min-height: 42px;
+	font-size: 18px;
+	color: black;
+	position: relative;
+	top: 0%;
+	left: -14%;
 }
 
 templ Copies(copies uint) {
-  <div class={ copiesWrapper(), fonts.FontRegular() }>
-    { fmt.Sprintf("x%d", copies) }
-  </div>
+	<div class={ copiesWrapper(), fonts.FontRegular() }>
+		{ fmt.Sprintf("x%d", copies) }
+	</div>
 }
