@@ -1,0 +1,40 @@
+package actions
+
+import (
+  "fmt"
+  "gwentgg/components/colors"
+  "gwentgg/components/fonts"
+  "gwentgg/db/models"
+)
+
+css turnWrapper() {
+  display: grid;
+  grid-template-columns: 60px auto 200px;
+  gap: 10px;
+}
+
+css turnName() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+css playerNameText() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+templ Turn(actions []models.CardActionView, turnID uint, firstPlayer *models.GamePlayer, secondPlayer *models.GamePlayer, firstName string, secondName string) {
+  <div class={ turnWrapper() }>
+    <span class={ turnName(), fonts.FontRegular(), colors.SecondaryBg(), colors.HighlightGray() }>{ fmt.Sprintf("T%d", turnID) }</span>
+    if turnID % 2 == 1 {
+      @ActionsContent(actions, firstPlayer)
+      <div class={ playerNameText(), fonts.FontRegular(), colors.SecondaryBg(), colors.HighlightGray() }>{ firstName }</div>
+    } else {
+      @ActionsContent(actions, secondPlayer)
+      <div class={ playerNameText(), fonts.FontRegular(), colors.SecondaryBg(), colors.HighlightGray() }>{ secondName }</div>
+    }
+  </div>
+}

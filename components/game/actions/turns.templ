@@ -1,0 +1,19 @@
+package actions
+
+import (
+  "gwentgg/db/models"
+)
+
+css turnsWrapper() {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+templ Turns(actions []models.CardActionView, firstPlayer *models.GamePlayer, secondPlayer *models.GamePlayer, firstName string, secondName string) {
+  <div class={ turnsWrapper() }>
+    for idx := uint(1); idx <= models.MaxTurn(actions); idx++ {
+      @Turn(models.FilterTurn(actions, idx), idx, firstPlayer, secondPlayer, firstName, secondName)
+    }
+  </div>
+}

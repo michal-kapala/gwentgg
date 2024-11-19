@@ -7,9 +7,12 @@ import (
 	"gwentgg/db"
 	"gwentgg/db/models"
 	"gwentgg/services/stats"
+	"gwentgg/utils"
+
+	"sort"
+	"strings"
 
 	"github.com/gofiber/fiber/v3"
-	"strings"
 )
 
 func GameHandler(c fiber.Ctx) error {
@@ -103,5 +106,72 @@ func GameHandler(c fiber.Ctx) error {
 		opponentCards = append(opponentCards, card)
 	}
 
-	return Render(c, pages.Game(&game, &player, &opponent, &playerDeck, &opponentDeck, &playerUser, &opponentUser, playerCards, opponentCards))
+	// card actions
+	defIDs := []string{}
+	for _, action := range player.CardActions {
+		defIDs = append(defIDs, utils.ToString(action.SourceID))
+		if action.TargetID != nil {
+			defIDs = append(defIDs, utils.ToString(*action.TargetID))
+		}
+	}
+	for _, action := range opponent.CardActions {
+		defIDs = append(defIDs, utils.ToString(action.SourceID))
+		if action.TargetID != nil {
+			defIDs = append(defIDs, utils.ToString(*action.TargetID))
+		}
+	}
+
+	defs := []models.CardDefinition{}
+	database.Find(&defs, "id IN ?", defIDs)
+
+	playerActions := []models.CardActionView{}
+	for idx := range player.CardActions {
+		view := models.CardActionView{
+			Action: &player.CardActions[idx],
+			Source: player.CardActions[idx].FindSource(defs),
+			Target: player.CardActions[idx].FindTarget(defs),
+			TurnOf: playerUser.Username,
+		}
+		playerActions = append(playerActions, view)
+	}
+
+	opponentActions := []models.CardActionView{}
+	for idx := range opponent.CardActions {
+		view := models.CardActionView{
+			Action: &opponent.CardActions[idx],
+			Source: opponent.CardActions[idx].FindSource(defs),
+			Target: opponent.CardActions[idx].FindTarget(defs),
+			TurnOf: opponentUser.Username,
+		}
+		opponentActions = append(opponentActions, view)
+	}
+
+	actions := append(playerActions, opponentActions...)
+	sort.Slice(actions, func(i, j int) bool {
+		if actions[i].Action.RoundID == actions[j].Action.RoundID {
+			if actions[i].Action.TurnID == actions[j].Action.TurnID {
+				return actions[i].Action.ID < actions[j].Action.ID
+			}
+			return actions[i].Action.TurnID < actions[j].Action.TurnID
+		}
+		return actions[i].Action.RoundID < actions[j].Action.RoundID
+	})
+
+	gameActions := models.GameCardActions{
+		Round1: []models.CardActionView{},
+		Round2: []models.CardActionView{},
+		Round3: []models.CardActionView{},
+	}
+	for _, action := range actions {
+		switch action.Action.RoundID {
+		case 1:
+			gameActions.Round1 = append(gameActions.Round1, action)
+		case 2:
+			gameActions.Round2 = append(gameActions.Round2, action)
+		case 3:
+			gameActions.Round3 = append(gameActions.Round3, action)
+		}
+	}
+
+	return Render(c, pages.Game(&game, &player, &opponent, &playerDeck, &opponentDeck, &playerUser, &opponentUser, playerCards, opponentCards, &gameActions))
 }

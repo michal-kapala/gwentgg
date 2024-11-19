@@ -107,7 +107,7 @@ func PlayerHandler(c fiber.Ctx) error {
 			fmt.Println(err)
 			return c.Status(fiber.StatusInternalServerError).SendString("Ranked stats request error, see server log for details.")
 		}
-	
+
 		if resp.Status() != "200 OK" {
 			// usually happens on token expiration
 			return c.Redirect().To("/login")

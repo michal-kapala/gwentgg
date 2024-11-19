@@ -8,9 +8,7 @@ package profile
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import (
-	"gwentgg/db/models"
-)
+import "gwentgg/db/models"
 
 func gamesWrapper() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()

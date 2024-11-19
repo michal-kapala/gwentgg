@@ -1,0 +1,52 @@
+package game
+
+import (
+  "gwentgg/components/common"
+  "gwentgg/components/game/actions"
+	"gwentgg/db/models"
+	"gwentgg/utils"
+)
+
+css actionsSection() {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+css actionsWrapper() {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+}
+
+templ Actions(game *models.Game, player *models.GamePlayer, opponent *models.GamePlayer, gameActions *models.GameCardActions, playerName string, opponentName string) {
+  <section class={ actionsSection() }>
+    @common.SectionTitle("Card actions")
+    <div class={ actionsWrapper() }>
+      for idx := uint(1); idx <= game.FinishedRounds; idx++ {
+        switch idx {
+          case 1:
+            if utils.ToString(*game.StartingPlayer) == player.PlayerID {
+              @actions.RoundActions(gameActions.Round1, idx, player, opponent, playerName, opponentName)
+            } else {
+              @actions.RoundActions(gameActions.Round1, idx, opponent, player, opponentName, playerName)
+            }
+          case 2:
+            if utils.SplitCsv(player.RoundsWon)[0] == "true" {
+              @actions.RoundActions(gameActions.Round2, idx, player, opponent, playerName, opponentName)
+            } else {
+              @actions.RoundActions(gameActions.Round2, idx, opponent, player, opponentName, playerName)
+            }
+          case 3:
+            if utils.SplitCsv(player.RoundsWon)[1] == "true" {
+              @actions.RoundActions(gameActions.Round3, idx, player, opponent, playerName, opponentName)
+            } else {
+              @actions.RoundActions(gameActions.Round3, idx, opponent, player, opponentName, playerName)
+            }
+        }
+      }
+    </div>
+  </section>
+}

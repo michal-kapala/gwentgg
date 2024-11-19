@@ -8,7 +8,7 @@ import (
 	"gwentgg/utils"
 )
 
-templ Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView, playerUser *models.User, opponentUser *models.User, playerCards []models.CardDefinition, opponentCards []models.CardDefinition) {
+templ Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView, playerUser *models.User, opponentUser *models.User, playerCards []models.CardDefinition, opponentCards []models.CardDefinition, gameActions *models.GameCardActions) {
 	<!DOCTYPE html>
 	<html>
 		<head>
@@ -38,6 +38,7 @@ templ Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePl
 			@gameView.Header(game, player, playerUser, opponentUser)
 			@gameView.Decks(player, opponent, playerDeck, opponentDeck)
 			@gameView.Cards(player, opponent, playerCards, opponentCards, playerUser.Username, opponentUser.Username, utils.ToString(*game.StartingPlayer))
+			@gameView.Actions(game, player, opponent, gameActions, playerUser.Username, opponentUser.Username)
 		</body>
 		<script>
 			// name hovers

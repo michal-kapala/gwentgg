@@ -1,0 +1,35 @@
+package actions
+
+import (
+  "fmt"
+  "gwentgg/components/colors"
+  "gwentgg/components/fonts"
+  "gwentgg/db/models"
+)
+
+css roundWrapper() {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  margin-bottom: 30px;
+  min-height: 100px;
+}
+
+css roundName() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px 0px 0px 4px;
+  padding: 0px 30px;
+  margin-right: 10px;
+}
+
+templ RoundActions(actions []models.CardActionView, roundID uint, firstPlayer *models.GamePlayer, secondPlayer *models.GamePlayer, firstName string, secondName string) {
+  <div class={ roundWrapper() }>
+    <span class={ roundName(), fonts.FontRegular(), colors.SecondaryBg(), colors.HighlightGray() }>
+      { fmt.Sprintf("R%d", roundID) }
+    </span>
+    @Turns(actions, firstPlayer, secondPlayer, firstName, secondName)
+  </div>
+}

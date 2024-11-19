@@ -11,10 +11,10 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"fmt"
 	"gwentgg/components/common"
+	"gwentgg/components/fonts"
 	"gwentgg/db/models"
 
 	tmpl "github.com/a-h/templ"
-	"gwentgg/components/fonts"
 )
 
 func columnWrapper() templ.CSSClass {

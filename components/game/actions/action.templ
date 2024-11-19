@@ -1,0 +1,25 @@
+package actions
+
+import (
+  "fmt"
+  "gwentgg/db/models"
+)
+
+css actionWrapper() {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+css cardIcon() {
+  width: 50px;
+}
+
+templ Action(action *models.CardActionView, player *models.GamePlayer) {
+  <span class={ actionWrapper() }>
+    <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Source.ArtID) } class={ cardIcon() }>
+    <span>{ string(action.Action.Action) }</span>
+    <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Target.ArtID) } class={ cardIcon() }>
+  </span>
+}

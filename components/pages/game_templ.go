@@ -16,7 +16,7 @@ import (
 	"gwentgg/utils"
 )
 
-func Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView, playerUser *models.User, opponentUser *models.User, playerCards []models.CardDefinition, opponentCards []models.CardDefinition) templ.Component {
+func Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePlayer, playerDeck *models.DeckView, opponentDeck *models.DeckView, playerUser *models.User, opponentUser *models.User, playerCards []models.CardDefinition, opponentCards []models.CardDefinition, gameActions *models.GameCardActions) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -85,6 +85,10 @@ func Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePla
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = gameView.Cards(player, opponent, playerCards, opponentCards, playerUser.Username, opponentUser.Username, utils.ToString(*game.StartingPlayer)).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = gameView.Actions(game, player, opponent, gameActions, playerUser.Username, opponentUser.Username).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
