@@ -2,6 +2,7 @@ package pages
 
 import (
 	"gwentgg/components/common"
+	"gwentgg/components/colors"
 	"gwentgg/components/fonts"
 )
 
@@ -22,7 +23,7 @@ templ NotFound() {
         }
 			</style>
 		</head>
-		<body class={ common.Body() }>
+		<body class={ common.Body(), colors.PrimaryBg() }>
 			<h1 class={ fonts.FontGwent() }>404 - Page not found</h1>
 		</body>
 	</html>

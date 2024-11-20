@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 
-	"gwentgg/components/pages"
 	"gwentgg/config"
 	"gwentgg/db"
 	"gwentgg/handlers"
@@ -47,9 +46,4 @@ func main() {
 	app.Get("/player/:user/games/:game", handlers.GameHandler)
 	app.Get("/assets/*", static.New("./assets"))
 	log.Fatal(app.Listen(":3000"))
-}
-
-func NotFoundMiddleware(c fiber.Ctx) error {
-	c.Status(fiber.StatusNotFound)
-	return handlers.Render(c, pages.NotFound())
 }
