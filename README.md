@@ -1,6 +1,8 @@
 # Gwent.gg
 Personal game history browser for Gwent. Inspired by [op.gg](https://www.op.gg/).
 
+![profile](https://github.com/user-attachments/assets/40b2145f-3f4e-41b0-9fb4-5bf7025d9fca)
+
 ## How to use
 You need your GOG user ID and personal API access token.
 
