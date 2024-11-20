@@ -18,6 +18,8 @@ func container() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
 	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`flex-direction:column;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`width:100%;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`min-height:100vh;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`justify-content:center;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`align-items:center;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`container`, templ_7745c5c3_CSSBuilder.String())
@@ -52,6 +54,45 @@ func loginForm() templ.CSSClass {
 	}
 }
 
+func iconsWrapper() templ.CSSClass {
+	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
+	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`flex-direction:row;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`justify-content:center;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:80px 0px;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`iconsWrapper`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func iconWrapper() templ.CSSClass {
+	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
+	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`flex-direction:row;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`justify-content:center;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`align-items:center;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`opacity:0.8;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`iconWrapper`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func icon() templ.CSSClass {
+	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
+	templ_7745c5c3_CSSBuilder.WriteString(`opacity:0.8;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`width:32px;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`margin:0px 20px;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`icon`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
 func LoginForm(userId string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
@@ -73,7 +114,7 @@ func LoginForm(userId string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html><head><title>Log in | Gwent.gg</title><link rel=\"icon\" type=\"image/x-icon\" href=\"/assets/favicon.png\"><style>\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'GWENT';\r\n\t\t\t\t\tsrc: url('/assets/hinted-GWENT-ExtraBold.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Regular';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Regular.ttf');\r\n        }\r\n\t\t\t</style></head>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html><head><title>Log in | Gwent.gg</title><link rel=\"icon\" type=\"image/x-icon\" href=\"/assets/favicon.png\"><style>\n\t\t\t\t@font-face {\n\t\t\t\t\tfont-family: 'GWENT';\n\t\t\t\t\tsrc: url('/assets/hinted-GWENT-ExtraBold.ttf');\n        }\n\t\t\t\t@font-face {\n\t\t\t\t\tfont-family: 'HalisGR-Regular';\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Regular.ttf');\n        }\n\t\t\t</style></head>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -256,7 +297,7 @@ func LoginForm(userId string) templ.Component {
 		var templ_7745c5c3_Var18 string
 		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(userId)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/login.templ`, Line: 53, Col: 93}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/login.templ`, Line: 76, Col: 93}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 		if templ_7745c5c3_Err != nil {
@@ -394,7 +435,169 @@ func LoginForm(userId string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">How do I get my token?</p></a></div></body><script>\r\n\t\t\t// button hovers\r\n\t\t\tfunction handleMouseOver(event) {\r\n\t\t\t\tif (\r\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\r\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\r\n\t\t\t\t) {\r\n\t\t\t\t\tevent.target.style.opacity = \"1\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tfunction handleMouseOut(event) {\r\n\t\t\t\tif (\r\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\r\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\r\n\t\t\t\t) {\r\n\t\t\t\t\tevent.target.style.opacity = \"0.8\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst submitButtons = document.querySelectorAll('input[type=\"submit\"]');\r\n\t\t\t\tsubmitButtons.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t});\r\n\t\t\t});\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst links = document.querySelectorAll('a');\r\n\t\t\t\tlinks.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t\tArray.from(targetElement.children).forEach(function(child) {\r\n\t\t\t\t\t\tchild.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\t\tchild.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t\t})\r\n\t\t\t\t});\r\n\t\t\t});\r\n\t\t</script></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">How do I get my token?</p></a>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var31 = []any{iconsWrapper()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var31...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var32 string
+		templ_7745c5c3_Var32, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var31).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/login.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var32))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var33 = []any{iconWrapper()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var33...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"https://github.com/michal-kapala/gwentgg\" class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var34 string
+		templ_7745c5c3_Var34, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var33).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/login.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var34))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var35 = []any{icon()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var35...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img src=\"/assets/github.png\" alt=\"Gwent.gg GitHub\" class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var36 string
+		templ_7745c5c3_Var36, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var35).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/login.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var36))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"></a> ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var37 = []any{iconWrapper()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var37...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"https://discord.gg/playgwent\" class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var38 string
+		templ_7745c5c3_Var38, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var37).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/login.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var38))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var39 = []any{icon()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var39...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img src=\"/assets/discord.png\" alt=\"Gwent Discord\" class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var40 string
+		templ_7745c5c3_Var40, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var39).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/login.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var40))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"></a> ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var41 = []any{iconWrapper()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var41...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"https://www.reddit.com/r/gwent/\" class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var42 string
+		templ_7745c5c3_Var42, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var41).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/login.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var42))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var43 = []any{icon()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var43...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img src=\"/assets/reddit.png\" alt=\"Gwent Reddit\" class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var44 string
+		templ_7745c5c3_Var44, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var43).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/login.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var44))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"></a></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = common.Footer().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></body><script>\n\t\t\t// button hovers\n\t\t\tfunction handleMouseOver(event) {\n\t\t\t\tif (\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\n\t\t\t\t) {\n\t\t\t\t\tevent.target.style.opacity = \"1\";\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction handleMouseOut(event) {\n\t\t\t\tif (\n\t\t\t\t\t(event.target.tagName.toLowerCase() === 'input' && event.target.type === 'submit') ||\n\t\t\t\t\tevent.target.tagName.toLowerCase() === 'a' || event.target.parentElement.tagName.toLowerCase() === 'a'\n\t\t\t\t) {\n\t\t\t\t\tevent.target.style.opacity = \"0.8\";\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\n\t\t\t\tconst submitButtons = document.querySelectorAll('input[type=\"submit\"]');\n\t\t\t\tsubmitButtons.forEach(function(targetElement) {\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\n\t\t\t\t});\n\t\t\t});\n\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\n\t\t\t\tconst links = document.querySelectorAll('a');\n\t\t\t\tlinks.forEach(function(targetElement) {\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\n\t\t\t\t\tArray.from(targetElement.children).forEach(function(child) {\n\t\t\t\t\t\tchild.addEventListener('mouseover', handleMouseOver);\n\t\t\t\t\t\tchild.addEventListener('mouseout', handleMouseOut);\n\t\t\t\t\t})\n\t\t\t\t});\n\t\t\t});\n\t\t</script></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

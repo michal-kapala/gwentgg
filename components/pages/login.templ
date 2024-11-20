@@ -9,6 +9,8 @@ import (
 css container() {
 	display: flex;
 	flex-direction: column;
+	width: 100%;
+	min-height: 100vh;
 	justify-content: center;
 	align-items: center;
 }
@@ -24,6 +26,27 @@ css loginForm() {
 	align-items: center;
 	width: 100%;
 	margin: 20px 0px;
+}
+
+css iconsWrapper() {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin: 80px 0px;
+}
+
+css iconWrapper() {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	opacity: 0.8;
+}
+
+css icon() {
+	opacity: 0.8;
+	width: 32px;
+	margin: 0px 20px;
 }
 
 templ LoginForm(userId string) {
@@ -63,6 +86,18 @@ templ LoginForm(userId string) {
 				<a href="https://gist.github.com/michal-kapala/e7ef52c9b50a5861bf93e3851537816b" target="_blank" rel="noopener noreferrer" class={ common.Link() }>
 					<p class={ common.LinkContent() }>How do I get my token?</p>
 				</a>
+				<div class={ iconsWrapper() }>
+					<a href="https://github.com/michal-kapala/gwentgg" class={ iconWrapper() }>
+						<img src="/assets/github.png" alt="Gwent.gg GitHub" class={ icon() }>
+					</a>
+					<a href="https://discord.gg/playgwent" class={ iconWrapper() }>
+						<img src="/assets/discord.png" alt="Gwent Discord" class={ icon() }>
+					</a>
+					<a href="https://www.reddit.com/r/gwent/" class={ iconWrapper() }>
+						<img src="/assets/reddit.png" alt="Gwent Reddit" class={ icon() }>
+					</a>
+				</div>
+				@common.Footer()
 			</div>
 		</body>
 		<script>

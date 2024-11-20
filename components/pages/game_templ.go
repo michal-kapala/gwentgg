@@ -92,6 +92,10 @@ func Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePla
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
+		templ_7745c5c3_Err = common.Footer().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</body><script>\r\n\t\t\t// name hovers\r\n\t\t\tfunction handleMouseOver(event) {\r\n\t\t\t\tif (event.target.tagName.toLowerCase() === 'a') {\r\n\t\t\t\t\tevent.target.style.color = \"white\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tfunction handleMouseOut(event) {\r\n\t\t\t\tif (event.target.tagName.toLowerCase() === 'a') {\r\n\t\t\t\t\tevent.target.style.color = \"#ddd\";\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\r\n\t\t\t\tconst links = document.querySelectorAll('a');\r\n\t\t\t\tlinks.forEach(function(targetElement) {\r\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\r\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\r\n\t\t\t\t});\r\n\t\t\t});\r\n\t\t</script></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

@@ -26,7 +26,7 @@ func Label() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
 	templ_7745c5c3_CSSBuilder.WriteString(`font-size:16px;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`text-align:right;`)
-	templ_7745c5c3_CSSBuilder.WriteString(`width:10%;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`min-width:80px;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`Label`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,

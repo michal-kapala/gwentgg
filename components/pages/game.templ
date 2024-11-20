@@ -39,6 +39,7 @@ templ Game(game *models.Game, player *models.GamePlayer, opponent *models.GamePl
 			@gameView.Decks(player, opponent, playerDeck, opponentDeck)
 			@gameView.Cards(player, opponent, playerCards, opponentCards, playerUser.Username, opponentUser.Username, utils.ToString(*game.StartingPlayer))
 			@gameView.Actions(game, player, opponent, gameActions, playerUser.Username, opponentUser.Username)
+			@common.Footer()
 		</body>
 		<script>
 			// name hovers

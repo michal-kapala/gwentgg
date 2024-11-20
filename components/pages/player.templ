@@ -37,6 +37,7 @@ templ PlayerProfile(user *models.User, games []models.Game, season string, curre
 			@common.Wrapper() {
 				@profile.Header(user)
 				@profile.Body(user, games, season, currentUser)
+				@common.Footer()
 			}
 		</body>
 		<script>
