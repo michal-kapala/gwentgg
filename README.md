@@ -52,6 +52,8 @@ This app interacts directly with Gwent's APIs using your GOG account.
 
 Any abuse can be traced back and eventually result in a ban and/or other punishment, for which the authors take no responsibility. Use with common sense.
 
+You may use this code and/or distributed application for **personal and non-commercial** purposes only.
+
 Gwent.gg is a fan initiative and as such is not maintained or supported by CD Projekt RED.
 
 ## Tech
