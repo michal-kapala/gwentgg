@@ -2,8 +2,17 @@ package pages
 
 import (
 	"gwentgg/components/common"
+	"gwentgg/components/colors"
 	"gwentgg/components/fonts"
 )
+
+css textMargin() {
+	margin-left: 20px;
+}
+
+css undecorated() {
+	text-decoration: none;
+}
 
 templ UserIdMissing() {
 	<!DOCTYPE html>
@@ -22,9 +31,9 @@ templ UserIdMissing() {
         }
 			</style>
 		</head>
-		<body class={ common.Body() }>
+		<body class={ common.Body(), colors.PrimaryBg() }>
 			<div class={ fonts.FontRegular() }>
-				<h1 class={ fonts.FontGwent() }>User ID missing</h1>
+				<h1 class={ textMargin(), fonts.FontGwent() }>User ID missing</h1>
 				<ol>
 					<li>
 						@common.TextWithCode("Go to ", "%LOCALAPPDATA%\\Programs\\CD Projekt Red\\REDlauncher\\config\\launcher.ini", ".")
@@ -36,8 +45,30 @@ templ UserIdMissing() {
 						<p>Paste it as <code class={ common.Code() }>user_id</code> in <code class={ common.Code() }>config.json</code>.</p>
 					</li>
 				</ol>
-				<p></p>
+				<p class={ textMargin() }>Alternatively, get the ID from your <a href="https://gist.github.com/michal-kapala/e7ef52c9b50a5861bf93e3851537816b#gog-profile" class={ common.Link(), undecorated() }>GOG profile page</a>.</p>
 			</div>
 		</body>
+		<script>
+			// name hovers
+			function handleMouseOver(event) {
+				if (event.target.tagName.toLowerCase() === 'a') {
+					event.target.style.opacity = "1";
+				}
+			}
+
+			function handleMouseOut(event) {
+				if (event.target.tagName.toLowerCase() === 'a') {
+					event.target.style.opacity = "0.8";
+				}
+			}
+
+			document.addEventListener("DOMContentLoaded", function() {
+				const links = document.querySelectorAll('a');
+				links.forEach(function(targetElement) {
+					targetElement.addEventListener('mouseover', handleMouseOver);
+					targetElement.addEventListener('mouseout', handleMouseOut);
+				});
+			});
+		</script>
 	</html>
 }

@@ -9,9 +9,30 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
+	"gwentgg/components/colors"
 	"gwentgg/components/common"
 	"gwentgg/components/fonts"
 )
+
+func textMargin() templ.CSSClass {
+	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
+	templ_7745c5c3_CSSBuilder.WriteString(`margin-left:20px;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`textMargin`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
+
+func undecorated() templ.CSSClass {
+	templ_7745c5c3_CSSBuilder := templruntime.GetBuilder()
+	templ_7745c5c3_CSSBuilder.WriteString(`text-decoration:none;`)
+	templ_7745c5c3_CSSID := templ.CSSID(`undecorated`, templ_7745c5c3_CSSBuilder.String())
+	return templ.ComponentCSSClass{
+		ID:    templ_7745c5c3_CSSID,
+		Class: templ.SafeCSS(`.` + templ_7745c5c3_CSSID + `{` + templ_7745c5c3_CSSBuilder.String() + `}`),
+	}
+}
 
 func UserIdMissing() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -34,11 +55,11 @@ func UserIdMissing() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html><head><title>User ID | Gwent.gg</title><link rel=\"icon\" type=\"image/x-icon\" href=\"/assets/favicon.png\"><style>\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'GWENT';\r\n\t\t\t\t\tsrc: url('/assets/hinted-GWENT-ExtraBold.ttf');\r\n        }\r\n\t\t\t\t@font-face {\r\n\t\t\t\t\tfont-family: 'HalisGR-Regular';\r\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Regular.ttf');\r\n        }\r\n\t\t\t</style></head>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html><head><title>User ID | Gwent.gg</title><link rel=\"icon\" type=\"image/x-icon\" href=\"/assets/favicon.png\"><style>\n\t\t\t\t@font-face {\n\t\t\t\t\tfont-family: 'GWENT';\n\t\t\t\t\tsrc: url('/assets/hinted-GWENT-ExtraBold.ttf');\n        }\n\t\t\t\t@font-face {\n\t\t\t\t\tfont-family: 'HalisGR-Regular';\n\t\t\t\t\tsrc: url('/assets/hinted-HalisGR-Regular.ttf');\n        }\n\t\t\t</style></head>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var2 = []any{common.Body()}
+		var templ_7745c5c3_Var2 = []any{common.Body(), colors.PrimaryBg()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -82,7 +103,7 @@ func UserIdMissing() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var6 = []any{fonts.FontGwent()}
+		var templ_7745c5c3_Var6 = []any{textMargin(), fonts.FontGwent()}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -160,7 +181,51 @@ func UserIdMissing() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">config.json</code>.</p></li></ol><p></p></div></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">config.json</code>.</p></li></ol>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var12 = []any{textMargin()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var12...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var13 string
+		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var12).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/user_id.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Alternatively, get the ID from your ")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var14 = []any{common.Link(), undecorated()}
+		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var14...)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"https://gist.github.com/michal-kapala/e7ef52c9b50a5861bf93e3851537816b#gog-profile\" class=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var15 string
+		templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var14).String())
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/pages/user_id.templ`, Line: 1, Col: 0}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">GOG profile page</a>.</p></div></body><script>\n\t\t\t// name hovers\n\t\t\tfunction handleMouseOver(event) {\n\t\t\t\tif (event.target.tagName.toLowerCase() === 'a') {\n\t\t\t\t\tevent.target.style.opacity = \"1\";\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tfunction handleMouseOut(event) {\n\t\t\t\tif (event.target.tagName.toLowerCase() === 'a') {\n\t\t\t\t\tevent.target.style.opacity = \"0.8\";\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tdocument.addEventListener(\"DOMContentLoaded\", function() {\n\t\t\t\tconst links = document.querySelectorAll('a');\n\t\t\t\tlinks.forEach(function(targetElement) {\n\t\t\t\t\ttargetElement.addEventListener('mouseover', handleMouseOver);\n\t\t\t\t\ttargetElement.addEventListener('mouseout', handleMouseOut);\n\t\t\t\t});\n\t\t\t});\n\t\t</script></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
