@@ -25,11 +25,23 @@ css roundName() {
   margin-right: 10px;
 }
 
+css noActions() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 30px;
+  border-radius: 0px 4px 4px 0px;
+}
+
 templ RoundActions(actions []models.CardActionView, roundID uint, firstPlayer *models.GamePlayer, secondPlayer *models.GamePlayer, firstName string, secondName string) {
   <div class={ roundWrapper() }>
     <span class={ roundName(), fonts.FontRegular(), colors.SecondaryBg(), colors.HighlightGray() }>
       { fmt.Sprintf("R%d", roundID) }
     </span>
-    @Turns(actions, firstPlayer, secondPlayer, firstName, secondName)
+    if len(actions) > 0 {
+      @Turns(actions, firstPlayer, secondPlayer, firstName, secondName)
+    } else {
+      <span class={ noActions(), fonts.FontRegular(), colors.SecondaryBg(), colors.HighlightGray() }>No action data available</span>
+    }
   </div>
 }

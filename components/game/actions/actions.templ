@@ -21,7 +21,7 @@ css noActionsText() {
 templ ActionsContent(actions []models.CardActionView, player *models.GamePlayer) {
   <div class={ actionsContentWrapper(), colors.SecondaryBg() }>
     if len(actions) == 0 {
-      <span class={ noActionsText(), fonts.FontRegular(), colors.HighlightGray() }>No actions</span>
+      <span class={ noActionsText(), fonts.FontRegular(), colors.HighlightGray() }>No action data</span>
     } else {
       for _, action := range actions {
         @Action(&action, player)

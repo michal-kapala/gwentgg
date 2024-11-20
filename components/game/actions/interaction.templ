@@ -1,0 +1,83 @@
+package actions
+
+import (
+  "gwentgg/enums"
+	"gwentgg/db/models"
+	"gwentgg/components/fonts"
+	"gwentgg/utils"
+	"fmt"
+	"gwentgg/components/colors"
+)
+
+css interactionWrapper() {
+  display: flex;
+  justify-content: center;
+  padding: 6px;
+}
+
+css armorAdded() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(/assets/actions/armor.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 40px;
+}
+
+css armorAddedText() {
+  color: white;
+  font-size: 16px;
+}
+
+css interactionTextWrapper() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+}
+
+css interactionText() {
+  font-size: 28px;
+}
+
+css order() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+css orderIcon() {
+  width: 40px;
+}
+
+templ Interaction(action *models.CardAction) {
+  <div class={ interactionWrapper() }>
+    switch action.Action {
+      case enums.ArmorAdded:
+        <div class={ armorAdded() }>
+          <span class={ armorAddedText(), fonts.FontGwent() }>{ utils.ToString(action.Amount) }</span>
+        </div>
+      case enums.Boost:
+        <div class={ interactionTextWrapper() }>
+          <span class={ interactionText(), fonts.FontGwent(), colors.HighlightGreen() }>{ fmt.Sprintf("+%d", action.Amount) }</span>
+        </div>
+      case enums.Damage:
+        <div class={ interactionTextWrapper() }>
+          <span class={ interactionText(), fonts.FontGwent(), colors.HighlightRed() }>{ fmt.Sprintf("-%d", action.Amount) }</span>
+        </div>
+      case enums.Kill:
+        <div class={ interactionTextWrapper() }>
+          <span class={ interactionText(), fonts.FontGwent() }>💀</span>
+        </div>
+      case enums.Order:
+        <div class={ order() }>
+          <img src="/assets/actions/order.png" class={ orderIcon() }>
+        </div>
+      case enums.Spawn:
+        <div class={ interactionTextWrapper() }>
+          <span class={ interactionText(), fonts.FontGwent() }>✨</span>
+        </div>
+    }
+  </div>
+}
