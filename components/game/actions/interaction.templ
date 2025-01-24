@@ -59,13 +59,29 @@ templ Interaction(action *models.CardAction) {
           <span class={ armorAddedText(), fonts.FontGwent() }>{ utils.ToString(action.Amount) }</span>
         </div>
       case enums.Boost:
-        <div class={ interactionTextWrapper() }>
-          <span class={ interactionText(), fonts.FontGwent(), colors.HighlightGreen() }>{ fmt.Sprintf("+%d", action.Amount) }</span>
-        </div>
+        if action.SourceType == enums.CardStatus {
+          switch action.SourceID {
+            case 32:
+              <img src="/assets/actions/vitality.png" alt="Vitality">
+          }
+        }
+        else {
+          <div class={ interactionTextWrapper() }>
+            <span class={ interactionText(), fonts.FontGwent(), colors.HighlightGreen() }>{ fmt.Sprintf("+%d", action.Amount) }</span>
+          </div>
+        }
       case enums.Damage:
-        <div class={ interactionTextWrapper() }>
-          <span class={ interactionText(), fonts.FontGwent(), colors.HighlightRed() }>{ fmt.Sprintf("-%d", action.Amount) }</span>
-        </div>
+        if action.SourceType == enums.CardStatus {
+          switch action.SourceID {
+            case 16:
+              <img src="/assets/actions/bleeding.png" alt="Bleeding">
+          }
+        }
+        else {
+          <div class={ interactionTextWrapper() }>
+            <span class={ interactionText(), fonts.FontGwent(), colors.HighlightRed() }>{ fmt.Sprintf("-%d", action.Amount) }</span>
+          </div>
+        }
       case enums.Kill:
         <div class={ interactionTextWrapper() }>
           <span class={ interactionText(), fonts.FontGwent() }>💀</span>

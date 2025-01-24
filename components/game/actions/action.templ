@@ -30,17 +30,54 @@ css cardBorder(border string) {
 
 templ Action(action *models.CardActionView, player *models.GamePlayer) {
   <span class={ actionWrapper() }>
-    <!-- For some reason source and target data is swapped for spawns -->
-    if action.Action.Action != enums.Spawn {
-      if action.Action.SourceOwner == player.InGamePlayerID {
-        <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Source.TemplateID))} class={ cardBorder("1px solid #26eb9f") }>
-          <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Source.ArtID) } class={ cardIcon() }>
-        </a>
+    if action.Action.SourceType == enums.Card {
+      <!-- For some reason source and target data is swapped for spawns -->
+      if action.Action.Action != enums.Spawn {
+        if action.Action.SourceOwner == player.InGamePlayerID {
+          <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Source.TemplateID))} class={ cardBorder("1px solid #26eb9f") }>
+            <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Source.ArtID) } class={ cardIcon() }>
+          </a>
+        } else {
+          <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Source.TemplateID)) } class={ cardBorder("1px solid #ff3c3d") }>
+            <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Source.ArtID) } class={ cardIcon() }>
+          </a>
+        }
+        @Interaction(action.Action)
+        if action.Action.TargetID != nil {
+          if *action.Action.TargetOwner == player.InGamePlayerID {
+            <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Target.TemplateID))} class={ cardBorder("1px solid #26eb9f") }>
+              <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Target.ArtID) } class={ cardIcon() }>
+            </a>
+          } else {
+            <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Target.TemplateID))} class={ cardBorder("1px solid #ff3c3d") }>
+              <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Target.ArtID) } class={ cardIcon() }>
+            </a>
+          }
+        }
       } else {
-        <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Source.TemplateID)) } class={ cardBorder("1px solid #ff3c3d") }>
-          <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Source.ArtID) } class={ cardIcon() }>
-        </a>
+        if action.Action.TargetID != nil {
+          if *action.Action.TargetOwner == player.InGamePlayerID {
+            <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Target.TemplateID))} class={ cardBorder("1px solid #26eb9f") }>
+              <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Target.ArtID) } class={ cardIcon() }>
+            </a>
+          } else {
+            <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Target.TemplateID))} class={ cardBorder("1px solid #ff3c3d") }>
+              <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Target.ArtID) } class={ cardIcon() }>
+            </a>
+          }
+        }
+        @Interaction(action.Action)
+        if action.Action.SourceOwner == player.InGamePlayerID {
+          <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Source.TemplateID))} class={ cardBorder("1px solid #26eb9f") }>
+            <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Source.ArtID) } class={ cardIcon() }>
+          </a>
+        } else {
+          <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Source.TemplateID)) } class={ cardBorder("1px solid #ff3c3d") }>
+            <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Source.ArtID) } class={ cardIcon() }>
+          </a>
+        }
       }
+    } else if action.Action.SourceType == enums.CardStatus {
       @Interaction(action.Action)
       if action.Action.TargetID != nil {
         if *action.Action.TargetOwner == player.InGamePlayerID {
@@ -53,28 +90,6 @@ templ Action(action *models.CardActionView, player *models.GamePlayer) {
           </a>
         }
       }
-    } else {
-      if action.Action.TargetID != nil {
-        if *action.Action.TargetOwner == player.InGamePlayerID {
-          <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Target.TemplateID))} class={ cardBorder("1px solid #26eb9f") }>
-            <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Target.ArtID) } class={ cardIcon() }>
-          </a>
-        } else {
-          <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Target.TemplateID))} class={ cardBorder("1px solid #ff3c3d") }>
-            <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Target.ArtID) } class={ cardIcon() }>
-          </a>
-        }
-      }
-      @Interaction(action.Action)
-      if action.Action.SourceOwner == player.InGamePlayerID {
-        <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Source.TemplateID))} class={ cardBorder("1px solid #26eb9f") }>
-          <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Source.ArtID) } class={ cardIcon() }>
-        </a>
-      } else {
-        <a href={ tmpl.SafeURL(fmt.Sprintf("https://gwent.one/en/card/%s", action.Source.TemplateID)) } class={ cardBorder("1px solid #ff3c3d") }>
-          <img src={ fmt.Sprintf("https://gwent.one/image/gwent/assets/card/art/medium/%s.jpg", action.Source.ArtID) } class={ cardIcon() }>
-        </a>
-      }
-    }    
+    }
   </span>
 }
