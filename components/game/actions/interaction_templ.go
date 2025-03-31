@@ -182,7 +182,7 @@ func Interaction(action *models.CardAction) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<strong class=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<span class=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -202,13 +202,13 @@ func Interaction(action *models.CardAction) templ.Component {
 			var templ_7745c5c3_Var8 string
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(utils.ToString(action.Amount))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/actions/interaction.templ`, Line: 62, Col: 125}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/actions/interaction.templ`, Line: 62, Col: 123}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</strong> <img src=\"/assets/actions/armor.png\" alt=\"ArmorAdded\" height=\"24\"></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span> <img src=\"/assets/actions/armor.png\" alt=\"ArmorAdded\" height=\"24\"></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -240,7 +240,7 @@ func Interaction(action *models.CardAction) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<strong class=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<span class=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -260,13 +260,13 @@ func Interaction(action *models.CardAction) templ.Component {
 			var templ_7745c5c3_Var13 string
 			templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(utils.ToString(action.Amount))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/actions/interaction.templ`, Line: 67, Col: 123}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/actions/interaction.templ`, Line: 67, Col: 121}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</strong> <img src=\"/assets/actions/armor.png\" alt=\"ArmorRemoved\" height=\"24\"></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span> <img src=\"/assets/actions/armor.png\" alt=\"ArmorRemoved\" height=\"24\"></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

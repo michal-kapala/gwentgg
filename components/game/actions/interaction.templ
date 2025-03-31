@@ -59,12 +59,12 @@ templ Interaction(action *models.CardAction) {
     switch action.Action {
       case enums.ArmorAdded:
         <div class={ armorModified() }>
-          <strong class={ armorModifiedCount(), colors.HighlightGreen(), fonts.FontGwent() }>+{ utils.ToString(action.Amount) }</strong>
+          <span class={ armorModifiedCount(), colors.HighlightGreen(), fonts.FontGwent() }>+{ utils.ToString(action.Amount) }</span>
           <img src="/assets/actions/armor.png" alt="ArmorAdded" height="24" />
         </div>
       case enums.ArmorRemoved:
         <div class={ armorModified() }>
-          <strong class={ armorModifiedCount(), colors.HighlightRed(), fonts.FontGwent() }>-{ utils.ToString(action.Amount) }</strong>
+          <span class={ armorModifiedCount(), colors.HighlightRed(), fonts.FontGwent() }>-{ utils.ToString(action.Amount) }</span>
           <img src="/assets/actions/armor.png" alt="ArmorRemoved" height="24" />
         </div>
       case enums.Boost:
