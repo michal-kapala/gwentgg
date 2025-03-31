@@ -45,6 +45,7 @@ func playerNameText() templ.CSSClass {
 	templ_7745c5c3_CSSBuilder.WriteString(`display:flex;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`justify-content:center;`)
 	templ_7745c5c3_CSSBuilder.WriteString(`align-items:center;`)
+	templ_7745c5c3_CSSBuilder.WriteString(`padding:4px 8px;`)
 	templ_7745c5c3_CSSID := templ.CSSID(`playerNameText`, templ_7745c5c3_CSSBuilder.String())
 	return templ.ComponentCSSClass{
 		ID:    templ_7745c5c3_CSSID,
@@ -120,7 +121,7 @@ func Turn(actions []models.CardActionView, turnID uint, firstPlayer *models.Game
 		var templ_7745c5c3_Var6 string
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("T%d", turnID))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/actions/turn.templ`, Line: 31, Col: 126}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/actions/turn.templ`, Line: 32, Col: 126}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
@@ -164,7 +165,7 @@ func Turn(actions []models.CardActionView, turnID uint, firstPlayer *models.Game
 			var templ_7745c5c3_Var9 string
 			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(firstName)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/actions/turn.templ`, Line: 34, Col: 116}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/actions/turn.templ`, Line: 35, Col: 116}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {
@@ -208,7 +209,7 @@ func Turn(actions []models.CardActionView, turnID uint, firstPlayer *models.Game
 			var templ_7745c5c3_Var12 string
 			templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(secondName)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/actions/turn.templ`, Line: 37, Col: 117}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/game/actions/turn.templ`, Line: 38, Col: 117}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 			if templ_7745c5c3_Err != nil {

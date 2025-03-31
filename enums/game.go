@@ -13,18 +13,18 @@ const (
 
 func (gameType GameType) GameMode() string {
 	switch gameType {
-		case Quick:
-			return "Casual"
-		case Arena:
-			fallthrough
-		case Arena2:
-			return "Arena"
-		case Ranked:
-			fallthrough
-		case Ranked2:
-			fallthrough
-		case ProLadder:
-			return "Ranked"
+	case Quick:
+		return "Casual"
+	case Arena:
+		fallthrough
+	case Arena2:
+		return "Arena"
+	case Ranked:
+		fallthrough
+	case Ranked2:
+		fallthrough
+	case ProLadder:
+		return "Ranked"
 	}
 	return string(gameType)
 }

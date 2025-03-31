@@ -47,12 +47,18 @@ const (
 type CardAction string
 
 const (
-	ArmorAdded CardAction = "ArmorAdded"
-	Boost      CardAction = "Boost"
-	Damage     CardAction = "Damage"
-	Kill       CardAction = "Kill"
-	Order      CardAction = "Order"
-	Spawn      CardAction = "Spawn"
+	ArmorAdded   CardAction = "ArmorAdded"
+	ArmorRemoved CardAction = "ArmorRemoved"
+	Boost        CardAction = "Boost"
+	Damage       CardAction = "Damage"
+	Destroy      CardAction = "Destroy"
+	Heal         CardAction = "Heal"
+	Keyword      CardAction = "Keyword"
+	Kill         CardAction = "Kill"
+	Order        CardAction = "Order"
+	Play         CardAction = "Play"
+	Spawn        CardAction = "Spawn"
+	Strengthen   CardAction = "Strengthen"
 )
 
 type CardActionSource string

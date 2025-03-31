@@ -12,29 +12,28 @@ import (
 css interactionWrapper() {
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 6px;
 }
 
-css armorAdded() {
+css armorModified() {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(/assets/actions/armor.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 40px;
+  min-height: 40px;
+  margin: 0px 4px;
+  font-size: 28px;
 }
 
-css armorAddedText() {
-  color: white;
-  font-size: 16px;
+css armorModifiedCount() {
+  padding-right: 6px;
 }
 
 css interactionTextWrapper() {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
+  min-width: 40px;
 }
 
 css interactionText() {
@@ -51,12 +50,22 @@ css orderIcon() {
   width: 40px;
 }
 
+css plainText() {
+  padding-left: 8px;
+}
+
 templ Interaction(action *models.CardAction) {
   <div class={ interactionWrapper() }>
     switch action.Action {
       case enums.ArmorAdded:
-        <div class={ armorAdded() }>
-          <span class={ armorAddedText(), fonts.FontGwent() }>{ utils.ToString(action.Amount) }</span>
+        <div class={ armorModified() }>
+          <strong class={ armorModifiedCount(), colors.HighlightGreen(), fonts.FontGwent() }>+{ utils.ToString(action.Amount) }</strong>
+          <img src="/assets/actions/armor.png" alt="ArmorAdded" height="24" />
+        </div>
+      case enums.ArmorRemoved:
+        <div class={ armorModified() }>
+          <strong class={ armorModifiedCount(), colors.HighlightRed(), fonts.FontGwent() }>-{ utils.ToString(action.Amount) }</strong>
+          <img src="/assets/actions/armor.png" alt="ArmorRemoved" height="24" />
         </div>
       case enums.Boost:
         if action.SourceType == enums.CardStatus {
@@ -82,6 +91,23 @@ templ Interaction(action *models.CardAction) {
             <span class={ interactionText(), fonts.FontGwent(), colors.HighlightRed() }>{ fmt.Sprintf("-%d", action.Amount) }</span>
           </div>
         }
+      case enums.Destroy:
+        <div class={ interactionTextWrapper() }>
+          <span class={ interactionText(), fonts.FontGwent() }>💀</span>
+        </div>
+      case enums.Heal:
+        <div class={ interactionTextWrapper() }>
+          <span class={ interactionText(), fonts.FontGwent(), colors.HighlighPink() }>{ fmt.Sprintf("+%d", action.Amount) }</span>
+        </div>
+      case enums.Keyword:
+        <div class={ interactionTextWrapper() }>
+          if action.SourceID == 16 {
+            <img src="/assets/actions/bleeding.png" alt="Bleeding">
+          } else if action.SourceID == 32 {
+            <img src="/assets/actions/vitality.png" alt="Bleeding">
+          }
+          <span class={ plainText(), colors.HighlightGray(), interactionText(), fonts.FontGwent() }>keyword</span>
+        </div>
       case enums.Kill:
         <div class={ interactionTextWrapper() }>
           <span class={ interactionText(), fonts.FontGwent() }>💀</span>
@@ -90,9 +116,17 @@ templ Interaction(action *models.CardAction) {
         <div class={ order() }>
           <img src="/assets/actions/order.png" class={ orderIcon() }>
         </div>
+      case enums.Play:
+        <div class={ interactionTextWrapper() }>
+          <span class={ plainText(), colors.HighlightGray(), interactionText(), fonts.FontGwent() }>played</span>
+        </div>
       case enums.Spawn:
         <div class={ interactionTextWrapper() }>
           <span class={ interactionText(), fonts.FontGwent() }>✨</span>
+        </div>
+      case enums.Strengthen:
+        <div class={ interactionTextWrapper() }>
+          <span class={ interactionText(), fonts.FontGwent(), colors.HighlightGrayLight() }>{ fmt.Sprintf("+%d", action.Amount) }</span>
         </div>
     }
   </div>
