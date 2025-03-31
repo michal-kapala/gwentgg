@@ -17,6 +17,12 @@ import (
 	"gorm.io/gorm/clause"
 )
 
+// Standard database save chunk size for CardDefinition.
+const CardDefChunkSize int = 250
+
+// Standard database save chunk size for Game.
+const GameChunkSize int = 10
+
 func PlayerHandler(c fiber.Ctx) error {
 	userID := c.Params("user")
 	token := c.Cookies("access_token")
@@ -48,15 +54,14 @@ func PlayerHandler(c fiber.Ctx) error {
 			fmt.Println(err)
 			return c.Status(fiber.StatusInternalServerError).SendString("Card data transformation error, see server log for details.")
 		}
-		chunkSize := 250
-		chunks := int(math.Ceil(float64(len(cardDefs)) / float64(chunkSize)))
+		chunks := int(math.Ceil(float64(len(cardDefs)) / float64(CardDefChunkSize)))
 		if stale {
 			var chunk []models.CardDefinition
 			for idx := 0; idx < chunks; idx++ {
 				if idx == chunks-1 {
-					chunk = cardDefs[idx*chunkSize:]
+					chunk = cardDefs[idx*CardDefChunkSize:]
 				} else {
-					chunk = cardDefs[idx*chunkSize : (idx+1)*chunkSize]
+					chunk = cardDefs[idx*CardDefChunkSize : (idx+1)*CardDefChunkSize]
 				}
 				if card.Name != "" && stale {
 					database.Omit("name").Save(&chunk)
@@ -65,7 +70,7 @@ func PlayerHandler(c fiber.Ctx) error {
 				}
 			}
 		} else {
-			database.CreateInBatches(&cardDefs, chunkSize)
+			database.CreateInBatches(&cardDefs, CardDefChunkSize)
 		}
 	}
 
@@ -94,10 +99,19 @@ func PlayerHandler(c fiber.Ctx) error {
 			playerGames = append(playerGames, model)
 		}
 
-		database.
-			Session(&gorm.Session{FullSaveAssociations: true}).
-			Clauses(clause.OnConflict{DoNothing: true}).
-			Save(&playerGames)
+		chunks := int(math.Ceil(float64(len(playerGames)) / float64(GameChunkSize)))
+		var chunk []models.Game
+		for idx := 0; idx < chunks; idx++ {
+			if idx == chunks-1 {
+				chunk = playerGames[idx*GameChunkSize:]
+			} else {
+				chunk = playerGames[idx*GameChunkSize : (idx+1)*GameChunkSize]
+			}
+			database.
+				Session(&gorm.Session{FullSaveAssociations: true}).
+				Clauses(clause.OnConflict{DoNothing: true}).
+				Save(&chunk)
+		}
 
 		database.Preload("FactionStats").Preload("Progressions").First(&user, "id = ?", userID)
 	} else {
