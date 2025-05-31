@@ -29,6 +29,7 @@ func PlayerHandler(c fiber.Ctx) error {
 	seasonID := c.Cookies("current_season", "")
 	expired := c.Cookies("token_expired", "true")
 	if token == "" || expired == "true" {
+		fmt.Printf("PlayerHandler: token '%s' empty or expired.\n", token)
 		return c.Redirect().To("/login")
 	}
 	database := db.Get(c)
@@ -85,7 +86,7 @@ func PlayerHandler(c fiber.Ctx) error {
 		}
 
 		if resp.Status() != "200 OK" {
-			// usually happens on token expiration
+			fmt.Printf("PlayerHandler: /users/<user>/games endpoint returned '%s'.\n", resp.Status())
 			return c.Redirect().To("/login")
 		}
 
@@ -123,7 +124,7 @@ func PlayerHandler(c fiber.Ctx) error {
 		}
 
 		if resp.Status() != "200 OK" {
-			// usually happens on token expiration
+			fmt.Printf("PlayerHandler: /ranked_2_0/seasons/<season>/users/<user> endpoint returned '%s'.\n", resp.Status())
 			return c.Redirect().To("/login")
 		}
 

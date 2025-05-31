@@ -79,6 +79,7 @@ func GameHandler(c fiber.Ctx) error {
 	}
 
 	if token == "" || oppInfoResp.Status() != "200 OK" {
+		fmt.Printf("GameHandler: /ranked_2_0/seasons/<season>/users/<user> endpoint returned '%s', token is '%s'.\n", oppInfoResp.Status(), token)
 		return c.Redirect().To("/login")
 	}
 
