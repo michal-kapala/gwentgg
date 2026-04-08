@@ -42,7 +42,7 @@ Use `templ generate` only after component updates.
 
 ```
 templ generate
-go build
+go build -trimpath -ldflags="-s -w"
 ./gwentgg.exe
 ```
 

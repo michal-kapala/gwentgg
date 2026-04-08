@@ -10,7 +10,7 @@ import (
 
 type CardDefList struct {
 	TotalCount    uint             `json:"total_count"`
-	Limit         uint             `json:"limit"`
+	Limit         uint64           `json:"limit"`
 	PageToken     string           `json:"page_token"`
 	NextPageToken *uint            `json:"next_page_token"`
 	Items         []CardDefinition `json:"items"`
