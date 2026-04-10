@@ -49,6 +49,9 @@ go build -trimpath -ldflags="-s -w"
 ### Code formatting
 Use `go fmt` on all modified directories before you commit.
 
+## License
+Due to interoperability with proprietary software and online services, this software is licensed under MIT with [Commons Clause](https://commonsclause.com/) (permissive with the exception of sale).
+
 ## Disclaimer
 This app interacts directly with Gwent's APIs using your GOG account.
 
